@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--
+  Název:   Rozcestník – Učení Šimon
+  Předmět: —
+  Téma:    Hlavní stránka s odkazy na výukové appky podle předmětů
+  Datum:   2026-10-23
+  Verze:   1.0
+-->
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Učení – 4. třída</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+:root{
+  --paper:#f7f9fd; --grid:#dfe8f5; --card:#ffffff; --line:#cfdbec;
+  --ink:#1d3a8f; --text:#1b2540; --muted:#5a6884; --red:#cc2f27; --amber:#a8650a;
+  --f-display:"Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){:root{
+  --paper:#0e1526; --grid:#18233b; --card:#151f37; --line:#2b3b5e;
+  --ink:#9dc0ff; --text:#e4ebf7; --muted:#97a6c2; --red:#ff7f73; --amber:#f2b552; color-scheme:dark;
+}}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--text); font-family:var(--f-body); font-size:17px; line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:28px 40px;
+}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1{font-family:var(--f-display);font-weight:800;color:var(--ink);font-size:clamp(34px,9vw,46px);line-height:1;margin:0 0 6px;text-wrap:balance}
+h1 small{display:block;font-family:var(--f-body);font-size:14px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.subj{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:18px 20px 18px 40px;position:relative}
+.subj::before{content:"";position:absolute;top:0;bottom:0;left:24px;border-left:2px solid var(--red);opacity:.55}
+h2{font-family:var(--f-display);font-size:24px;font-weight:700;color:var(--ink);margin:0 0 8px}
+ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+a.app{display:block;min-height:44px;padding:10px 14px;border-radius:12px;border:2px solid var(--line);color:var(--text);text-decoration:none}
+a.app strong{display:block;font-family:var(--f-display);font-size:21px;color:var(--ink);line-height:1.2}
+a.app span{color:var(--muted);font-size:15px}
+a.app:hover,a.app:focus-visible{border-color:var(--ink)}
+a.app:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.empty{color:var(--muted);font-style:italic;margin:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><small>4. třída · procvičování</small>Šimonovo učení</h1>
+
+  <section class="subj" id="matematika">
+    <h2>Matematika</h2>
+    <ul>
+      <li><a class="app" href="matematika/mala-nasobilka.html"><strong>Malá násobilka</strong><span>Násobení a dělení v oboru násobilek, nápovědy, známka a mapa pokroku</span></a></li>
+    </ul>
+  </section>
+
+  <section class="subj" id="cestina">
+    <h2>Český jazyk</h2>
+    <p class="empty">Zatím tu nic není.</p>
+  </section>
+
+  <section class="subj" id="anglictina">
+    <h2>Angličtina</h2>
+    <p class="empty">Zatím tu nic není.</p>
+  </section>
+
+  <section class="subj" id="vlastiveda">
+    <h2>Vlastivěda</h2>
+    <p class="empty">Zatím tu nic není.</p>
+  </section>
+
+  <section class="subj" id="prirodoveda">
+    <h2>Přírodověda</h2>
+    <p class="empty">Zatím tu nic není.</p>
+  </section>
+
+  <section class="subj" id="prace">
+    <h2>Pracovní činnosti</h2>
+    <p class="empty">Zatím tu nic není.</p>
+  </section>
+</div>
+</body>
+</html>
