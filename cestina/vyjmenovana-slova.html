@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<!--
+  Název:   Vyjmenovaná slova
+  Předmět: Český jazyk
+  Téma:    Psaní i/í, y/ý po obojetných souhláskách B, L, M, P, S, V, Z – doplňování s odůvodněním
+           (formát podle pracovního sešitu: slovní spojení po řadách, souvislý text, odůvodni pravopis, „!!!“)
+  Datum:   2026-10-30
+  Verze:   1.0
+-->
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vyjmenovaná slova</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: list ze sešitu na čtverečkovaném papíře; text s mezerami jako v pracovním sešitu, dole pevná lišta s písmeny */
+:root{
+  --paper:#f7f9fd; --grid:#dfe8f5; --card:#ffffff; --card2:#f1f5fb; --line:#cfdbec;
+  --ink:#1d3a8f; --text:#1b2540; --muted:#5a6884;
+  --red:#cc2f27; --red-soft:#fbe1df; --green:#17804a; --green-soft:#d9f1e3;
+  --amber:#a8650a; --amber-soft:#fcecd0; --on-ink:#ffffff;
+  --f-display:"Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0e1526; --grid:#18233b; --card:#151f37; --card2:#1c2843; --line:#2b3b5e;
+  --ink:#9dc0ff; --text:#e4ebf7; --muted:#97a6c2;
+  --red:#ff7f73; --red-soft:#4a2228; --green:#62d494; --green-soft:#183d2c;
+  --amber:#f2b552; --amber-soft:#43341a; --on-ink:#0e1526; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#0e1526; --grid:#18233b; --card:#151f37; --card2:#1c2843; --line:#2b3b5e;
+  --ink:#9dc0ff; --text:#e4ebf7; --muted:#97a6c2;
+  --red:#ff7f73; --red-soft:#4a2228; --green:#62d494; --green-soft:#183d2c;
+  --amber:#f2b552; --amber-soft:#43341a; --on-ink:#0e1526; color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  margin:0;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--text); font-family:var(--f-body); font-size:17px; line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-top:max(14px,env(safe-area-inset-top,0px));
+  padding-bottom:40px;
+  -webkit-tap-highlight-color:transparent;
+}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+a.back{color:var(--ink);font-weight:700;text-decoration:none;font-size:15px;align-self:flex-start;padding:10px 0;min-height:44px}
+a.back:hover{text-decoration:underline}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-family:var(--f-display);font-weight:800;color:var(--ink);font-size:clamp(30px,8.5vw,42px);line-height:1;margin:0;text-wrap:balance}
+h1 small{display:block;font-family:var(--f-body);font-size:14px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.stats{display:flex;gap:8px}
+.pill{display:flex;align-items:center;gap:6px;background:var(--card);border:2px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:800;font-variant-numeric:tabular-nums;font-size:15px}
+.pill .ic{color:var(--amber);font-size:18px}
+.pill .lbl{color:var(--muted);font-weight:600}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:20px;position:relative}
+.sheet{padding-left:40px}
+.sheet::before{content:"";position:absolute;top:0;bottom:0;left:24px;border-left:2px solid var(--red);opacity:.55}
+h2{font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--ink);margin:0 0 10px;text-wrap:balance}
+.label{font-size:13px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px}
+.label.first{margin-top:4px}
+.note{color:var(--muted);font-size:15px;margin:8px 0 0}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:6px;background:var(--card2);border:2px solid var(--line);border-radius:14px;padding:4px}
+.seg button{min-height:48px;border:0;border-radius:10px;background:transparent;color:var(--text);font:inherit;font-weight:700;cursor:pointer;padding:4px 6px;line-height:1.15}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink)}
+.chips{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.chip{min-height:52px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--text);font-family:var(--f-display);font-size:24px;font-weight:700;cursor:pointer;padding:0}
+.chip[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--on-ink)}
+.steps{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.steps button{min-height:44px;border-radius:10px;border:2px dashed var(--line);background:transparent;color:var(--muted);font:inherit;font-size:13px;font-weight:800;cursor:pointer;padding:2px;line-height:1.1}
+.steps button.on{border-style:solid;border-color:var(--ink);color:var(--ink)}
+.row-actions{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.link{background:none;border:0;color:var(--ink);font:inherit;font-weight:700;padding:10px 4px;min-height:44px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.btn{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;min-height:58px;border-radius:14px;border:2px solid var(--ink);background:var(--ink);color:var(--on-ink);font-family:var(--f-display);font-size:22px;font-weight:700;cursor:pointer;padding:6px 12px}
+.btn.ghost{background:var(--card);color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.stack{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+/* ---------- cvičení ---------- */
+.ex-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px}
+.ex-title{font-family:var(--f-display);font-size:19px;font-weight:700;color:var(--ink);margin:0;line-height:1.2;text-transform:uppercase;letter-spacing:.02em}
+.ex-count{color:var(--muted);font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.text{font-size:clamp(20px,5.4vw,24px);line-height:2.05;margin:0;text-align:left;hyphens:manual;overflow-wrap:break-word}
+.gap{display:inline-block;min-width:1.05em;text-align:center;border-bottom:2.5px solid var(--muted);line-height:1.15;margin:0 1px;color:transparent;font-weight:800;border-radius:3px 3px 0 0;vertical-align:baseline}
+.gap.now{background:var(--amber-soft);border-bottom-color:var(--amber);color:var(--amber);animation:blink 1.2s ease-in-out infinite}
+.gap.ok{color:var(--ink);border-bottom-color:var(--ink);font-family:"Segoe Print","Bradley Hand","Comic Sans MS",var(--f-body)}
+.gap.fixed{color:var(--red);border-bottom-color:var(--red);font-family:"Segoe Print","Bradley Hand","Comic Sans MS",var(--f-body);background:var(--red-soft)}
+@keyframes blink{50%{background:transparent}}
+.dock{position:sticky;bottom:0;z-index:5;margin-top:-4px;padding-bottom:max(16px,env(safe-area-inset-bottom,0px));box-shadow:0 -6px 18px rgba(0,0,0,.08)}
+.fb{min-height:3.2em;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:16px;padding:0 4px 8px;max-width:44ch;margin:0 auto;line-height:1.3}
+.fb.good{color:var(--green);font-family:var(--f-display);font-size:22px}
+.fb.hint{color:var(--amber)}
+.fb.reveal{color:var(--red)}
+.letters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.letters.two{grid-template-columns:repeat(2,1fr)}
+.letters button{min-height:68px;border-radius:14px;border:2px solid var(--line);background:var(--card2);color:var(--ink);font-family:var(--f-display);font-size:38px;font-weight:800;cursor:pointer;touch-action:manipulation;line-height:1}
+.letters button:active{transform:scale(.96)}
+.letters button.bad{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+.why-q{text-align:center;font-weight:800;margin:0 0 8px;font-size:16px}
+.why-q b{color:var(--ink)}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.why button{min-height:56px;border-radius:12px;border:2px solid var(--line);background:var(--card2);color:var(--text);font:inherit;font-weight:800;font-size:16px;cursor:pointer;padding:6px 8px;line-height:1.2;touch-action:manipulation}
+.why button.nv{grid-column:1/-1;color:var(--muted)}
+.why button.good{border-color:var(--green);background:var(--green-soft)}
+.why button.bad{border-color:var(--red);background:var(--red-soft)}
+.why button:active{transform:scale(.98)}
+.dock .quit{display:block;margin:6px auto 0;font-size:15px}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
+
+/* ---------- výsledek ---------- */
+.result{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.grade{font-family:var(--f-display);font-weight:800;color:var(--red);font-size:92px;line-height:1;width:150px;height:150px;border:5px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;transform:rotate(-8deg);margin:8px 0 10px;padding-top:12px}
+.gword{font-family:var(--f-display);font-size:30px;font-weight:700;color:var(--red);margin:0}
+.sum{color:var(--muted);font-weight:600;margin:0}
+.bang{align-self:stretch;text-align:left;margin-top:14px}
+.bang .lead{font-family:var(--f-display);color:var(--ink);font-size:20px;font-weight:800;margin:0 0 6px}
+.bang .lead b{color:var(--red);margin-right:6px}
+.misses{display:flex;flex-direction:column;gap:6px}
+.misses div{background:var(--red-soft);border-radius:10px;padding:8px 12px;font-size:16px;line-height:1.3}
+.misses div strong{font-size:19px}
+.misses div span{color:var(--muted);font-weight:600;display:block;font-size:14px}
+
+/* ---------- přehled ---------- */
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:5.2em 1fr 3.2em;gap:10px;align-items:center;font-size:15px}
+.bar .nm{font-weight:700}
+.bar .tr{height:12px;border-radius:6px;background:var(--card2);border:1px solid var(--line);overflow:hidden}
+.bar .fl{height:100%;border-radius:6px;background:var(--green)}
+.bar .fl.mid{background:var(--amber)}
+.bar .fl.low{background:var(--red)}
+.bar .pc{color:var(--muted);font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.reset{margin-top:12px;color:var(--red)}
+details summary{cursor:pointer;font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--ink);min-height:44px;display:flex;align-items:center;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"▸";margin-left:8px;color:var(--muted);transition:transform .2s}
+details[open] summary::after{transform:rotate(90deg)}
+.vs{width:100%;border-collapse:collapse;font-size:16px;margin-top:6px}
+.vs td{padding:7px 4px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.35}
+.vs td:first-child{font-family:var(--f-display);font-weight:800;color:var(--ink);font-size:22px;width:1.6em}
+.vs tr:last-child td{border-bottom:0}
+.bybox{margin-top:12px;border:2px solid var(--line);border-radius:12px;padding:10px 14px;font-size:16px;background:var(--card2)}
+.bybox b{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.shake,.gap.now{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">← Zpět na rozcestník</a>
+  <header>
+    <h1><small>Český jazyk · 4. třída</small>Vyjmenovaná slova</h1>
+    <div class="stats">
+      <div class="pill" title="Hvězdičky za správné odpovědi napoprvé"><span class="ic">★</span><span id="stStars">0</span></div>
+      <div class="pill" title="Nejdelší série správných odpovědí"><span class="lbl">rekord</span><span id="stBest">0</span></div>
+    </div>
+  </header>
+
+  <!-- NASTAVENÍ -->
+  <section id="vSetup" class="card sheet">
+    <h2>Co budeme procvičovat?</h2>
+
+    <div class="label first">Postupně jako v sešitě</div>
+    <div class="steps" id="steps"></div>
+
+    <div class="label">Nebo vyber řady sám</div>
+    <div class="chips" id="chips"></div>
+    <div class="row-actions"><button type="button" class="link" id="allRows">Vybrat všechny</button></div>
+
+    <div class="label">Druh cvičení</div>
+    <div class="seg" id="segMode">
+      <button type="button" data-v="phr">Slovní spojení</button>
+      <button type="button" data-v="txt">Souvislý text</button>
+    </div>
+
+    <div class="label">Odůvodni pravopis</div>
+    <div class="seg" id="segWhy">
+      <button type="button" data-v="all">U každého slova</button>
+      <button type="button" data-v="y">Jen u y/ý</button>
+      <button type="button" data-v="off">Neodůvodňovat</button>
+    </div>
+
+    <div class="label">Písmena</div>
+    <div class="seg" id="segLen">
+      <button type="button" data-v="4">i · í · y · ý</button>
+      <button type="button" data-v="2">jen i · y</button>
+    </div>
+
+    <p class="note" id="setupNote"></p>
+    <div class="stack">
+      <button type="button" class="btn" id="btnStart">Začít cvičení</button>
+    </div>
+  </section>
+
+  <!-- CVIČENÍ -->
+  <div id="vGame" hidden>
+    <section class="card sheet">
+      <div class="ex-head">
+        <p class="ex-title" id="exTitle"></p>
+        <span class="ex-count" id="exCount"></span>
+      </div>
+      <p class="text" id="text" aria-live="off"></p>
+    </section>
+    <section class="card dock" id="dock">
+      <div class="fb" id="fb" aria-live="polite"></div>
+      <div id="padLetters" class="letters"></div>
+      <div id="padWhy" hidden>
+        <p class="why-q" id="whyQ"></p>
+        <div class="why" id="why"></div>
+      </div>
+      <button type="button" class="link quit" id="btnQuit">Ukončit cvičení</button>
+    </section>
+  </div>
+
+  <!-- VÝSLEDEK -->
+  <section id="vResult" class="card" hidden>
+    <div class="result">
+      <div class="grade" id="rGrade">1</div>
+      <p class="gword" id="rWord">výborně</p>
+      <p class="sum" id="rSum"></p>
+      <div class="bang" id="rMissBox" hidden>
+        <p class="lead"><b>!!!</b>Tyhle si opiš a zapamatuj</p>
+        <div class="misses" id="rMiss"></div>
+      </div>
+    </div>
+    <div class="stack">
+      <button type="button" class="btn" id="btnAgain">Další cvičení</button>
+      <button type="button" class="btn ghost" id="btnBack">Změnit nastavení</button>
+    </div>
+  </section>
+
+  <!-- TAHÁK -->
+  <section class="card" id="vCheat">
+    <details>
+      <summary>Vyjmenovaná slova – tahák</summary>
+      <table class="vs"><tbody id="vsTable"></tbody></table>
+      <div class="bybox">
+        <b>Pozor na tvary slovesa být!</b><br>
+        já <b>bych</b> byl · ty <b>bys</b> byl · on <b>by</b> byl · my <b>bychom</b> byli · vy <b>byste</b> byli · oni <b>by</b> byli<br>
+        Stejně časujeme <b>kdybych</b> a <b>abych</b>.<br>
+        Slova začínající na <b>vy- / vý-</b> píšeme s y (vyhrát, výlet, vydra).
+      </div>
+    </details>
+  </section>
+
+  <!-- PŘEHLED -->
+  <section class="card" id="vStats">
+    <h2>Jak mi to jde</h2>
+    <div class="bars" id="bars"></div>
+    <button type="button" class="link reset" id="btnReset"></button>
+  </section>
+</div>
+
+<script>
+(function(){
+  /* ================= DATA ================= */
+  const ROWS = ['B','L','M','P','S','V','Z'];
+  const VS = {
+    B:['být','bydlit','obyvatel','byt','příbytek','nábytek','dobytek','obyčej','bystrý','bylina','kobyla','býk','Přibyslav'],
+    L:['slyšet','mlýn','blýskat se','polykat','plynout','plýtvat','vzlykat','lysý','lýtko','lýko','lyže','pelyněk','plyš'],
+    M:['my','mýt','myslit','mýlit se','hmyz','myš','hlemýžď','mýtit','zamykat','smýkat','dmýchat','chmýří','nachomýtnout se','Litomyšl'],
+    P:['pýcha','pytel','pysk','netopýr','slepýš','pyl','kopyto','klopýtat','třpytit se','zpytovat','pykat','pýr','pýřit se','čepýřit se'],
+    S:['syn','sytý','sýr','syrový','sychravý','usychat','sýkora','sýček','sysel','syčet','sypat'],
+    V:['vy','vysoký','výt','výskat','zvykat','žvýkat'],
+    Z:['brzy','jazyk','nazývat se','Ruzyně']
+  };
+  // zvláštní odůvodnění
+  const SPECIAL = { 'by':{row:'B', label:'bych, bys, by… (tvar slovesa být)'}, 'vy-':{row:'V', label:'začíná na vy- / vý-'} };
+  const NV = 'není vyjmenované → i';
+
+  /* Zápis mezery: {y=vyjmenované slovo}  {i}  {i!poznámka}
+     Mezera je vždy hned za obojetnou souhláskou; řada se určí automaticky. */
+  const PHRASES = [
+    // ---- B
+    'ob{y=obyvatel}vatelé města','b{y=bydlit}dlíme ve Vlašimi','b{í}lá křída','nový náb{y=nábytek}tek','kráva a b{ý=býk}k',
+    'b{í}lý sníh','zab{i!bít = tlouct, zabít}l mouchu','b{y=být}l jsem venku','ob{y=obyčej}čejný den','b{y=bystrý}strý kluk',
+    'léčivá b{y=bylina}lina','stará kob{y=kobyla}la','pěkný b{y=byt}t ve městě','útulný příb{y=příbytek}tek','dob{y=dobytek}tek na pastvě',
+    'hodiny b{i!bít = tlouct, udeřit}jí','b{i!bitva – od slova bít (bojovat)}tva u Lipan','zelená kob{y=kobyla}lka','ob{i}lí na poli','b{í}lek a žloutek',
+    'šikovný náb{y=nábytek}tkář','dob{y=dobytek}tčí trh','moje b{y=bydlit}dliště','b{y=bylina}linkový čaj','zb{y=být}tek jídla',
+    'zb{y=být}tečná otázka','rytíř se b{i!bít se = bojovat}l mečem','b{ý=býk}čí zápas','kdyb{y=by}ch mohl','ab{y=by}chom stihli vlak',
+    'vy b{y=by}ste to zvládli','město Přib{y=Přibyslav}slav','horská b{y=bystrý}střina','rozb{i!rozbít – od slova bít}tý hrnek','počet ob{y=obyvatel}vatel',
+    'zb{y=být}l jen kousek','výhodná nab{í}dka','ob{y=obyčej}čeje předků','hb{i}tý kluk','neb{y=být}la doma',
+    // ---- L
+    'sl{y=slyšet}šet zvonek','starý ml{ý=mlýn}n','venku se bl{ý=blýskat se}ská','pol{y=polykat}kat prášky','pl{y=plynout}nout po proudu',
+    'pl{ý=plýtvat}tvat vodou','vzl{y=vzlykat}kat smutkem','l{y=lysý}sá hlava','bolí mě l{ý=lýtko}tko','l{ý=lýko}kové střevíce',
+    'jezdit na l{y=lyže}žích','pel{y=pelyněk}ňkový čaj','pl{y=plyš}šový medvídek','l{i}stí padá','l{í}pa u cesty',
+    'l{i!liška – zvíře; lyska je pták}ška Bystrouška','kl{i}katá cesta','bl{í}zko domova','l{i}dé ve městě','ml{y=mlýn}nář a mlynářka',
+    'je mi to l{í}to','nepl{i}vej na zem','l{i}s na víno','nesl{y=slyšet}šný krok','bl{y=blýskat se}štivý sníh',
+    'pl{y=plynout}n v kamnech','vzl{y=vzlykat}kot','spol{y=polykat}kat sousto','l{i}tr mléka','v kl{i}du',
+    'mal{i}nová šťáva','nepl{ý=plýtvat}tvej jídlem','rychlý l{y=lyže}žař','pták l{y=lysý}ska','l{i}monáda s ledem',
+    // ---- M
+    'm{y=my} jsme kamarádi','m{ý=mýt}t si ruce','m{y=myslit}slet na zítřek','m{ý=mýlit se}lit se v počtech','otravný hm{y=hmyz}z',
+    'šedá m{y=myš}š','pomalý hlem{ý=hlemýžď}žď','m{ý=mýtit}tina v lese','zam{y=zamykat}kat dveře','sm{ý=smýkat}kat se po ledě',
+    'rozdm{ý=dmýchat}chat oheň','pampeliškové chm{ý=chmýří}ří','nachom{ý=nachomýtnout se}tl se tam','zámek v Litom{y=Litomyšl}šli','m{i}lá babička',
+    'm{í!mít = vlastnit (mýt = umývat)}t radost','dlouhá m{i}nuta','zm{i}zet za rohem','m{i}ska polévky','kopnout do m{í}če',
+    'bílé um{y=mýt}vadlo','voňavé m{ý=mýt}dlo','m{y=mýt}čka nádobí','sm{y=myslit}sl pro humor','m{i!mi = mně} to řekl',
+    'm{y=myš}ší díra','dobrá m{y=myslit}šlenka','zam{y=zamykat}kané dveře','kom{í}n na střeše','zam{í}chat polévku',
+    'um{í} plavat','m{í}r na světě','m{i}nulý týden','m{y=mýt}tí nádobí','hm{y=hmyz}zí domeček','m{í}sto u okna',
+    // ---- P
+    'p{ý=pýcha}cha předchází pád','p{y=pytel}tel brambor','koňský p{y=pysk}sk','netop{ý=netopýr}r v jeskyni','slep{ý=slepýš}š v trávě',
+    'žlutý p{y=pyl}l','koňské kop{y=kopyto}to','klop{ý=klopýtat}tat přes kámen','voda se třp{y=třpytit se}tí','zp{y=zpytovat}tovat svědomí',
+    'p{y=pykat}kat za chybu','plevel p{ý=pýr}r','zap{ý=pýřit se}řila se studem','rozčep{ý=čepýřit se}řený vrabec','p{i}tný režim',
+    'p{í}sek na hřišti','p{í}šu úkol','veselá p{í}seň','ostrá p{i}la','p{i!pít = pít vodu (pyl je z květů)}l vodu',
+    'p{i}lot letadla','bílý pap{í}r','kaktus p{í}chá','p{i}rátská loď','p{y=pytel}tlák v lese',
+    'p{y=pýcha}šná princezna','sudokop{y=kopyto}tník','p{í}šťalka','op{i}ce v zoo','p{i}lný žák',
+    'třp{y=třpytit se}t hvězd','p{y=pyl}lová zrnka','zp{í}vat písničku','hrát na p{i}ano','kop{y=kopyto}ta koně',
+    // ---- S
+    's{y=syn} a dcera','s{y=sytý}tý oběd','s{ý=sýr} s dírami','s{y=syrový}rové maso','s{y=sychravý}chravé počasí',
+    'květiny us{y=usychat}chají','s{ý=sýkora}kora koňadra','houkání s{ý=sýček}čka','s{y=sysel}sel v poli','had s{y=syčet}čí',
+    's{y=sypat}pat cukr','velká s{í}la','rušná s{i}lnice','zapálit s{i}rku','jemné s{í}to',
+    'rybářská s{í}ť','malinový s{i}rup','houká s{i}réna','můj s{y=syn}novec','vítr s{í}lí',
+    'nas{y=sytý}cený pes','s{ý=sýr}rová pizza','zas{y=sypat}pat jámu','s{y=sypat}pký sníh','malá s{ý=sýkora}korka',
+    's{y=syrový}rovátka','bydlíme na s{í}dlišti','těžká s{i}tuace','s{i}lný vítr','s{i}rotek',
+    // ---- V
+    'v{y=vy} jste první','v{y=vysoký}soký strom','vlci v{y=výt}jí','v{ý=výskat}skat radostí','zv{y=zvykat}kat si na školu',
+    'žv{ý=žvýkat}kací guma','v{y=vy-}hrát zápas','v{ý=vy-}let do přírody','v{y=vy-}stoupit z vlaku','v{ý=vy-}hled z rozhledny',
+    'v{i!vila = velký dům}la za městem','v{í!víla = pohádková bytost}la v lese','v{i}dlička a nůž','v{i}děli jsme to','v{í}tr fouká',
+    'zralé v{i}šně','zdravé v{i}tamíny','hořící sv{í}čka','divoké zv{í}ře','starý zv{y=zvykat}k',
+    'Českomoravská v{y=vysoký}sočina','v{ý=vysoký}ška hory','silná v{i}chřice','v{í}ce či méně','zv{í}tězit v zápase',
+    'v{y=vy-}chytralá liška','v{ý=vy-}robek ze dřeva','pes v{y=výt}l na měsíc','v{í}tat hosty','nev{í}m to',
+    'v{í}čko od sklenice','v{y=vy-}dra u potoka',
+    // ---- Z
+    'brz{y=brzy} ráno','jaz{y=jazyk}k a zuby','jak se to naz{ý=nazývat se}vá','letiště Ruz{y=Ruzyně}ně','studená z{i}ma',
+    'z{í}tra ráno','teplý z{i}mník','z{í}skat medaili','z{í!zívat = otvírat ústa únavou}vá únavou','jaz{y=jazyk}kový kurz',
+    'naz{ý=nazývat se}vat věci pravými jmény','cizojaz{y=jazyk}čný slovník','rodný jaz{y=jazyk}k','z{i}mní bunda','vyz{ý=nazývat se}vat na souboj',
+    'nikdo se neoz{ý=nazývat se}vá','nevěřícně z{í}rat','velký z{i}sk','malý jaz{ý=jazyk}ček','přijď brz{y=brzy}',
+    // ---- míchaná (víc řad v jednom spojení)
+    'v{y=vy-}sl{y=slyšet}šet odpověď','m{y=my} b{y=by}chom šli','b{í}lá z{i}ma','s{ý=sýr} se rozpl{ý=plynout}val','zv{í}tězil v b{i}tvě',
+    'm{y=myš}š v p{y=pytel}tli','ml{y=mlýn}nář chytil m{y=myš}','l{y=lyže}žař na v{y=vysoký}soké hoře','neb{y=být}l zv{y=zvykat}klý','b{y=bystrý}strá s{ý=sýkora}kora',
+    'p{i}l čaj z l{í}py','zam{y=zamykat}kal b{y=byt}t','kob{y=kobyla}la má kop{y=kopyto}ta','v{i}děl ob{y=obyvatel}vatele','b{y=být}lo s{y=sychravý}chravo',
+    'v{ý=vy-}let na L{y=lysý}sou horu','m{i}lá s{y=syn}novkyně','p{y=pyl}l na l{i}stech'
+  ];
+
+  const TEXTS = [
+    { t:'U dědy na statku',
+      s:'Na kraji vesnice b{y=bydlit}dlí děda Jarda. V jeho domě stojí starý dřevěný náb{y=nábytek}tek a na stole voní sušené b{y=bylina}linky. Za stodolou se pase dob{y=dobytek}tek: krávy, telata a jeden velký b{ý=býk}k. Děda má také hodnou kob{y=kobyla}lu. Každé ráno jí nasype ob{i}lí a nalije čerstvou vodu. Je to jeho ob{y=obyčej}čej. Když na kostele b{i!bít = tlouct, udeřit}jí hodiny šest, děda už je dávno vzhůru. Ob{y=obyvatel}vatelé vesnice ho mají rádi, protože je b{y=bystrý}strý a každému poradí. Kdyb{y=by}ch mohl, b{y=být}l bych u něj každý den.' },
+    { t:'Na horách',
+      s:'V zimě jezdíme na hory. Táta nese l{y=lyže}že a já batoh se svačinou. Sníh se bl{y=blýskat se}ští na slunci, až nás bolí oči. Najednou jsme usl{y=slyšet}šeli z lesa šustění. Kolem běžela l{i}ška a mířila ke kl{i}katému potoku. Voda tu pl{y=plynout}ne mezi kameny a ani v zimě nezamrzá. Večer jsme b{y=bydlit}dleli v horské chatě. Na posteli seděl pl{y=plyš}šový medvěd a v kamnech praskalo. Maminka uvařila pel{y=pelyněk}ňkový čaj. B{y=být}l hořký a nechtěl jsem ho pol{y=polykat}kat. Radši jsem snědl b{í}lou housku s medem. Je mi l{í}to, že dny na horách tak rychle uběhly.' },
+    { t:'Výlet ke mlýnu',
+      s:'M{i}nulý týden jsme jeli se třídou ke starému ml{ý=mlýn}nu. Ml{y=mlýn}nář nás zavedl dovnitř, kde se točilo velké kolo. Všude b{y=být}lo plno mouky. V koutě se m{i}hla šedá m{y=myš}ka a holky vykřikly. „Nebojte, ta tu b{y=bydlit}dlí odjakživa,“ smál se ml{y=mlýn}nář. Potom nám dovolil m{í}t v dlaních opravdové zrní. Venku jsme si u potoka um{y=mýt}li ruce a sedli si do trávy. Kolem bzučel hm{y=hmyz}z a po listu lezl pomalý hlem{ý=hlemýžď}žď. „M{y=my} b{y=by}chom tu zůstali do večera,“ řekl Ondra. Paní učitelka se usmála: „To se m{ý=mýlit se}líš, za hodinu jede autobus.“' },
+    { t:'U rybníka',
+      s:'Šimon s tátou šli k rybníku. Na hladině se třp{y=třpytit se}tilo slunce a ve vzduchu létal žlutý p{y=pyl}l. „Pozor, ať nezakopneš!“ zavolal táta, ale Šimon už klop{ý=klopýtat}tl přes kořen. Naštěstí spadl jen do měkkého p{í}sku. V trávě se m{i}hl slep{ý=slepýš}š. „To není had, je to ještěrka bez nohou,“ vysvětlil táta. Na louce se pásla kráva a odháněla mouchy ocasem i kop{y=kopyto}tem. Táta vytáhl z batohu p{y=pytel}tlík s chlebem pro kachny. Potom si sedli na lavičku, p{i}li čaj z termosky a m{y=myslit}sleli na to, co uvidí příště. Večer se nad rybníkem objevil netop{ý=netopýr}r. Šimon b{y=být}l p{y=pýcha}šný, že ho zahlédl první.' },
+    { t:'Sychravá sobota',
+      s:'V sobotu b{y=být}lo s{y=sychravý}chravo, a tak jsme zůstali doma. Babička pekla koláče a já jí pomáhal s{y=sypat}pat mák. Na krmítku za oknem seděla s{ý=sýkora}kora a zobala semínka. Do kuchyně přišel děda a řekl: „Kdo je s{y=sytý}tý, ten nemlsá.“ Na stole ležel kus s{ý=sýr}ra a s{y=syrový}rová mrkev. Najednou na plotně s{y=syčet}čela konvice. Venku foukal s{i}lný vítr a ohýbal větve. Odpoledne jsme hráli pexeso a b{y=bystrý}strá babička vyhrála šestkrát. Večer z lesa houkal s{ý=sýček}ček. Přikryl jsem se pl{y=plyš}šovou dekou a pomalu jsem us{í}nal.' },
+    { t:'Výlet na hrad',
+      s:'O prázdninách jsme jeli na v{ý=vy-}let na hrad. Hrad stojí na v{y=vysoký}soké skále a z věže je krásný v{ý=vy-}hled. Celou cestu foukal v{í}tr. Průvodce v historickém kostýmu nám vyprávěl o rytířích, kteří tu kdysi b{y=bydlit}dleli. Ukázal nám meče, štíty a starý náb{y=nábytek}tek. „V{y=vy} jste ale zvědaví,“ smál se, když jsme se pořád na něco ptali. Na nádvoří jsme v{i}děli sokolníka s dravými ptáky. Jeden pták v{y=vy-}letěl až k mrakům. Holky v{ý=výskat}skaly radostí. Když jsme odcházeli, usl{y=slyšet}šeli jsme v dálce, jak v{y=výt}je pes. Na takový hrad si člověk hned zv{y=zvykat}kne.' },
+    { t:'Hodina angličtiny',
+      s:'Ve třídě se učíme cizí jaz{y=jazyk}k. Paní učitelka říká, že kdo začne brz{y=brzy}, ten se naučí nejlépe. Dnes jsme psali, jak se anglicky naz{ý=nazývat se}vají zvířata. Já jsem si v{y=vy-}bral s{y=sysel}sla, ale to slovo nikdo neznal. Ondra psal o m{y=myš}i a Klára o l{i}šce. Kdo se m{ý=mýlit se}lil, musel si sednout. Já jsem v{y=vy-}hrál a dostal jsem razítko. Cestou domů jsem m{y=myslit}slel na to, že b{y=by}ch jednou chtěl letět z letiště v Ruz{y=Ruzyně}ni do Londýna. Máma se zasmála: „Nejdřív slovíčka. Z{í}tra začneme.“' },
+    { t:'Na hokeji',
+      s:'V neděli jsme b{y=být}li na hokeji. Na tribuně b{y=být}lo plno l{i}dí a všichni v{ý=výskat}skali. Hned v první třetině náš útočník v{y=vy-}střelil a puk zapadl do s{í}tě. Brankář soupeře se nechápavě rozhlížel, m{y=myslit}slel si totiž, že puk chytil. Ve druhé třetině se naši několikrát m{ý=mýlit se}lili a soupeř vyrovnal. Trenér nepl{ý=plýtvat}tval slovy a jen zamával rukou. Pak přišla velká chv{í}le: kapitán objel obránce a vstřelil vítězný gól. Naši zv{í}tězili 2 : 1. M{y=my} jsme ještě dlouho tleskali a hráči nám mávali. Domů jsem jel úplně v{y=vy-}čerpaný a do postele jsem šel brz{y=brzy}.' },
+    { t:'Podzim na statku',
+      s:'Na podzim pomáháme na statku u strýce. Ráno nakrmíme dob{y=dobytek}tek a vyčistíme stáj. Strýc přijel z pole s kombajnem. V kabině b{y=být}lo sl{y=slyšet}šet jen tiché hučení motoru. Teta uvařila polévku, a tak jsme si nejdřív um{y=mýt}li ruce m{ý=mýt}dlem. Potom jsme pomáhali s{y=sypat}pat ob{i}lí do p{y=pytel}tlů. B{y=být}la to těžká práce. Večer nad stodolou létal netop{ý=netopýr}r. Strýc se zeptal: „Přijedete zase brz{y=brzy}?“ „Určitě,“ odpověděl jsem, „tady se m{i!mi = mně} moc l{í}b{í}.“' },
+    { t:'Pověst o Blaníku',
+      s:'Nedaleko Vlašimi stojí hora Blaník. Podle pověsti v ní spí rytíři svatého Václava. Ob{y=obyvatel}vatelé okolních vesnic vyprávějí, že až bude země v největší nouzi, rytíři v{y=vy-}jedou z hory a zv{í}tězí nad nepřáteli. Jeden pasáček prý kdysi do hory vešel. V{i}děl tam spící rytíře na koních. Koně tiše oddechovali a jejich kop{y=kopyto}ta se třp{y=třpytit se}tila. Pasáček si m{y=myslit}slel, že se mu to jen zdá. Když v{y=vy-}šel ven, zjistil, že upl{y=plynout}nul celý rok. Všichni ve vsi b{y=být}li překvapení. Dnes na vrcholu stojí rozhledna a z ní je krásný v{ý=vy-}hled. Je to pověst, ne skutečná událost, ale ob{y=obyčej}čej vyprávět ji dětem trvá dodnes.' }
+  ];
+
+  /* ================= POMOCNÉ ================= */
+  const $ = id => document.getElementById(id);
+  const rnd = n => Math.floor(Math.random()*n);
+  const shuffle = a => { for (let i=a.length-1;i>0;i--){ const j=rnd(i+1); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+  const PRAISE = ['Správně!','Výborně!','Paráda!','Přesně tak!','Super!','Bezva!'];
+  const GRADE_WORD = ['', 'výborně', 'chvalitebně', 'dobře', 'dostatečně', 'nedostatečně'];
+  const gradeOf = (e,t) => { const r = t ? e/t : 0; return r<=0.1?1:r<=0.25?2:r<=0.5?3:r<=0.75?4:5; };
+  function loadState(key, def){ try { const raw = localStorage.getItem(key); if (raw) return Object.assign(def(), JSON.parse(raw)); } catch(e) {} return def(); }
+  function saveState(key, s){ try { localStorage.setItem(key, JSON.stringify(s)); } catch(e) {} }
+  function shake(el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+  function setFb(text, cls){ const f = $('fb'); f.textContent = text; f.className = 'fb ' + (cls||''); }
+  const base = ch => ({'í':'i','ý':'y'}[ch] || ch);
+  const isLetter = ch => /\p{L}/u.test(ch);
+  function rowOfRef(ref){ if (SPECIAL[ref]) return SPECIAL[ref].row; for (const r of ROWS) if (VS[r].includes(ref)) return r; return null; }
+  const refLabel = ref => SPECIAL[ref] ? SPECIAL[ref].label : ref;
+
+  /* ---- rozbor zápisu ---- */
+  const GAP_RE = /\{([iíyý])(?:=([^!}]+))?(?:!([^}]+))?\}/g;
+  function parse(src){
+    const parts = []; let last = 0, m, full = '';
+    GAP_RE.lastIndex = 0;
+    while ((m = GAP_RE.exec(src))){
+      const pre = src.slice(last, m.index);
+      parts.push(pre); full += pre;
+      const cons = full.slice(-1).toLowerCase();
+      const g = { a:m[1], ref:m[2]||null, note:m[3]||null, row:cons.toUpperCase(), pos:full.length };
+      parts.push(g); full += m[1];
+      last = GAP_RE.lastIndex;
+    }
+    const tail = src.slice(last); parts.push(tail); full += tail;
+    parts.forEach(p => { if (typeof p === 'object'){
+      let a = p.pos, b = p.pos+1;
+      while (a>0 && isLetter(full[a-1])) a--;
+      while (b<full.length && isLetter(full[b])) b++;
+      p.word = full.slice(a,b);
+    }});
+    const rows = [...new Set(parts.filter(p => typeof p==='object').map(p => p.row))];
+    return { parts, rows };
+  }
+  const P_ITEMS = PHRASES.map(parse);
+  const T_ITEMS = TEXTS.map(t => Object.assign(parse(t.s), { title:t.t }));
+
+  /* ================= STAV ================= */
+  const KEY = 'vyjmenovana-slova-v1';
+  const def = () => ({ stars:0, best:0, sel:['B'], mode:'phr', why:'all', len:'4', stat:{}, textUse:{} });
+  let S = loadState(KEY, def);
+  const save = () => saveState(KEY, S);
+  let R = null, streak = 0;
+
+  function show(v){
+    $('vSetup').hidden = v!=='vSetup'; $('vResult').hidden = v!=='vResult'; $('vGame').hidden = v!=='vGame';
+    $('vStats').hidden = v==='vGame'; $('vCheat').hidden = v==='vGame';
+    window.scrollTo(0,0);
+  }
+  function renderStats(){ $('stStars').textContent = S.stars; $('stBest').textContent = S.best; }
+  function renderBars(){
+    const el = $('bars'); el.innerHTML = '';
+    ROWS.forEach(r => {
+      const st = S.stat[r] || {ok:0,bad:0}, n = st.ok+st.bad, pc = n ? Math.round(100*st.ok/n) : null;
+      const cls = pc===null ? '' : pc>=80 ? '' : pc>=50 ? ' mid' : ' low';
+      const row = document.createElement('div'); row.className = 'bar';
+      row.innerHTML = `<span class="nm">po ${r}</span><span class="tr"><span class="fl${cls}" style="width:${pc||0}%"></span></span><span class="pc">${pc===null?'–':pc+' %'}</span>`;
+      el.appendChild(row);
+    });
+  }
+  function renderCheat(){
+    const tb = $('vsTable'); tb.innerHTML = '';
+    ROWS.forEach(r => { const tr = document.createElement('tr'); tr.innerHTML = `<td>${r}</td><td></td>`; tr.lastChild.textContent = VS[r].join(', '); tb.appendChild(tr); });
+  }
+
+  /* ================= NASTAVENÍ ================= */
+  const avail = () => ({
+    phr: P_ITEMS.filter(it => it.rows.every(r => S.sel.includes(r))),
+    txt: T_ITEMS.filter(it => it.rows.every(r => S.sel.includes(r)))
+  });
+  function setSeg(id, val){ $(id).querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v===val)); }
+  function renderSetup(){
+    // kroky jako v sešitě: B → L,B → M,L,B → …
+    const order = ['B','L','M','P','S','V','Z'];
+    const st = $('steps'); st.innerHTML = '';
+    order.forEach((r,i) => {
+      const set = order.slice(0,i+1);
+      const b = document.createElement('button'); b.type='button';
+      b.textContent = i===0 ? 'B' : '+'+r;
+      b.title = 'Řady ' + set.slice().reverse().join(', ');
+      const same = set.length===S.sel.length && set.every(x => S.sel.includes(x));
+      if (same) b.classList.add('on');
+      b.onclick = () => { S.sel = set.slice(); save(); renderSetup(); };
+      st.appendChild(b);
+    });
+    const ch = $('chips'); ch.innerHTML = '';
+    ROWS.forEach(r => {
+      const b = document.createElement('button'); b.type='button'; b.className='chip'; b.textContent = r;
+      b.setAttribute('aria-label','řada '+r); b.setAttribute('aria-pressed', S.sel.includes(r));
+      b.onclick = () => { S.sel = S.sel.includes(r) ? S.sel.filter(x=>x!==r) : ROWS.filter(x => x===r || S.sel.includes(x)); save(); renderSetup(); };
+      ch.appendChild(b);
+    });
+    setSeg('segMode', S.mode); setSeg('segWhy', S.why); setSeg('segLen', S.len);
+    const a = avail(), n = S.mode==='phr' ? a.phr.length : a.txt.length;
+    const ok = S.sel.length>0 && n>0;
+    $('btnStart').disabled = !ok;
+    $('btnStart').textContent = !S.sel.length ? 'Vyber aspoň jednu řadu' : ok ? 'Začít cvičení' : 'Pro tyto řady není text';
+    $('setupNote').textContent = !S.sel.length ? '' :
+      S.mode==='phr' ? 'Doplň i, í, y, ý do slovních spojení a odůvodni pravopis – jako v sešitě. Jedno cvičení má kolem 15 doplňovaných písmen.'
+      : n ? `Doplň souvislý text a odůvodni pravopis. Pro vybrané řady je připraveno textů: ${n}.`
+          : 'Souvislé texty jsou připravené postupně (B, pak L a B, pak M, L a B…). Přidej předchozí řady, nebo zvol slovní spojení.';
+  }
+  function bindSeg(id, key){ $(id).addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; S[key] = b.dataset.v; save(); renderSetup(); }); }
+
+  /* ================= CVIČENÍ ================= */
+  function buildPhraseRound(pool){
+    // střídej řady, ať nepřevažuje jedna
+    const groups = {};
+    shuffle(pool.slice()).forEach(it => { const k = it.rows[rnd(it.rows.length)]; (groups[k] = groups[k] || []).push(it); });
+    const keys = shuffle(Object.keys(groups));
+    const out = []; let gaps = 0, k = 0, guard = 0;
+    while (gaps < 15 && out.length < 12 && guard++ < 200){
+      const g = groups[keys[k % keys.length]]; k++;
+      if (g && g.length){ const it = g.shift(); out.push(it); gaps += it.parts.filter(p => typeof p==='object').length; }
+      if (keys.every(x => !groups[x].length)) break;
+    }
+    return out;
+  }
+  function start(){
+    const a = avail();
+    let segs, title;
+    if (S.mode==='txt'){
+      const list = a.txt.slice().sort((x,y) => (S.textUse[x.title]||0) - (S.textUse[y.title]||0));
+      const low = list.filter(x => (S.textUse[x.title]||0) === (S.textUse[list[0].title]||0));
+      const it = low[rnd(low.length)];
+      S.textUse[it.title] = Date.now(); save();
+      segs = [it]; title = it.title;
+    } else {
+      segs = buildPhraseRound(a.phr);
+      title = 'Doplň i, í, y, ý · řady ' + ROWS.filter(r => S.sel.includes(r)).reverse().join(', ');
+    }
+    // poskládej text a seznam mezer
+    const text = $('text'); text.innerHTML = '';
+    const gaps = [];
+    // tokeny: znaky a mezery; slova s mezerou zabalíme do nezalomitelného spanu
+    const toks = [];
+    segs.forEach((seg, si) => {
+      seg.parts.forEach((p, pi) => {
+        if (typeof p === 'string'){
+          let s = p;
+          if (S.mode==='phr' && si===0 && pi===0) s = s.charAt(0).toUpperCase() + s.slice(1);
+          for (const ch of s) toks.push(ch);
+        } else toks.push(p);
+      });
+      if (S.mode==='phr') for (const ch of (si < segs.length-1 ? ', ' : '.')) toks.push(ch);
+    });
+    let word = null, buf = '';
+    const flush = () => { if (buf){ (word || text).appendChild(document.createTextNode(buf)); buf=''; } };
+    toks.forEach(t => {
+      if (typeof t === 'string' && /\s/.test(t)){ flush(); word = null; buf = t; flush(); return; }
+      if (!word){ flush(); word = document.createElement('span'); word.style.whiteSpace = 'nowrap'; text.appendChild(word); }
+      if (typeof t === 'string') buf += t;
+      else {
+        flush();
+        const sp = document.createElement('span'); sp.className = 'gap'; sp.textContent = '_';
+        word.appendChild(sp);
+        gaps.push(Object.assign({}, t, { el:sp }));
+      }
+    });
+    flush();
+    $('exTitle').textContent = title;
+    R = { gaps, i:0, phase:'letter', tries:0, wtries:0, errored:false, errors:0, stars:0, misses:[], locked:false };
+    renderLetters();
+    show('vGame');
+    setFb('Doplň správné písmeno do žluté mezery.', '');
+    focusGap();
+  }
+  function renderLetters(){
+    const pad = $('padLetters'); pad.innerHTML = '';
+    const set = S.len==='2' ? ['i','y'] : ['i','í','y','ý'];
+    pad.className = 'letters' + (set.length===2 ? ' two' : '');
+    set.forEach(ch => { const b = document.createElement('button'); b.type='button'; b.textContent = ch; b.dataset.ch = ch; pad.appendChild(b); });
+  }
+  function focusGap(){
+    const g = R.gaps[R.i];
+    R.gaps.forEach((x,i) => x.el.classList.toggle('now', i===R.i && R.phase==='letter'));
+    $('exCount').textContent = `${Math.min(R.i+1, R.gaps.length)} / ${R.gaps.length}`;
+    $('padLetters').hidden = R.phase!=='letter';
+    $('padWhy').hidden = R.phase!=='why';
+    $('padLetters').querySelectorAll('button').forEach(b => b.classList.remove('bad'));
+    // posuň mezeru do viditelné části nad lištou
+    requestAnimationFrame(() => {
+      const r = g.el.getBoundingClientRect(), dock = $('dock').getBoundingClientRect().height;
+      const top = 70, bottom = window.innerHeight - dock - 30;
+      if (r.top < top || r.bottom > bottom){
+        window.scrollBy({ top: r.top - (top + (bottom-top)/2), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      }
+    });
+  }
+  const sameLetter = (ch, a) => S.len==='2' ? base(ch)===base(a) : ch===a;
+  function markError(g){
+    if (R.errored) return;
+    R.errored = true; R.errors++; streak = 0;
+    const st = S.stat[g.row] || {ok:0,bad:0}; st.bad++; S.stat[g.row] = st; save();
+    R.misses.push(g);
+  }
+  function reasonText(g){
+    if (base(g.a)==='i') return g.note ? g.note : 'není vyjmenované ani příbuzné, proto i';
+    if (g.ref==='by') return 'tvar slovesa být (bych, bys, by…)';
+    if (g.ref==='vy-') return 'slovo začíná na vy- / vý-';
+    return `patří k vyjmenovanému slovu ${g.ref}`;
+  }
+  function onLetter(ch, btn){
+    if (!R || R.locked || R.phase!=='letter') return;
+    const g = R.gaps[R.i];
+    if (sameLetter(ch, g.a)){
+      g.el.textContent = g.a; g.el.classList.remove('now'); g.el.classList.add(R.errored ? 'fixed' : 'ok');
+      const needWhy = S.why==='all' || (S.why==='y' && base(g.a)==='y');
+      if (needWhy){
+        R.phase = 'why'; R.wtries = 0; renderWhy(g);
+        setFb(R.tries===0 ? 'Dobře! A proč?' : 'Ano. A proč?', R.tries===0 ? 'good' : '');
+        focusGap();
+      } else finishGap(g);
+      return;
+    }
+    btn.classList.add('bad'); shake(btn); R.tries++;
+    const cons = g.row;
+    if (R.tries===1){
+      markError(g);
+      if (base(ch)===base(g.a)) setFb('Písmeno je dobře, ale pozor na délku. Řekni si slovo nahlas.', 'hint');
+      else if (base(g.a)==='y') setFb(`Pozor! Neskrývá se tu vyjmenované slovo po ${cons}? Projdi si v duchu řadu ${cons}.`, 'hint');
+      else setFb(`Opravdu je „…${cons}…“ vyjmenované nebo příbuzné slovo? Projdi si řadu ${cons}.` + (g.note ? ' (' + g.note + ')' : ''), 'hint');
+    } else {
+      setFb(`Správně je „${g.a}“: ${g.word} – ${reasonText(g)}. Klepni na ${g.a}.`, 'reveal');
+    }
+  }
+  function renderWhy(g){
+    const box = $('why'); box.innerHTML = '';
+    const b = document.createElement('b'); b.textContent = g.word;
+    $('whyQ').innerHTML = ''; $('whyQ').append('Proč píšeš ', b, base(g.a)==='y' ? ' s y?' : ' s i?');
+    const row = g.row;
+    let pool = VS[row].slice();
+    if (g.ref==='by') pool = pool.filter(x => x!=='být');
+    pool = pool.filter(x => x!==g.ref);
+    const opts = [];
+    if (base(g.a)==='y'){
+      opts.push(g.ref); shuffle(pool).slice(0,3).forEach(x => opts.push(x));
+    } else {
+      shuffle(pool).slice(0,4).forEach(x => opts.push(x));
+    }
+    shuffle(opts).forEach(o => {
+      const bt = document.createElement('button'); bt.type='button'; bt.dataset.v = o; bt.textContent = refLabel(o);
+      box.appendChild(bt);
+    });
+    const nv = document.createElement('button'); nv.type='button'; nv.className='nv'; nv.dataset.v = '__nv'; nv.textContent = NV;
+    box.appendChild(nv);
+  }
+  function onWhy(v, btn){
+    if (!R || R.locked || R.phase!=='why') return;
+    const g = R.gaps[R.i];
+    const correct = base(g.a)==='i' ? '__nv' : g.ref;
+    if (v===correct){
+      btn.classList.add('good');
+      finishGap(g, true);
+      return;
+    }
+    btn.classList.add('bad'); shake(btn); R.wtries++;
+    if (R.wtries===1){
+      markError(g);
+      if (!g.el.classList.contains('fixed')){ g.el.classList.remove('ok'); g.el.classList.add('fixed'); }
+      setFb(base(g.a)==='y'
+        ? (v==='__nv' ? `Ale píšeš y! „${g.word}“ patří k některému vyjmenovanému slovu po ${g.row}. Které to je?` : `Ještě ne. Hledej slovo, se kterým má „${g.word}“ společný význam.`)
+        : `„${g.word}“ nepatří k žádnému vyjmenovanému slovu – proto píšeš i.` + (g.note ? ' ' + g.note + '.' : ''), 'hint');
+    } else {
+      setFb(`„${g.word}“ – ${reasonText(g)}. Klepni na správnou odpověď.`, 'reveal');
+    }
+  }
+  function finishGap(g, viaWhy){
+    R.locked = true;
+    if (!R.errored){
+      const st = S.stat[g.row] || {ok:0,bad:0}; st.ok++; S.stat[g.row] = st;
+      S.stars++; R.stars++; streak++; if (streak > S.best) S.best = streak;
+      const extra = g.note && base(g.a)==='i' ? ' ' + g.note + '.' : '';
+      setFb(streak>0 && streak%10===0 ? `Série ${streak} správně za sebou! ★` : (viaWhy ? `${PRAISE[rnd(PRAISE.length)]} ★ ${g.word} – ${reasonText(g)}.` : PRAISE[rnd(PRAISE.length)] + ' ★' + extra), 'good');
+    } else {
+      setFb(`${g.word} – ${reasonText(g)}.`, '');
+    }
+    save(); renderStats();
+    const delay = R.errored ? 1900 : viaWhy ? 1300 : 650;
+    setTimeout(next, delay);
+  }
+  function next(){
+    if (!R) return;
+    R.i++; R.phase='letter'; R.tries=0; R.wtries=0; R.errored=false; R.locked=false;
+    if (R.i >= R.gaps.length) return finish();
+    setFb('', ''); focusGap();
+  }
+  function finish(){
+    const total = R.gaps.length, g = gradeOf(R.errors, total);
+    $('rGrade').textContent = g; $('rWord').textContent = GRADE_WORD[g];
+    $('rSum').textContent = `Napoprvé správně ${total-R.errors} z ${total} · hvězdičky: ${R.stars}`;
+    const box = $('rMiss'); box.innerHTML = '';
+    const seen = new Set();
+    R.misses.forEach(m => {
+      if (seen.has(m.word)) return; seen.add(m.word);
+      const d = document.createElement('div');
+      const s = document.createElement('strong'); s.textContent = m.word;
+      const r = document.createElement('span'); r.textContent = reasonText(m);
+      d.append(s, r); box.appendChild(d);
+    });
+    $('rMissBox').hidden = R.misses.length===0;
+    R = null; renderBars(); show('vResult');
+  }
+
+  /* ================= OVLÁDÁNÍ ================= */
+  bindSeg('segMode','mode'); bindSeg('segWhy','why'); bindSeg('segLen','len');
+  $('allRows').onclick = () => { S.sel = ROWS.slice(); save(); renderSetup(); };
+  $('btnStart').onclick = start;
+  $('btnAgain').onclick = start;
+  $('btnBack').onclick = () => { renderSetup(); show('vSetup'); };
+  $('btnQuit').onclick = () => { R = null; renderBars(); renderSetup(); show('vSetup'); };
+  $('padLetters').addEventListener('click', e => { const b = e.target.closest('button'); if (b) onLetter(b.dataset.ch, b); });
+  $('why').addEventListener('click', e => { const b = e.target.closest('button'); if (b) onWhy(b.dataset.v, b); });
+  document.addEventListener('keydown', e => {
+    if (!R) return;
+    if (R.phase==='letter'){
+      const btns = [...$('padLetters').querySelectorAll('button')];
+      const idx = /^[1-4]$/.test(e.key) ? +e.key-1 : -1;
+      const b = idx>=0 ? btns[idx] : btns.find(x => x.dataset.ch === e.key);
+      if (b){ e.preventDefault(); onLetter(b.dataset.ch, b); }
+    } else if (R.phase==='why' && /^[1-5]$/.test(e.key)){
+      const b = $('why').querySelectorAll('button')[+e.key-1]; if (b){ e.preventDefault(); onWhy(b.dataset.v, b); }
+    }
+  });
+  (function armReset(){
+    const btn = $('btnReset'), label = 'Začít znovu (smazat průběh)'; let armed = null;
+    btn.textContent = label;
+    btn.onclick = () => {
+      if (!armed){ btn.textContent = 'Opravdu smazat celý průběh? Klepni znovu.'; armed = setTimeout(() => { armed=null; btn.textContent = label; }, 4000); return; }
+      clearTimeout(armed); armed = null; btn.textContent = label;
+      S = Object.assign(def(), { sel:S.sel, mode:S.mode, why:S.why, len:S.len }); streak = 0; save(); renderStats(); renderBars();
+    };
+  })();
+
+  renderStats(); renderSetup(); renderCheat(); renderBars(); show('vSetup');
+  // pro kontrolu dat v konzoli
+  window.__VS_CHECK = () => { const bad = []; [...P_ITEMS, ...T_ITEMS].forEach((it, n) => it.parts.forEach(p => { if (typeof p!=='object') return;
+    if (!ROWS.includes(p.row)) bad.push([n,p.word,'souhláska '+p.row]);
+    if (base(p.a)==='y' && (!p.ref || rowOfRef(p.ref)!==p.row)) bad.push([n,p.word,'ref '+p.ref]);
+    if (base(p.a)==='i' && p.ref) bad.push([n,p.word,'i s ref']); })); return bad; };
+})();
+</script>
+</body>
+</html>
