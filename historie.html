@@ -4,7 +4,7 @@
   Předmět: — (přehled pro rodiče)
   Téma:    Úspěšnost v jednotlivých appkách, slabá místa, vývoj známek a kalendář procvičování
   Datum:   2026-10-31
-  Verze:   1.0
+  Verze:   1.1 (oprava: pruh ukázkových dat se nyní skrývá)
   Pozn.:   Čte data z tohoto zařízení (localStorage) a, je-li v sync.js nastavená adresa, i z Google tabulky.
            Nová appka: doplň ji do pole APPS níže a v její funkci finish() zapisuj kolo do 'uceni-historie-v1'.
 -->
@@ -116,6 +116,7 @@ details[open] summary::before{transform:rotate(90deg)}
 
 .btn{min-height:48px;padding:10px 18px;border-radius:14px;border:2px solid var(--ink);background:var(--ink);color:var(--card);font:800 17px var(--f-body);cursor:pointer}
 .btn.ghost{background:transparent;color:var(--ink)}
+[hidden]{display:none!important}
 .demo-flag{background:var(--amber);color:#fff;border-radius:12px;padding:10px 14px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .demo-flag .btn{min-height:40px;padding:6px 14px;background:#fff;color:var(--amber);border-color:#fff;font-size:15px}
 .empty{text-align:center;padding:28px 18px}

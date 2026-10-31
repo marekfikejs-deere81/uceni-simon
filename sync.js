@@ -3,7 +3,7 @@
   Téma:    Posílá dokončená kola a průběh appek do Google tabulky rodiče, aby šla Šimonova historie
            otevřít na jakémkoli zařízení. Bez nastavené adresy nedělá nic a appky fungují jen lokálně.
   Datum:   2026-10-31
-  Verze:   1.1 (nastavena adresa Google tabulky)
+  Verze:   1.2 (průběžné odeslání stavu appky při odchodu ze stránky)
   Nastavení: do SYNC_URL vlož adresu webové aplikace Google Apps Script (končí na /exec).
 */
 window.UceniSync = (function(){
@@ -60,9 +60,29 @@ window.UceniSync = (function(){
     return r.json(); // { log:[...], states:{ id: stav } }
   }
 
+  /* průběžný stav: při odchodu ze stránky appky (i z rozehraného kola) pošle její aktuální průběh, pokud se změnil */
+  const SENT_KEY = 'uceni-sync-odeslano-v1';
+  const pageApp = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  function pushStateIfChanged(){
+    if (!SYNC_URL || APP_IDS.indexOf(pageApp) < 0) return;
+    let raw = null; try { raw = localStorage.getItem(pageApp+'-v1'); } catch(e){}
+    if (!raw) return;
+    const sent = read(SENT_KEY, {});
+    if (sent[pageApp] === raw) return;
+    try {
+      const states = {}; states[pageApp] = JSON.parse(raw);
+      fetch(SYNC_URL, { method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({ rounds:[], states }) })
+        .then(() => { const s2 = read(SENT_KEY, {}); s2[pageApp] = raw; write(SENT_KEY, s2); }).catch(() => {});
+    } catch(e){}
+  }
+
   initialUpload();
   flush();
-  if (typeof window!=='undefined') window.addEventListener('online', flush);
+  if (typeof window!=='undefined'){
+    window.addEventListener('online', flush);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') pushStateIfChanged(); });
+    window.addEventListener('pagehide', pushStateIfChanged);
+  }
 
   return { enabled: !!SYNC_URL, push, flush, fetchAll };
 })();
