@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<!--
+  Název:   Šimonova historie
+  Předmět: — (přehled pro rodiče)
+  Téma:    Úspěšnost v jednotlivých appkách, slabá místa, vývoj známek a kalendář procvičování
+  Datum:   2026-10-31
+  Verze:   1.0
+  Pozn.:   Čte data z tohoto zařízení (localStorage) a, je-li v sync.js nastavená adresa, i z Google tabulky.
+           Nová appka: doplň ji do pole APPS níže a v její funkci finish() zapisuj kolo do 'uceni-historie-v1'.
+-->
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Šimonova historie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+:root{
+  --paper:#f7f9fd; --grid:#dfe8f5; --card:#ffffff; --line:#cfdbec; --soft:#eef3fb;
+  --ink:#1d3a8f; --text:#1b2540; --muted:#5a6884; --red:#cc2f27; --amber:#a8650a;
+  --g1:#1f8a4c; --g2:#5ea33a; --g3:#c98a0b; --g4:#d9611c; --g5:#c62f2f;
+  --heat0:#e6ecf5; --heat1:#bcd3f2; --heat2:#7fa9e6; --heat3:#3f76d0; --heat4:#1d3a8f;
+  --f-display:"Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root{
+  --paper:#0e1526; --grid:#18233b; --card:#151f37; --line:#2b3b5e; --soft:#1b2744;
+  --ink:#9dc0ff; --text:#e4ebf7; --muted:#97a6c2; --red:#ff7f73; --amber:#f2b552;
+  --g1:#3fbf73; --g2:#8fcf5a; --g3:#e8b23a; --g4:#f08a4b; --g5:#ff6b6b;
+  --heat0:#1d2a47; --heat1:#25427a; --heat2:#3561ad; --heat3:#5b8be0; --heat4:#a9c8ff;
+  color-scheme:dark;
+}}
+*{box-sizing:border-box}
+body{
+  margin:0; background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--text); font-family:var(--f-body); font-size:17px; line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-top:max(20px,env(safe-area-inset-top,0px));
+  padding-bottom:max(40px,env(safe-area-inset-bottom,0px));
+}
+.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+a.back{display:inline-flex;align-items:center;min-height:44px;color:var(--ink);font-weight:800;text-decoration:none}
+a.back:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:8px}
+h1{font-family:var(--f-display);font-weight:800;color:var(--ink);font-size:clamp(32px,8vw,44px);line-height:1;margin:0;text-wrap:balance}
+h1 small{display:block;font-family:var(--f-body);font-size:14px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+h2{font-family:var(--f-display);font-size:23px;font-weight:700;color:var(--ink);margin:0 0 10px;line-height:1.15}
+h3{font-family:var(--f-display);font-size:21px;font-weight:700;color:var(--ink);margin:0;line-height:1.15}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:18px 18px 18px 18px}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+
+/* souhrn */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.tile{background:var(--soft);border-radius:14px;padding:12px 14px}
+.tile b{display:block;font-family:var(--f-display);font-size:30px;line-height:1.05;color:var(--ink);font-variant-numeric:tabular-nums}
+.tile span{font-size:14px;color:var(--muted);font-weight:700}
+
+/* kalendář */
+.cal-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+.cal{display:grid;grid-template-columns:28px repeat(var(--weeks),minmax(22px,1fr));gap:4px;min-width:max-content}
+.cal .dl{font-size:12px;color:var(--muted);font-weight:700;display:flex;align-items:center}
+.cal .ml{font-size:12px;color:var(--muted);font-weight:700;white-space:nowrap;height:16px}
+.cell{aspect-ratio:1;min-width:22px;border-radius:5px;background:var(--heat0);border:0;padding:0;cursor:pointer}
+.cell.h1{background:var(--heat1)}.cell.h2{background:var(--heat2)}.cell.h3{background:var(--heat3)}.cell.h4{background:var(--heat4)}
+.cell.future{visibility:hidden}
+.cell.today{box-shadow:0 0 0 2px var(--amber) inset}
+.cell.sel{outline:3px solid var(--text);outline-offset:1px}
+.legend{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);margin-top:10px;flex-wrap:wrap}
+.legend i{width:14px;height:14px;border-radius:4px;display:inline-block}
+.dayinfo{margin-top:12px;padding:12px 14px;background:var(--soft);border-radius:12px;font-size:15px}
+.dayinfo ul{margin:6px 0 0;padding-left:18px}
+
+/* appky */
+.app-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.app-head .subj{font-size:13px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.avg{display:flex;align-items:center;gap:10px}
+.avg .gr{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-size:28px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+.avg .gt{font-size:13px;color:var(--muted);font-weight:700;line-height:1.2;max-width:90px}
+.facts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:10px 0 4px;font-size:15px}
+.facts b{font-variant-numeric:tabular-nums}
+.lbl{font-size:13px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:14px 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff;font-variant-numeric:tabular-nums}
+.bg1{background:var(--g1)}.bg2{background:var(--g2)}.bg3{background:var(--g3)}.bg4{background:var(--g4)}.bg5{background:var(--g5)}
+.bgx{background:var(--line);color:var(--muted)}
+.trend{font-size:14px;font-weight:700;margin-top:6px}
+.trend.up{color:var(--g1)}.trend.down{color:var(--g5)}.trend.flat{color:var(--muted)}
+.weak{display:flex;flex-wrap:wrap;gap:6px}
+.weak span{background:var(--soft);border:2px solid var(--g4);border-radius:10px;padding:4px 10px;font-weight:700;font-size:15px}
+.weak span em{font-style:normal;color:var(--muted);font-weight:600;margin-left:4px}
+.ok-note{color:var(--g1);font-weight:700;font-size:15px}
+details{margin-top:10px}
+summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:800;color:var(--ink);font-size:15px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸";margin-right:8px;transition:transform .15s}
+details[open] summary::before{transform:rotate(90deg)}
+.bars{display:flex;flex-direction:column;gap:6px}
+.bar{display:grid;grid-template-columns:minmax(90px,38%) 1fr 74px;align-items:center;gap:8px;font-size:15px}
+.bar .tr{height:12px;background:var(--heat0);border-radius:6px;overflow:hidden}
+.bar .fl{display:block;height:100%;background:var(--g1);border-radius:6px}
+.bar .fl.mid{background:var(--g3)}.bar .fl.low{background:var(--g5)}
+.bar .pc{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px}
+
+/* poslední kola */
+.rounds{display:flex;flex-direction:column}
+.round{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:10px 0;border-top:1px solid var(--line)}
+.round:first-child{border-top:0}
+.round .t{font-weight:800}
+.round .d{font-size:14px;color:var(--muted);grid-column:1}
+.round .chip{grid-row:1 / span 2;grid-column:2;align-self:center;width:36px;height:36px}
+
+.btn{min-height:48px;padding:10px 18px;border-radius:14px;border:2px solid var(--ink);background:var(--ink);color:var(--card);font:800 17px var(--f-body);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.demo-flag{background:var(--amber);color:#fff;border-radius:12px;padding:10px 14px;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.demo-flag .btn{min-height:40px;padding:6px 14px;background:#fff;color:var(--amber);border-color:#fff;font-size:15px}
+.empty{text-align:center;padding:28px 18px}
+.empty p{margin:0 0 14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← Zpět na rozcestník</a>
+  <h1><small>Pro rodiče</small>Šimonova historie</h1>
+  <div id="demoFlag" class="demo-flag" hidden><span>Ukázková data – nejsou Šimonova a nikam se neukládají.</span><button type="button" class="btn" id="btnDemoOff">Zpět na skutečná data</button></div>
+  <div id="root"></div>
+  <p class="muted small" id="foot"></p>
+</div>
+<script src="sync.js"></script>
+<script>
+(function(){
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const LOG_KEY = 'uceni-historie-v1';
+
+  /* ---------- registr appek: kde leží data a jak pojmenovat kategorie ---------- */
+  const PADY = ['', '1. pád (kdo, co)','2. pád (bez koho, čeho)','3. pád (ke komu, čemu)','4. pád (koho, co)','5. pád (oslovujeme)','6. pád (o kom, o čem)','7. pád (s kým, s čím)'];
+  const DRUHY = ['', '1 podstatná jména','2 přídavná jména','3 zájmena','4 číslovky','5 slovesa','6 příslovce','7 předložky','8 spojky','9 částice','10 citoslovce'];
+  const APPS = [
+    { id:'mala-nasobilka', name:'Malá násobilka', subj:'Matematika', href:'matematika/mala-nasobilka.html', unit:'příkladů',
+      cats: s => { // spoje "axb" -> řady 1–10
+        const rows = {}, cells = s.cells || {};
+        for (const k in cells){ const [a,b] = k.split('x').map(Number), c = cells[k];
+          new Set([a,b]).forEach(r => { rows[r] = rows[r] || {ok:0,bad:0}; rows[r].ok += c.ok||0; rows[r].bad += c.bad||0; }); }
+        return Object.keys(rows).map(Number).sort((a,b)=>a-b).map(r => ({ name:'řada '+r, ok:rows[r].ok, bad:rows[r].bad }));
+      },
+      weakItems: s => { const out = [], cells = s.cells || {};
+        for (const k in cells){ const c = cells[k], n = (c.ok||0)+(c.bad||0); if (n>=2 && c.bad>0) out.push({ name:k.replace('x',' · '), ok:c.ok||0, bad:c.bad||0 }); }
+        return out; },
+      total: s => { let ok=0,bad=0; const cells = s.cells||{}; for (const k in cells){ ok+=cells[k].ok||0; bad+=cells[k].bad||0; } return {ok,bad}; } },
+    { id:'deleni-jednocifernym', name:'Dělení jednociferným číslem', subj:'Matematika', href:'matematika/deleni-jednocifernym.html', unit:'příkladů',
+      label: k => 'dělitel '+k },
+    { id:'slovni-druhy', name:'Slovní druhy', subj:'Český jazyk', href:'cestina/slovni-druhy.html', unit:'slov',
+      label: k => DRUHY[k] || k },
+    { id:'urcovani-padu', name:'Určování pádů', subj:'Český jazyk', href:'cestina/urcovani-padu.html', unit:'slov',
+      label: k => PADY[k] || k },
+    { id:'vyjmenovana-slova', name:'Vyjmenovaná slova', subj:'Český jazyk', href:'cestina/vyjmenovana-slova.html', unit:'doplnění',
+      label: k => 'po '+k, order:['B','L','M','P','S','V','Z'] },
+  ];
+
+  /* ---------- čtení dat ---------- */
+  function readJSON(key, fb){ try { const r = localStorage.getItem(key); return r ? JSON.parse(r) : fb; } catch(e){ return fb; } }
+  let DEMO = null, REMOTE = null, REMOTE_STATUS = 'off', REMOTE_AT = null; // off | loading | ok | error
+  const SYNC = window.UceniSync && window.UceniSync.enabled ? window.UceniSync : null;
+  function getState(id){
+    if (DEMO) return DEMO.states[id] || null;
+    const loc = readJSON(id+'-v1', null), rem = REMOTE && REMOTE.states ? REMOTE.states[id] || null : null;
+    if (!rem) return loc; if (!loc) return rem;
+    // v Šimonově zařízení je lokální stav nejčerstvější; jinde (táta) bereme ten s více úlohami
+    const app = APPS.find(a => a.id===id), n = st => { const t = totalOf(app, st); return t.ok+t.bad; };
+    return n(loc) >= n(rem) ? loc : rem;
+  }
+  function getLog(){
+    if (DEMO) return DEMO.log;
+    const loc = readJSON(LOG_KEY, []), rem = REMOTE && Array.isArray(REMOTE.log) ? REMOTE.log : [];
+    const seen = new Map();
+    [].concat(Array.isArray(loc) ? loc : [], rem).forEach(r => { if (r && r.a && r.t) seen.set(r.a+'|'+r.t, { ...r, t:+r.t, n:+r.n, e:+r.e, g:+r.g }); });
+    return [...seen.values()];
+  }
+
+  function catsOf(app, s){
+    if (!s) return [];
+    if (app.cats) return app.cats(s);
+    const st = s.stat || {};
+    let keys = Object.keys(st);
+    if (app.order) keys.sort((a,b)=>app.order.indexOf(a)-app.order.indexOf(b));
+    else keys.sort((a,b)=>(+a)-(+b) || String(a).localeCompare(b));
+    return keys.map(k => ({ name: app.label ? app.label(k) : k, ok: st[k].ok||0, bad: st[k].bad||0 }));
+  }
+  function totalOf(app, s){
+    if (!s) return {ok:0,bad:0};
+    if (app.total) return app.total(s);
+    return catsOf(app, s).reduce((a,c)=>({ok:a.ok+c.ok,bad:a.bad+c.bad}), {ok:0,bad:0});
+  }
+
+  /* ---------- formátování (česky) ---------- */
+  const fmtN = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  const fmtDec = (x, d=1) => x.toFixed(d).replace('.', ',');
+  const pct = (ok, bad) => (ok+bad) ? Math.round(100*ok/(ok+bad)) : null;
+  const dayKey = t => { const d = new Date(t); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
+  const startOfDay = t => { const d = new Date(t); d.setHours(0,0,0,0); return d.getTime(); };
+  const DNY = ['ne','po','út','st','čt','pá','so'];
+  const MES = ['led','úno','bře','dub','kvě','čvn','čvc','srp','zář','říj','lis','pro'];
+  function fmtDay(t){ const d = new Date(t); return `${DNY[d.getDay()]} ${d.getDate()}. ${d.getMonth()+1}.`; }
+  function fmtTime(t){ const d = new Date(t); return d.getHours()+':'+String(d.getMinutes()).padStart(2,'0'); }
+  function ago(t){
+    const days = Math.round((startOfDay(Date.now()) - startOfDay(t)) / 864e5);
+    if (days<=0) return 'dnes v '+fmtTime(t);
+    if (days===1) return 'včera v '+fmtTime(t);
+    if (days<5) return `před ${days} dny`;
+    return fmtDay(t);
+  }
+  function plural(n, one, few, many){ return n===1 ? one : (n>=2 && n<=4) ? few : many; }
+  const GRADE_WORD = ['', 'výborně', 'chvalitebně', 'dobře', 'dostatečně', 'nedostatečně'];
+  const gcls = g => 'bg' + Math.min(5, Math.max(1, Math.round(g)));
+  function el(tag, cls, text){ const e = document.createElement(tag); if (cls) e.className = cls; if (text!=null) e.textContent = text; return e; }
+
+  /* ---------- vykreslení ---------- */
+  function render(){
+    const root = $('root'); root.innerHTML = '';
+    const log = getLog().slice().sort((a,b)=>a.t-b.t);
+    const data = APPS.map(app => {
+      const s = getState(app.id), tot = totalOf(app, s), rounds = log.filter(r => r.a===app.id);
+      return { app, s, tot, cats: catsOf(app, s), rounds, last: rounds.length ? rounds[rounds.length-1].t : null };
+    });
+    const any = log.length || data.some(d => d.tot.ok+d.tot.bad > 0);
+    $('demoFlag').hidden = !DEMO;
+
+    if (REMOTE_STATUS==='loading' && !any){ const c = el('div','card empty'); c.append(el('p',null,'Načítám Šimonovy výsledky…')); root.append(c); return; }
+    if (!any){
+      const c = el('div','card empty');
+      c.append(el('p',null, SYNC ? 'Zatím tu nic není. Jakmile Šimon dokončí první kolo v některé appce, objeví se tu.' : 'Zatím tu nic není. Jakmile Šimon v tomto zařízení dokončí první kolo v některé appce, objeví se tu.'));
+      const b = el('button','btn ghost','Ukázat ukázková data'); b.type='button'; b.onclick = () => { DEMO = makeDemo(); render(); };
+      c.append(b); root.append(c); setFoot(log); return;
+    }
+
+    root.append(renderSummary(data, log));
+    root.append(renderCalendar(log));
+    data.slice().sort((a,b)=>(b.last||0)-(a.last||0) || (b.tot.ok+b.tot.bad)-(a.tot.ok+a.tot.bad))
+        .forEach(d => root.append(renderApp(d)));
+    if (log.length) root.append(renderRounds(log));
+    setFoot(log);
+  }
+
+  function renderSummary(data, log){
+    const c = el('section','card'); c.append(el('h2',null,'Celkem'));
+    const ok = data.reduce((a,d)=>a+d.tot.ok,0), bad = data.reduce((a,d)=>a+d.tot.bad,0);
+    const days = new Set(log.map(r => dayKey(r.t)));
+    // série dní: počítá se od dneška, nebo od včerejška, pokud dnes ještě nic
+    let streak = 0, t = startOfDay(Date.now());
+    if (!days.has(dayKey(t))) t -= 864e5;
+    while (days.has(dayKey(t))){ streak++; t -= 864e5; }
+    const week = log.filter(r => r.t >= startOfDay(Date.now()) - 6*864e5);
+    const avg = log.length ? log.reduce((a,r)=>a+r.g,0)/log.length : null;
+    const tiles = el('div','tiles');
+    [[fmtN(ok+bad), 'úloh celkem'],
+     [pct(ok,bad)===null ? '–' : pct(ok,bad)+' %', 'napoprvé správně'],
+     [avg===null ? '–' : fmtDec(avg), 'průměrná známka'],
+     [String(days.size), plural(days.size,'den procvičování','dny procvičování','dní procvičování')],
+     [String(week.length), plural(week.length,'kolo za 7 dní','kola za 7 dní','kol za 7 dní')],
+     [String(streak), plural(streak,'den v řadě','dny v řadě','dní v řadě')]
+    ].forEach(([v,l]) => { const t = el('div','tile'); t.append(el('b',null,v), el('span',null,l)); tiles.append(t); });
+    c.append(tiles);
+    return c;
+  }
+
+  function renderCalendar(log){
+    const WEEKS = 12;
+    const c = el('section','card'); c.append(el('h2',null,'Kalendář procvičování'));
+    const byDay = {}; log.forEach(r => { const k = dayKey(r.t); (byDay[k] = byDay[k] || []).push(r); });
+    const today = startOfDay(Date.now());
+    const dow = (new Date(today).getDay()+6)%7; // po = 0
+    const start = today - (dow + (WEEKS-1)*7)*864e5;
+    const grid = el('div','cal'); grid.style.setProperty('--weeks', WEEKS);
+    // řádek s měsíci
+    grid.append(el('div','ml',''));
+    let lastM = -1;
+    for (let w=0; w<WEEKS; w++){ const m = new Date(start + w*7*864e5).getMonth(); grid.append(el('div','ml', m!==lastM ? MES[m] : '')); lastM = m; }
+    const info = el('div','dayinfo'); info.hidden = true;
+    let selBtn = null;
+    ['po','út','st','čt','pá','so','ne'].forEach((dn, d) => {
+      grid.append(el('div','dl', d%2===0 ? dn : ''));
+      for (let w=0; w<WEEKS; w++){
+        const t = start + (w*7+d)*864e5, k = dayKey(t), rs = byDay[k] || [];
+        const n = rs.reduce((a,r)=>a+(r.n||0),0);
+        const b = el('button','cell'); b.type='button';
+        if (t > today) b.classList.add('future');
+        if (t === today) b.classList.add('today');
+        if (n>0) b.classList.add(n<10 ? 'h1' : n<25 ? 'h2' : n<50 ? 'h3' : 'h4');
+        b.setAttribute('aria-label', `${fmtDay(t)}: ${rs.length ? rs.length+' '+plural(rs.length,'kolo','kola','kol')+', '+n+' úloh' : 'nic'}`);
+        b.onclick = () => {
+          if (selBtn) selBtn.classList.remove('sel'); selBtn = b; b.classList.add('sel');
+          info.hidden = false; info.innerHTML = '';
+          const h = el('strong',null, fmtDay(t)+(rs.length ? ` – ${rs.length} ${plural(rs.length,'kolo','kola','kol')}, ${n} úloh` : ' – bez procvičování'));
+          info.append(h);
+          if (rs.length){ const ul = el('ul');
+            rs.forEach(r => ul.append(el('li',null, `${fmtTime(r.t)} ${appName(r.a)} – ${r.n-r.e}/${r.n} napoprvé správně, známka ${r.g}`)));
+            info.append(ul); }
+        };
+        grid.append(b);
+      }
+    });
+    const sc = el('div','cal-scroll'); sc.append(grid); c.append(sc);
+    const lg = el('div','legend'); lg.append(el('span',null,'méně'));
+    ['--heat0','--heat1','--heat2','--heat3','--heat4'].forEach(v => { const i = el('i'); i.style.background = `var(${v})`; lg.append(i); });
+    lg.append(el('span',null,'více úloh za den · klepni na den pro detail'));
+    c.append(lg, info);
+    return c;
+  }
+
+  function appName(id){ const a = APPS.find(x => x.id===id); return a ? a.name : id; }
+
+  function renderApp(d){
+    const { app, s, tot, cats, rounds } = d;
+    const c = el('section','card');
+    const head = el('div','app-head');
+    const ttl = el('div'); ttl.append(el('div','subj',app.subj), el('h3',null,app.name)); head.append(ttl);
+    const recent = rounds.slice(-10);
+    if (recent.length){
+      const avg = recent.reduce((a,r)=>a+r.g,0)/recent.length;
+      const box = el('div','avg'); const g = el('div','gr '+gcls(avg), fmtDec(avg));
+      box.append(g, el('div','gt', recent.length<10 ? `průměr ${recent.length} ${plural(recent.length,'kola','kol','kol')}` : 'průměr posledních 10 kol'));
+      head.append(box);
+    }
+    c.append(head);
+
+    const n = tot.ok+tot.bad, p = pct(tot.ok, tot.bad);
+    if (!n && !rounds.length){ c.append(el('p','muted','Zatím nezkoušel.')); return c; }
+    const facts = el('div','facts');
+    const f = (label, val) => { const s = el('span'); s.append(document.createTextNode(label+' '), el('b',null,val)); facts.append(s); };
+    f('Úloh:', fmtN(n)); if (p!==null) f('Napoprvé správně:', p+' %');
+    f('Kol:', String(rounds.length));
+    if (d.last) f('Naposledy:', ago(d.last));
+    c.append(facts);
+
+    // vývoj známek
+    if (rounds.length){
+      c.append(el('div','lbl','Vývoj známek (starší → novější)'));
+      const chips = el('div','chips');
+      rounds.slice(-20).forEach(r => { const ch = el('span','chip '+gcls(r.g), String(r.g)); ch.title = `${fmtDay(r.t)} ${fmtTime(r.t)} · ${r.d||''} · ${r.n-r.e}/${r.n}`; chips.append(ch); });
+      c.append(chips);
+      if (rounds.length >= 6){
+        const last5 = rounds.slice(-5), prev = rounds.slice(-10,-5);
+        const a1 = last5.reduce((a,r)=>a+r.g,0)/last5.length, a0 = prev.reduce((a,r)=>a+r.g,0)/prev.length, diff = a1-a0;
+        const tr = diff <= -0.4 ? ['up','↗ Zlepšuje se'] : diff >= 0.4 ? ['down','↘ Poslední kola jdou hůř'] : ['flat','→ Drží stejnou úroveň'];
+        c.append(el('div','trend '+tr[0], `${tr[1]} (průměr posledních 5 kol ${fmtDec(a1)}, předtím ${fmtDec(a0)})`));
+      }
+    }
+
+    // slabá místa
+    c.append(el('div','lbl','Slabá místa'));
+    const pool = (app.weakItems ? app.weakItems(s) : cats).filter(x => x.ok+x.bad >= (app.weakItems ? 2 : 5));
+    const weak = pool.map(x => ({...x, p: pct(x.ok,x.bad)})).filter(x => x.p < 80).sort((a,b)=>a.p-b.p || (b.bad-a.bad)).slice(0, 6);
+    if (weak.length){
+      const w = el('div','weak');
+      weak.forEach(x => { const s = el('span',null,x.name); s.append(el('em',null, `${x.p} % (${x.bad}× chyba)`)); w.append(s); });
+      c.append(w);
+    } else if (pool.length){
+      c.append(el('div','ok-note','Nic pod 80 % – všechno mu jde.'));
+    } else c.append(el('div','muted small','Zatím málo dat (každá kategorie potřebuje aspoň 5 úloh).'));
+
+    // všechny kategorie
+    if (cats.length){
+      const det = el('details'); det.append(el('summary',null,'Úspěšnost po kategoriích'));
+      const bars = el('div','bars');
+      cats.forEach(x => {
+        const n = x.ok+x.bad, p = pct(x.ok,x.bad);
+        const row = el('div','bar'); row.append(el('span',null,x.name));
+        const tr = el('span','tr'), fl = el('span','fl'+(p===null?'':p>=80?'':p>=50?' mid':' low')); fl.style.width = (p||0)+'%'; tr.append(fl);
+        row.append(tr, el('span','pc', p===null ? '–' : `${p} % · ${n}`));
+        bars.append(row);
+      });
+      det.append(bars); c.append(det);
+    }
+    return c;
+  }
+
+  function renderRounds(log){
+    const c = el('section','card'); c.append(el('h2',null,'Poslední kola'));
+    const list = el('div','rounds');
+    log.slice(-15).reverse().forEach(r => {
+      const row = el('div','round');
+      row.append(el('span','t', appName(r.a)));
+      row.append(el('span','chip '+gcls(r.g), String(r.g)));
+      row.append(el('span','d', `${fmtDay(r.t)} ${fmtTime(r.t)} · ${r.d ? r.d+' · ' : ''}napoprvé ${r.n-r.e} z ${r.n} (${GRADE_WORD[r.g]||''})`));
+      list.append(row);
+    });
+    c.append(list);
+    return c;
+  }
+
+  function setFoot(log){
+    const first = log.length ? fmtDay(log[0].t) + ' ' + new Date(log[0].t).getFullYear() : null;
+    const src = !SYNC ? 'Data jsou uložená jen v tomto zařízení a nikam se neodesílají. '
+      : REMOTE_STATUS==='ok' ? `Data ze všech zařízení (online, načteno v ${fmtTime(REMOTE_AT)}). `
+      : REMOTE_STATUS==='error' ? 'Online data se nepodařilo načíst – zobrazuji jen data z tohoto zařízení. '
+      : 'Načítám online data… ';
+    $('foot').textContent = src
+      + 'Úspěšnost po kategoriích počítá vše od začátku používání appek; známky a kalendář se zapisují od 31. 10. 2026'
+      + (first ? ` (první zapsané kolo: ${first}).` : '.')
+      + ' Smazání průběhu v appce vynuluje její úspěšnost, historie kol zůstává.';
+  }
+
+  /* ---------- ukázková data (jen v paměti, nic se neukládá) ---------- */
+  function makeDemo(){
+    let seed = 7; const r = () => (seed = (seed*16807) % 2147483647) / 2147483647;
+    const ri = (a,b) => a + Math.floor(r()*(b-a+1));
+    const states = {}, log = [];
+    const cells = {};
+    for (let a=1;a<=10;a++) for (let b=a;b<=10;b++){ const hard = (a>=6&&b>=6); cells[a+'x'+b] = { ok: ri(2,8), bad: hard ? ri(0,4) : (r()<.15?1:0), last:1 }; }
+    states['mala-nasobilka'] = { cells };
+    const mk = (keys, weakKey) => { const st = {}; keys.forEach(k => { const n = ri(8,30), bad = k===weakKey ? Math.round(n*0.4) : Math.round(n*r()*0.18); st[k] = {ok:n-bad, bad}; }); return { stat: st }; };
+    states['deleni-jednocifernym'] = mk(['2','3','4','5','6','7','8','9'], '7');
+    states['slovni-druhy'] = mk(['1','2','3','4','5','6','7','8','9','10'], '9');
+    states['urcovani-padu'] = mk(['1','2','3','4','5','6','7'], '2');
+    states['vyjmenovana-slova'] = mk(['B','L','M','P','S'], 'S');
+    const now = Date.now(), ids = APPS.map(a=>a.id), det = { 'mala-nasobilka':'řady 6, 7, 8, 9 · násobení', 'deleni-jednocifernym':'písemně · dělitel 2–9', 'slovni-druhy':'jednotlivá slova', 'urcovani-padu':'pády 1–7', 'vyjmenovana-slova':'spojení · B, L, M, P, S' };
+    for (let day=40; day>=0; day--){
+      if (r() < 0.45) continue;
+      const k = ri(1,3);
+      for (let i=0;i<k;i++){
+        const a = ids[ri(0,ids.length-1)], n = a==='mala-nasobilka' ? 10 : a==='deleni-jednocifernym' ? 8 : 12;
+        const skill = 0.55 + (40-day)/40*0.35, e = Math.max(0, Math.round(n*(1-skill)*r()*1.4));
+        const ratio = e/n, g = ratio<=0.1?1:ratio<=0.25?2:ratio<=0.5?3:ratio<=0.75?4:5;
+        log.push({ a, t: startOfDay(now) - day*864e5 + (15+i)*36e5 + ri(0,50)*6e4, n, e, g, d: det[a] });
+      }
+    }
+    return { states, log: log.filter(x => x.t <= now) };
+  }
+  $('btnDemoOff').onclick = () => { DEMO = null; render(); };
+
+  async function loadRemote(){
+    if (!SYNC) return;
+    REMOTE_STATUS = 'loading'; render();
+    try { REMOTE = await SYNC.fetchAll(); REMOTE_STATUS = 'ok'; REMOTE_AT = Date.now(); }
+    catch(e) { REMOTE_STATUS = 'error'; }
+    if (!DEMO) render();
+  }
+  render(); loadRemote();
+  // po návratu do záložky ukaž aktuální stav
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && !DEMO){ render(); loadRemote(); } });
+})();
+</script>
+</body>
+</html>

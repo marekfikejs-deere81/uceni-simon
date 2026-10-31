@@ -3,8 +3,8 @@
   Název:   Dělení jednociferným číslem
   Předmět: Matematika
   Téma:    Dělení jednociferným dělitelem se zbytkem i beze zbytku – zpaměti a písemně
-  Datum:   2026-10-23
-  Verze:   1.0
+  Datum:   2026-10-31
+  Verze:   1.1 (zápis kol do historie, online synchronizace)
 -->
 <html lang="cs">
 <head>
@@ -233,6 +233,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offs
     <button type="button" class="link reset" id="btnReset"></button>
   </section>
 </div>
+<script src="../sync.js"></script>
 <script>
 (function(){
   /* ---------- společné pomocné funkce ---------- */
@@ -544,6 +545,10 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offs
 
   function finish(){
     const g = gradeOf(R.errors, R.total);
+    /* záznam kola pro Šimonovu historii (lokálně + online, je-li zapnuto v sync.js) */
+    const E = {a:'deleni-jednocifernym', t:Date.now(), n:R.total, e:R.errors, g:g, d:(R.way==='written'?'písemně':'zpaměti')+' · dělitel '+S.divs.join(', ')};
+    try { const LK='uceni-historie-v1', H=JSON.parse(localStorage.getItem(LK)||'[]'); H.push(E); localStorage.setItem(LK, JSON.stringify(H.slice(-1500))); } catch(e) {}
+    try { if (window.UceniSync) window.UceniSync.push(E, S); } catch(e) {}
     $('rGrade').textContent = g; $('rWord').textContent = GRADE_WORD[g];
     $('rSum').textContent = `Napoprvé bez chyby ${R.total-R.errors} z ${R.total} · získané hvězdičky: ${R.stars}`;
     const box = $('rMiss'); box.innerHTML = '';

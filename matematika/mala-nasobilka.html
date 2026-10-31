@@ -3,8 +3,8 @@
   Název:   Malá násobilka
   Předmět: Matematika
   Téma:    Malá násobilka a dělení v oboru násobilek (řady 1–10)
-  Datum:   2026-10-23
-  Verze:   1.0
+  Datum:   2026-10-31
+  Verze:   1.1 (zápis kol do historie, online synchronizace)
 -->
 <html lang="cs">
 <head>
@@ -214,6 +214,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offs
   </section>
 </div>
 
+<script src="../sync.js"></script>
 <script>
 (function(){
   const KEY = 'mala-nasobilka-v1';
@@ -415,6 +416,10 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offs
 
   function finish(){
     const g = grade(R.misses.length);
+    /* záznam kola pro Šimonovu historii (lokálně + online, je-li zapnuto v sync.js) */
+    const E = {a:'mala-nasobilka', t:Date.now(), n:ROUND, e:ROUND-R.first, g:g, d:(R.mode==='weak'?'slabé spoje':'řady '+S.rows.join(', '))+' · '+({n:'násobení',d:'dělení',mix:'násobení i dělení'}[S.op]||'')};
+    try { const LK='uceni-historie-v1', H=JSON.parse(localStorage.getItem(LK)||'[]'); H.push(E); localStorage.setItem(LK, JSON.stringify(H.slice(-1500))); } catch(e) {}
+    try { if (window.UceniSync) window.UceniSync.push(E, S); } catch(e) {}
     $('rGrade').textContent = g;
     $('rWord').textContent = GRADE_WORD[g];
     $('rSum').textContent = `Napoprvé správně ${R.first} z ${ROUND} · získané hvězdičky: ${R.stars}`;

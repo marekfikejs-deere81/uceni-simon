@@ -4,8 +4,8 @@
   Předmět: Český jazyk
   Téma:    Psaní i/í, y/ý po obojetných souhláskách B, L, M, P, S, V, Z – doplňování s odůvodněním
            (formát podle pracovního sešitu: slovní spojení po řadách, souvislý text, odůvodni pravopis, „!!!“)
-  Datum:   2026-10-30
-  Verze:   1.0
+  Datum:   2026-10-31
+  Verze:   1.1 (zápis kol do historie, online synchronizace)
 -->
 <html lang="cs">
 <head>
@@ -259,6 +259,7 @@ details[open] summary::after{transform:rotate(90deg)}
   </section>
 </div>
 
+<script src="../sync.js"></script>
 <script>
 (function(){
   /* ================= DATA ================= */
@@ -656,6 +657,10 @@ details[open] summary::after{transform:rotate(90deg)}
   }
   function finish(){
     const total = R.gaps.length, g = gradeOf(R.errors, total);
+    /* záznam kola pro Šimonovu historii (lokálně + online, je-li zapnuto v sync.js) */
+    const E = {a:'vyjmenovana-slova', t:Date.now(), n:total, e:R.errors, g:g, d:(S.mode==='txt'?'text':'spojení')+' · '+S.sel.join(', ')};
+    try { const LK='uceni-historie-v1', H=JSON.parse(localStorage.getItem(LK)||'[]'); H.push(E); localStorage.setItem(LK, JSON.stringify(H.slice(-1500))); } catch(e) {}
+    try { if (window.UceniSync) window.UceniSync.push(E, S); } catch(e) {}
     $('rGrade').textContent = g; $('rWord').textContent = GRADE_WORD[g];
     $('rSum').textContent = `Napoprvé správně ${total-R.errors} z ${total} · hvězdičky: ${R.stars}`;
     const box = $('rMiss'); box.innerHTML = '';
