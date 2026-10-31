@@ -3,12 +3,12 @@
   Téma:    Posílá dokončená kola a průběh appek do Google tabulky rodiče, aby šla Šimonova historie
            otevřít na jakémkoli zařízení. Bez nastavené adresy nedělá nic a appky fungují jen lokálně.
   Datum:   2026-10-31
-  Verze:   1.0
+  Verze:   1.1 (nastavena adresa Google tabulky)
   Nastavení: do SYNC_URL vlož adresu webové aplikace Google Apps Script (končí na /exec).
 */
 window.UceniSync = (function(){
   'use strict';
-  const SYNC_URL = '';
+  const SYNC_URL = 'https://script.google.com/macros/s/AKfycbyex0KfzQUKqWTkgGHqI6BRDBs3gdkizCgiuOlybS4KmmR4wbfqXS3Bf4serbeRtmsU7Q/exec';
   const QUEUE_KEY = 'uceni-sync-fronta-v1';
   const INIT_KEY = 'uceni-sync-uvod-v1';
   const LOG_KEY = 'uceni-historie-v1';
