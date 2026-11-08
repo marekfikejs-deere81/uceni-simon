@@ -4,7 +4,7 @@
   Předmět: — (přehled pro rodiče)
   Téma:    Úspěšnost v jednotlivých appkách, slabá místa, vývoj známek a kalendář procvičování
   Datum:   2026-11-08
-  Verze:   1.2 (přidána appka Přijímačky – matematika)
+  Verze:   1.3 (přidána appka Naše vlast)
   Pozn.:   Čte data z tohoto zařízení (localStorage) a, je-li v sync.js nastavená adresa, i z Google tabulky.
            Nová appka: doplň ji do pole APPS níže a v její funkci finish() zapisuj kolo do 'uceni-historie-v1'.
 -->
@@ -162,6 +162,9 @@ details[open] summary::before{transform:rotate(90deg)}
       label: k => PADY[k] || k },
     { id:'vyjmenovana-slova', name:'Vyjmenovaná slova', subj:'Český jazyk', href:'cestina/vyjmenovana-slova.html', unit:'doplnění',
       label: k => 'po '+k, order:['B','L','M','P','S','V','Z'] },
+    { id:'nase-vlast', name:'Naše vlast', subj:'Český jazyk', href:'cestina/nase-vlast.html', unit:'úloh',
+      label: k => ({velka:'Velká písmena', mesta:'Krajská města a kraje', iy:'i/y po obojetných', slovesa:'Slovesa', souveti:'Souvětí a čárky', vyznam:'Význam slov', sz:'Předložky s/z', slabiky:'Slabiky', prislovi:'Přísloví a rčení', hymna:'Hymna a symboly'})[k] || k,
+      order:['velka','mesta','iy','slovesa','souveti','vyznam','sz','slabiky','prislovi','hymna'] },
     { id:'jpz-matematika', name:'Přijímačky – matematika', subj:'Přijímačky na gympl', href:'prijimacky/jpz-matematika.html', unit:'úloh',
       label: k => JPZ_M[k] || k, order:["poradi", "pisemne", "nasobeni", "zaokrouhlovani", "cisla", "okolik", "cast", "zlomky", "desetinna", "slovni", "jednotky", "cas", "data", "obvod", "obsah", "obsah2", "soumernost", "primky", "krychle", "telesa", "rady", "logika"] },
   ];
