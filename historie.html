@@ -4,7 +4,7 @@
   Předmět: — (přehled pro rodiče)
   Téma:    Úspěšnost v jednotlivých appkách, slabá místa, vývoj známek a kalendář procvičování
   Datum:   2026-11-08
-  Verze:   1.4 (přidány appky Čísla do 10 000 a Naše vlast)
+  Verze:   1.5 (přidána appka Přijímačky – čeština)
   Pozn.:   Čte data z tohoto zařízení (localStorage) a, je-li v sync.js nastavená adresa, i z Google tabulky.
            Nová appka: doplň ji do pole APPS níže a v její funkci finish() zapisuj kolo do 'uceni-historie-v1'.
 -->
@@ -141,6 +141,7 @@ details[open] summary::before{transform:rotate(90deg)}
   /* ---------- registr appek: kde leží data a jak pojmenovat kategorie ---------- */
   const PADY = ['', '1. pád (kdo, co)','2. pád (bez koho, čeho)','3. pád (ke komu, čemu)','4. pád (koho, co)','5. pád (oslovujeme)','6. pád (o kom, o čem)','7. pád (s kým, s čím)'];
   const JPZ_M = {'poradi':'Pořadí výpočtů a závorky','pisemne':'Písemné sčítání, odčítání, násobení','nasobeni':'Násobení až čtyřciferným, dělení','zaokrouhlovani':'Zaokrouhlování','cisla':'Čísla do milionu a číselná osa','okolik':'O kolik a kolikrát','cast':'Část celku (polovina, třetina…)','zlomky':'Zlomky, o třetinu více a méně','desetinna':'Desetinná a záporná čísla na ose','slovni':'Slovní úlohy','jednotky':'Převody jednotek','cas':'Počítání s časem','data':'Tabulky a sloupcové diagramy','obvod':'Obvod','obsah':'Obsah obdélníku a čtverce','obsah2':'Obsah trojúhelníku a složených obrazců','soumernost':'Osová souměrnost','primky':'Rovnoběžky, kolmice, různoběžky','krychle':'Stavby z krychliček','telesa':'Tělesa: koule, válec, kužel, jehlan','rady':'Číselné a obrázkové řady','logika':'Logické a kombinatorické úlohy'};
+  const JPZ_C = {'texty':'Práce s výchozím textem','fakta':'Fakta a domněnky','poradi':'Pořadí částí textu','utvary':'Slohové útvary a druhy vět','iy':'i/y: vyjmenovaná a příbuzná slova','lex':'ú/ů, bě/bje, párové souhlásky, s-/z-','koncovky':'Koncovky podstatných jmen','chyby':'Najdi 4 chyby v textu','shoda':'Shoda přísudku s podmětem','mne':'Mě, nebo mně?','carky':'Čárky ve větě a souvětí','vyznam':'Souznačná, protikladná a mnohoznačná slova','citova':'Zdrobněliny a citově zabarvená slova','pribuzna':'Slova příbuzná a stavba slova','nadrazena':'Slova nadřazená, podřazená, souřadná','spisovne':'Spisovná a nespisovná slova','prislovi':'Přísloví, rčení a pranostiky','hlasky':'Slabiky a dvojhlásky','veta':'Věta jednoduchá, souvětí, spojovací výrazy','zsd':'Podmět a přísudek','tvorvetu':'Tvoření vět (hodnotí rodič)','podmet2':'Podmět nevyjádřený a několikanásobný','prima':'Přímá a nepřímá řeč','druhy':'Slovní druhy','podstatna':'Podstatná jména: pád, číslo, rod, vzor','slovesa':'Slovesa: osoba, číslo, čas','pridavna':'Přídavná jména: druh, vzor, koncovky','zpusob':'Slovesný způsob','literatura':'Literární pojmy a útvary'};
   const C10K = {'porovnavani':'Porovnávání čísel','rozvinuty':'Rozvinutý zápis čísla','zaokrouhlovani':'Zaokrouhlování','pamscit':'Zpaměti: sčítání a odčítání','pamnas':'Zpaměti: násobení a dělení','pisscit':'Písemné sčítání','pisodc':'Písemné odčítání','pisnas':'Písemné násobení','poradi':'Pořadí výpočtů a závorky','slovni':'Slovní úlohy'};
   const DRUHY = ['', '1 podstatná jména','2 přídavná jména','3 zájmena','4 číslovky','5 slovesa','6 příslovce','7 předložky','8 spojky','9 částice','10 citoslovce'];
   const APPS = [
@@ -168,6 +169,8 @@ details[open] summary::before{transform:rotate(90deg)}
     { id:'nase-vlast', name:'Naše vlast', subj:'Český jazyk', href:'cestina/nase-vlast.html', unit:'úloh',
       label: k => ({velka:'Velká písmena', mesta:'Krajská města a kraje', iy:'i/y po obojetných', slovesa:'Slovesa', souveti:'Souvětí a čárky', vyznam:'Význam slov', sz:'Předložky s/z', slabiky:'Slabiky', prislovi:'Přísloví a rčení', hymna:'Hymna a symboly'})[k] || k,
       order:['velka','mesta','iy','slovesa','souveti','vyznam','sz','slabiky','prislovi','hymna'] },
+    { id:'jpz-cestina', name:'Přijímačky – čeština', subj:'Přijímačky na gympl', href:'prijimacky/jpz-cestina.html', unit:'úloh',
+      label: k => JPZ_C[k] || k, order:["texty", "fakta", "poradi", "utvary", "iy", "lex", "koncovky", "chyby", "shoda", "mne", "carky", "vyznam", "citova", "pribuzna", "nadrazena", "spisovne", "prislovi", "hlasky", "veta", "zsd", "tvorvetu", "podmet2", "prima", "druhy", "podstatna", "slovesa", "pridavna", "zpusob", "literatura"] },
     { id:'jpz-matematika', name:'Přijímačky – matematika', subj:'Přijímačky na gympl', href:'prijimacky/jpz-matematika.html', unit:'úloh',
       label: k => JPZ_M[k] || k, order:["poradi", "pisemne", "nasobeni", "zaokrouhlovani", "cisla", "okolik", "cast", "zlomky", "desetinna", "slovni", "jednotky", "cas", "data", "obvod", "obsah", "obsah2", "soumernost", "primky", "krychle", "telesa", "rady", "logika"] },
   ];
