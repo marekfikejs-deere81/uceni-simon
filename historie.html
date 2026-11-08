@@ -4,7 +4,7 @@
   Předmět: — (přehled pro rodiče)
   Téma:    Úspěšnost v jednotlivých appkách, slabá místa, vývoj známek a kalendář procvičování
   Datum:   2026-11-08
-  Verze:   1.5 (přidána appka Přijímačky – čeština)
+  Verze:   1.6 (přidána appka Podmět a přísudek)
   Pozn.:   Čte data z tohoto zařízení (localStorage) a, je-li v sync.js nastavená adresa, i z Google tabulky.
            Nová appka: doplň ji do pole APPS níže a v její funkci finish() zapisuj kolo do 'uceni-historie-v1'.
 -->
@@ -169,6 +169,9 @@ details[open] summary::before{transform:rotate(90deg)}
     { id:'nase-vlast', name:'Naše vlast', subj:'Český jazyk', href:'cestina/nase-vlast.html', unit:'úloh',
       label: k => ({velka:'Velká písmena', mesta:'Krajská města a kraje', iy:'i/y po obojetných', slovesa:'Slovesa', souveti:'Souvětí a čárky', vyznam:'Význam slov', sz:'Předložky s/z', slabiky:'Slabiky', prislovi:'Přísloví a rčení', hymna:'Hymna a symboly'})[k] || k,
       order:['velka','mesta','iy','slovesa','souveti','vyznam','sz','slabiky','prislovi','hymna'] },
+    { id:'podmet-a-prisudek', name:'Podmět a přísudek', subj:'Český jazyk', href:'cestina/podmet-a-prisudek.html', unit:'úloh',
+      label: k => ({teorie:'Otázky a značky', prisudek:'Najdi přísudek', podmet:'Najdi podmět', dvojice:'Celá dvojice', vyzva:'Výzva'})[k] || k,
+      order:['teorie','prisudek','podmet','dvojice','vyzva'] },
     { id:'jpz-cestina', name:'Přijímačky – čeština', subj:'Přijímačky na gympl', href:'prijimacky/jpz-cestina.html', unit:'úloh',
       label: k => JPZ_C[k] || k, order:["texty", "fakta", "poradi", "utvary", "iy", "lex", "koncovky", "chyby", "shoda", "mne", "carky", "vyznam", "citova", "pribuzna", "nadrazena", "spisovne", "prislovi", "hlasky", "veta", "zsd", "tvorvetu", "podmet2", "prima", "druhy", "podstatna", "slovesa", "pridavna", "zpusob", "literatura"] },
     { id:'jpz-matematika', name:'Přijímačky – matematika', subj:'Přijímačky na gympl', href:'prijimacky/jpz-matematika.html', unit:'úloh',

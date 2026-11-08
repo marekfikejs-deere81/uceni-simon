@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<!--
+  Název:   Podmět a přísudek
+  Předmět: Český jazyk
+  Téma:    Základní skladební dvojice – výklad, otázky a značky, hledání přísudku a podmětu ve větě jednoduché
+  Datum:   2026-11-08
+  Verze:   1.0
+-->
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Podmět a přísudek</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: jeden sloupec jako list ze sešitu na čtverečkovaném papíře; modré pero, červená tužka paní učitelky */
+:root{
+  --paper:#f7f9fd; --grid:#dfe8f5; --card:#ffffff; --card2:#f1f5fb; --line:#cfdbec;
+  --ink:#1d3a8f; --text:#1b2540; --muted:#5a6884;
+  --red:#cc2f27; --red-soft:#fbe1df; --green:#17804a; --green-soft:#d9f1e3;
+  --amber:#a8650a; --amber-soft:#fcecd0; --on-ink:#ffffff;
+  --f-display:"Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0e1526; --grid:#18233b; --card:#151f37; --card2:#1c2843; --line:#2b3b5e;
+  --ink:#9dc0ff; --text:#e4ebf7; --muted:#97a6c2;
+  --red:#ff7f73; --red-soft:#4a2228; --green:#62d494; --green-soft:#183d2c;
+  --amber:#f2b552; --amber-soft:#43341a; --on-ink:#0e1526; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#0e1526; --grid:#18233b; --card:#151f37; --card2:#1c2843; --line:#2b3b5e;
+  --ink:#9dc0ff; --text:#e4ebf7; --muted:#97a6c2;
+  --red:#ff7f73; --red-soft:#4a2228; --green:#62d494; --green-soft:#183d2c;
+  --amber:#f2b552; --amber-soft:#43341a; --on-ink:#0e1526; color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  margin:0;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--text); font-family:var(--f-body); font-size:17px; line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:14px 40px;
+  -webkit-tap-highlight-color:transparent;
+}
+.wrap{max-width:580px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+a.back{color:var(--ink);font-weight:700;text-decoration:none;font-size:15px;align-self:flex-start;padding:10px 0;min-height:44px}
+a.back:hover{text-decoration:underline}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-family:var(--f-display);font-weight:800;color:var(--ink);font-size:clamp(30px,8.5vw,42px);line-height:1;margin:0;text-wrap:balance}
+h1 small{display:block;font-family:var(--f-body);font-size:14px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.stats{display:flex;gap:8px}
+.pill{display:flex;align-items:center;gap:6px;background:var(--card);border:2px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:800;font-variant-numeric:tabular-nums;font-size:15px}
+.pill .ic{color:var(--amber);font-size:18px}
+.pill .lbl{color:var(--muted);font-weight:600}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:20px;position:relative}
+.sheet{padding-left:40px}
+.sheet::before{content:"";position:absolute;top:0;bottom:0;left:24px;border-left:2px solid var(--red);opacity:.55}
+h2{font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--ink);margin:0 0 10px;text-wrap:balance}
+.label{font-size:13px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px}
+.label.first{margin-top:4px}
+.note{color:var(--muted);font-size:15px;margin:6px 0 0}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:6px;background:var(--card2);border:2px solid var(--line);border-radius:14px;padding:4px}
+.seg button{min-height:48px;border:0;border-radius:10px;background:transparent;color:var(--text);font:inherit;font-weight:700;cursor:pointer;padding:4px 6px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink)}
+.chips{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.chip{min-height:52px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--text);font-family:var(--f-display);font-size:22px;font-weight:700;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--on-ink)}
+.row-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.link{background:none;border:0;color:var(--ink);font:inherit;font-weight:700;padding:10px 4px;min-height:44px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.btn{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;min-height:58px;border-radius:14px;border:2px solid var(--ink);background:var(--ink);color:var(--on-ink);font-family:var(--f-display);font-size:22px;font-weight:700;cursor:pointer;padding:6px 12px}
+.btn.ghost{background:var(--card);color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.stack{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);background:transparent}
+.dot.ok{background:var(--green);border-color:var(--green)}
+.dot.miss{background:var(--red-soft);border-color:var(--red)}
+.dot.now{border-color:var(--ink);transform:scale(1.25)}
+.rep{font-size:13px;font-weight:800;color:var(--amber);letter-spacing:.05em;text-transform:uppercase}
+.fb{min-height:4.4em;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:17px;padding:6px 4px;max-width:38ch;margin:0 auto}
+.fb.good{color:var(--green);font-family:var(--f-display);font-size:26px}
+.fb.hint{color:var(--amber)}
+.fb.reveal{color:var(--red)}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pad button{min-height:62px;border-radius:14px;border:2px solid var(--line);background:var(--card2);color:var(--text);font-family:var(--f-display);font-size:30px;font-weight:700;cursor:pointer;touch-action:manipulation}
+.pad button:active{transform:scale(.96)}
+.pad .ok{background:var(--ink);border-color:var(--ink);color:var(--on-ink);font-size:24px}
+.pad .del{font-size:24px;color:var(--muted)}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
+.result{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.grade{font-family:var(--f-display);font-weight:800;color:var(--red);font-size:92px;line-height:1;width:150px;height:150px;border:5px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;transform:rotate(-8deg);margin:8px 0 10px;padding-top:12px}
+.gword{font-family:var(--f-display);font-size:30px;font-weight:700;color:var(--red);margin:0}
+.sum{color:var(--muted);font-weight:600;margin:0}
+.misses{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
+.misses span{background:var(--red-soft);color:var(--text);border-radius:10px;padding:6px 12px;font-weight:700}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(0,9.5em) 1fr 3.2em;gap:10px;align-items:center;font-size:15px}
+.bar .nm{font-weight:700;min-width:0;overflow-wrap:anywhere}
+.bar .tr{height:12px;border-radius:6px;background:var(--card2);border:1px solid var(--line);overflow:hidden}
+.bar .fl{height:100%;border-radius:6px;background:var(--green)}
+.bar .fl.mid{background:var(--amber)}
+.bar .fl.low{background:var(--red)}
+.bar .pc{color:var(--muted);font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.reset{margin-top:12px;color:var(--red)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}.dot.now{transform:none}}
+
+
+/* ---- podmět a přísudek ---- */
+.modes{display:flex;flex-direction:column;gap:8px}
+.mode{display:grid;grid-template-columns:2.4em 1fr;align-items:center;gap:10px;min-height:60px;padding:8px 14px;border-radius:14px;border:2px solid var(--line);background:var(--card2);color:var(--text);font:inherit;text-align:left;cursor:pointer}
+.mode b{display:block;font-family:var(--f-display);font-size:20px;color:var(--ink);line-height:1.15}
+.mode small{display:block;color:var(--muted);font-weight:600;font-size:14px;line-height:1.3}
+.mode .ic{font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--ink);text-align:center}
+.mode[aria-pressed="true"]{border-color:var(--ink);background:var(--card);box-shadow:inset 0 0 0 2px var(--ink)}
+.sent{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 6px;margin:16px 0 4px}
+.w{min-height:52px;min-width:44px;padding:4px 12px 8px;border-radius:12px;border:2px solid var(--line);background:var(--card2);color:var(--text);font-family:var(--f-body);font-size:clamp(21px,5.8vw,26px);font-weight:700;cursor:pointer;touch-action:manipulation;line-height:1.2}
+.w:active{transform:scale(.96)}
+.w.bad{border-color:var(--red);background:var(--red-soft)}
+.w.p1,.w.p2{border-color:var(--green);background:var(--green-soft);cursor:default}
+.w.dim{opacity:.55;cursor:default}
+.punct{align-self:flex-end;font-size:26px;font-weight:700;margin-left:-4px;padding-bottom:10px}
+/* české značení: podmět rovnou čarou, přísudek vlnovkou */
+.u1{text-decoration:underline solid var(--ink) 3px;text-underline-offset:7px}
+.u2{text-decoration:underline wavy var(--ink) 2px;text-underline-offset:6px}
+.task{text-align:center;font-weight:800;font-size:18px;margin:6px 0 0}
+.task .tag{display:inline-block;border-radius:999px;padding:2px 12px;margin-right:6px;font-size:14px;letter-spacing:.04em;text-transform:uppercase;background:var(--amber-soft);color:var(--amber)}
+.fb.okk{color:var(--green)}
+.zsd{display:none;text-align:center;margin:6px 0 0;font-size:20px;font-weight:700}
+.zsd.on{display:block}
+.zsd .lbl{color:var(--muted);font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:4px}
+.qtext{font-size:clamp(20px,5.4vw,24px);font-weight:800;text-align:center;margin:14px 0 6px;text-wrap:balance}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{min-height:54px;padding:8px 14px;border-radius:12px;border:2px solid var(--line);background:var(--card2);color:var(--text);font:inherit;font-weight:700;font-size:18px;text-align:left;cursor:pointer;touch-action:manipulation}
+.opt.good{border-color:var(--green);background:var(--green-soft)}
+.opt.bad{border-color:var(--red);background:var(--red-soft)}
+/* výklad */
+.lesson h3{font-family:var(--f-display);font-size:24px;color:var(--ink);margin:0 0 8px;line-height:1.15}
+.lesson p{margin:8px 0}
+.lesson .ex{background:var(--card2);border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin:12px 0;font-size:20px;font-weight:700;text-align:center;line-height:1.9}
+.lesson .ex small{display:block;font-size:15px;font-weight:600;color:var(--muted);line-height:1.4}
+.lesson .q{color:var(--amber);font-weight:800}
+.lesson ol{margin:8px 0;padding-left:1.4em}
+.lesson li{margin:6px 0}
+.lesson .box{border-left:5px solid var(--amber);background:var(--amber-soft);border-radius:0 12px 12px 0;padding:10px 12px;margin:12px 0;font-weight:600}
+.lnav{display:flex;gap:10px;margin-top:16px}
+.lnav .btn{font-size:20px}
+.lstep{color:var(--muted);font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.cheat{width:100%;border-collapse:collapse;font-size:16px}
+.cheat td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.cheat td:first-child{font-family:var(--f-display);font-weight:700;color:var(--ink);width:6.2em}
+.cheat tr:last-child td{border-bottom:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">← Zpět na rozcestník</a>
+  <header>
+    <h1><small>Český jazyk · 4. třída</small>Podmět a přísudek</h1>
+    <div class="stats">
+      <div class="pill" title="Hvězdičky za správné odpovědi napoprvé"><span class="ic">★</span><span id="stStars">0</span></div>
+      <div class="pill" title="Nejdelší série správných odpovědí"><span class="lbl">rekord</span><span id="stBest">0</span></div>
+    </div>
+  </header>
+
+  <!-- výběr -->
+  <section id="vSetup" class="card sheet">
+    <h2>Co budeme dělat?</h2>
+    <button type="button" class="btn ghost" id="btnLesson">📖 Výklad: co je podmět a přísudek</button>
+    <div class="label">Procvičování</div>
+    <div class="modes" id="modes"></div>
+    <p class="note">Kolo má 10 úloh. Postupuj shora dolů – nejdřív se nauč otázky, pak hledej přísudek, potom podmět a nakonec celou dvojici.</p>
+    <div class="stack">
+      <button type="button" class="btn" id="btnStart">Začít kolo</button>
+    </div>
+  </section>
+
+  <!-- výklad -->
+  <section id="vLesson" class="card sheet lesson" hidden>
+    <div class="lstep" id="lStep"></div>
+    <div id="lBody"></div>
+    <div class="lnav">
+      <button type="button" class="btn ghost" id="lPrev">← Zpět</button>
+      <button type="button" class="btn" id="lNext">Dál →</button>
+    </div>
+  </section>
+
+  <!-- hra -->
+  <section id="vGame" class="card sheet" hidden>
+    <div class="top">
+      <div class="dots" id="dots"></div>
+      <button type="button" class="link" id="btnQuit">Ukončit</button>
+    </div>
+    <div id="gWords" hidden>
+      <p class="task" id="task"></p>
+      <div class="sent" id="sent" aria-live="polite"></div>
+      <div class="zsd" id="zsd"></div>
+    </div>
+    <div id="gQuiz" hidden>
+      <p class="qtext" id="qtext"></p>
+    </div>
+    <div class="fb" id="fb" aria-live="polite"></div>
+    <div class="opts" id="opts"></div>
+    <div class="stack" id="nextBox" hidden><button type="button" class="btn" id="btnNext">Další věta →</button></div>
+  </section>
+
+  <!-- výsledek -->
+  <section id="vResult" class="card" hidden>
+    <div class="result">
+      <div class="grade" id="rGrade">1</div>
+      <p class="gword" id="rWord">výborně</p>
+      <p class="sum" id="rSum"></p>
+      <div id="rMissBox" hidden>
+        <div class="label" style="margin-top:14px">Tyhle si ještě zopakuj</div>
+        <div class="misses" id="rMiss"></div>
+      </div>
+    </div>
+    <div class="stack">
+      <button type="button" class="btn" id="btnAgain">Další kolo</button>
+      <button type="button" class="btn ghost" id="btnBack">Změnit cvičení</button>
+    </div>
+  </section>
+
+  <section id="vInfo" class="card">
+    <h2>Tahák</h2>
+    <table class="cheat"><tbody>
+      <tr><td>Přísudek</td><td>Říká, co podmět dělá. Je to sloveso.<br>Ptáme se: <b>Co dělá?</b><br>Podtrhujeme <span class="u2">vlnovkou</span>.</td></tr>
+      <tr><td>Podmět</td><td>Kdo nebo co něco dělá. Je v 1. pádě.<br>Ptáme se: <b>Kdo, co + přísudek?</b><br>Podtrhujeme <span class="u1">rovnou čarou</span>.</td></tr>
+      <tr><td>Dvojice</td><td>Podmět a přísudek = <b>základní skladební dvojice</b>. Např. <span class="u1">pes</span> <span class="u2">štěká</span>.</td></tr>
+    </tbody></table>
+  </section>
+
+  <section id="vStats" class="card">
+    <h2>Jak mi to jde</h2>
+    <div class="bars" id="bars"></div>
+    <button type="button" class="link reset" id="btnReset"></button>
+  </section>
+</div>
+<script src="../sync.js"></script>
+<script>
+(function(){
+  /* ---------- společné pomocné funkce ---------- */
+  const $ = id => document.getElementById(id);
+  const rnd = n => Math.floor(Math.random()*n);
+  const shuffle = a => { for (let i=a.length-1;i>0;i--){ const j=rnd(i+1); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const PRAISE = ['Správně!','Výborně!','Paráda!','Přesně tak!','Super!','Bezva!'];
+  const GRADE_WORD = ['', 'výborně', 'chvalitebně', 'dobře', 'dostatečně', 'nedostatečně'];
+  function gradeOf(errors, total){
+    const r = total ? errors/total : 0;
+    return r<=0.1 ? 1 : r<=0.25 ? 2 : r<=0.5 ? 3 : r<=0.75 ? 4 : 5;
+  }
+  function loadState(key, def){
+    try { const raw = localStorage.getItem(key); if (raw) return Object.assign(def(), JSON.parse(raw)); } catch(e) {}
+    return def();
+  }
+  function saveState(key, s){ try { localStorage.setItem(key, JSON.stringify(s)); } catch(e) {} }
+  function shake(el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+  function setFb(html, cls){ const f = $('fb'); f.innerHTML = html; f.className = 'fb ' + (cls||''); }
+  function renderDots(marks, total, now){
+    const d = $('dots'); d.innerHTML = '';
+    for (let i=0;i<total;i++){
+      const s = document.createElement('span');
+      s.className = 'dot' + (marks[i]==='ok'?' ok':marks[i]==='miss'?' miss':'') + (i===now?' now':'');
+      d.appendChild(s);
+    }
+  }
+  function renderBars(el, rows){
+    el.innerHTML = '';
+    rows.forEach(r => {
+      const n = r.ok + r.bad, pc = n ? Math.round(100*r.ok/n) : null;
+      const row = document.createElement('div'); row.className = 'bar';
+      const cls = pc===null ? '' : pc>=80 ? '' : pc>=50 ? ' mid' : ' low';
+      row.innerHTML = `<span class="nm"></span><span class="tr"><span class="fl${cls}" style="width:${pc||0}%"></span></span><span class="pc">${pc===null?'–':pc+' %'}</span>`;
+      row.querySelector('.nm').textContent = r.name;
+      el.appendChild(row);
+    });
+  }
+  function armReset(btn, label, onConfirm){
+    let armed = null;
+    btn.textContent = label;
+    btn.onclick = () => {
+      if (!armed){
+        btn.textContent = 'Opravdu smazat celý průběh? Klepni znovu.';
+        armed = setTimeout(() => { armed = null; btn.textContent = label; }, 4000);
+        return;
+      }
+      clearTimeout(armed); armed = null; btn.textContent = label; onConfirm();
+    };
+  }
+
+  const KEY = 'podmet-a-prisudek-v1';
+  const TOTAL = 10;
+
+  const MODES = [
+    { id:'teorie',   ic:'?',  name:'Otázky a značky',  desc:'Na co se ptáme, jak podtrhujeme, v jakém pádě je podmět' },
+    { id:'prisudek', ic:'〰', name:'Najdi přísudek',   desc:'Klepni na slovo, které říká, co se děje (Co dělá?)' },
+    { id:'podmet',   ic:'—',  name:'Najdi podmět',     desc:'Přísudek už je podtržený. Najdi, kdo nebo co to dělá' },
+    { id:'dvojice',  ic:'⇄',  name:'Celá dvojice',     desc:'Nejdřív přísudek, potom podmět – jako v sešitě' },
+    { id:'vyzva',    ic:'⭐', name:'Výzva',            desc:'Delší věty: jaký pes, se/si, bude orat' }
+  ];
+
+  /* ---------- věty ----------
+     {slovo} = podmět, [slovo] = přísudek, (slovo) = přívlastek u podmětu (jen pro nápovědu).
+     Za svislítkem je otázka na přísudek přesně v tom čase a čísle, v jakém je věta. */
+  const L1 = [
+    '{Pes} [štěká].|Co dělá pes?',
+    '{Kočka} [mňouká].|Co dělá kočka?',
+    '{Traktor} [jede] po poli.|Co dělá traktor?',
+    '{Šimon} [čte] knihu.|Co dělá Šimon?',
+    '{Máma} [vaří] oběd.|Co dělá máma?',
+    '{Brankář} [chytá] puky.|Co dělá brankář?',
+    '{Ptáci} [zpívají].|Co dělají ptáci?',
+    '{Děda} [opravuje] plot.|Co dělá děda?',
+    '{Krávy} [bučí].|Co dělají krávy?',
+    '{Kluci} [hrají] fotbal.|Co dělají kluci?',
+    '{Slunce} [svítí].|Co dělá slunce?',
+    '{Vítr} [fouká].|Co dělá vítr?',
+    '{Táta} [seče] trávu.|Co dělá táta?',
+    '{Sestra} [maluje] obrázek.|Co dělá sestra?',
+    '{Kohout} [kokrhá].|Co dělá kohout?',
+    '{Učitelka} [píše] na tabuli.|Co dělá učitelka?',
+    '{Kombajn} [sklízí] obilí.|Co dělá kombajn?',
+    '{Řeka} [teče] do údolí.|Co dělá řeka?',
+    '{Babička} [peče] buchty.|Co dělá babička?',
+    '{Děti} [stavějí] sněhuláka.|Co dělají děti?',
+    '{Žáci} [počítají] příklady.|Co dělají žáci?',
+    '{Včely} [létají] z květu na květ.|Co dělají včely?',
+    '{Hasiči} [hasí] požár.|Co dělají hasiči?',
+    '{Liška} [běží] lesem.|Co dělá liška?'
+  ];
+  const L2 = [
+    'Na louce [běhá] {kůň}.|Co dělá kůň?',
+    'Ráno [zazvonil] {budík}.|Co udělal budík?',
+    'Do školy [jde] {Šimon}.|Co dělá Šimon?',
+    'Za domem [roste] {jabloň}.|Co dělá jabloň?',
+    '{Máma} [koupila] rohlíky.|Co udělala máma?',
+    '{Kotě} [pije] mléko.|Co dělá kotě?',
+    '{Táta} [zasel] pšenici.|Co udělal táta?',
+    'V lese [rostou] {houby}.|Co dělají houby?',
+    'Večer [svítí] {hvězdy}.|Co dělají hvězdy?',
+    '{Hokejisté} [vyhráli] zápas.|Co udělali hokejisté?',
+    'Nad Vlašimí [létají] {vlaštovky}.|Co dělají vlaštovky?',
+    'Na stole [leží] {sešit}.|Co dělá sešit?',
+    '{Pes} [hlídá] dům.|Co dělá pes?',
+    'V zimě [padá] {sníh}.|Co dělá sníh?',
+    '{Rybář} [chytil] kapra.|Co udělal rybář?',
+    'Po silnici [projel] {autobus}.|Co udělal autobus?',
+    '{Dědeček} [vyprávěl] pohádku.|Co dělal dědeček?',
+    'Na hřišti [trénují] {fotbalisté}.|Co dělají fotbalisté?',
+    'Zítra [přijede] {teta}.|Co udělá teta?',
+    '{Kamarád} [půjčil] Šimonovi kolo.|Co udělal kamarád?',
+    'Na rybníce [plavou] {kachny}.|Co dělají kachny?',
+    '{Sousedka} [zalévá] květiny.|Co dělá sousedka?',
+    'U potoka [kvete] {blatouch}.|Co dělá blatouch?',
+    'Pod stolem [spí] {kočka}.|Co dělá kočka?'
+  ];
+  const L3 = [
+    '(Malý) {pes} [štěká] na pošťáka.|Co dělá pes?',
+    'Na louce [se] [pasou] {krávy}.|Co dělají krávy?',
+    '{Táta} [bude] [orat] pole.|Co bude dělat táta?',
+    '(Starý) {traktor} [jezdí] pomalu.|Co dělá traktor?',
+    '{Šimon} [se] [učí] vyjmenovaná slova.|Co dělá Šimon?',
+    'Na zahradě [si] [hrají] {děti}.|Co dělají děti?',
+    '(Náš) {brankář} [chytil] nájezd.|Co udělal brankář?',
+    'Do Vlašimi [přijel] {cirkus}.|Co udělal cirkus?',
+    'Zítra [bude] [svítit] {slunce}.|Co bude dělat slunce?',
+    '(Červená) {jablka} [visí] na stromě.|Co dělají jablka?',
+    'Ve stáji [odpočívají] (unavení) {koně}.|Co dělají koně?',
+    '{Holub} [sedí] na střeše kostela.|Co dělá holub?',
+    '(Mladí) {hasiči} [se] [chystají] na soutěž.|Co dělají hasiči?',
+    'V hoře Blaník [spí] {rytíři}.|Co dělají rytíři?',
+    '(Velký) {kombajn} [bude] [sklízet] řepku.|Co bude dělat kombajn?',
+    'Do třídy [přišla] (nová) {žákyně}.|Co udělala žákyně?',
+    '(Babiččina) {kočka} [se] [vyhřívá] na sluníčku.|Co dělá kočka?',
+    'Před školou [čekají] {rodiče}.|Co dělají rodiče?'
+  ];
+  function parse(line){
+    const [s, q] = line.split('|');
+    const toks = [];
+    s.trim().split(/\s+/).forEach(raw => {
+      let m = raw.match(/^([\{\[\(]?)([^\}\]\)]+?)([\}\]\)]?)([.,!?]*)$/);
+      const kind = m[1]==='{' ? 1 : m[1]==='[' ? 2 : m[1]==='(' ? 3 : 0;
+      toks.push({ t:m[2], k:kind });
+      if (m[4]) toks.push({ t:m[4], k:-1 });
+    });
+    const words = k => toks.filter(x => x.k===k).map(x => x.t);
+    return { toks, q, pod: words(1).join(' '), pri: words(2).join(' '), priw: words(2) };
+  }
+  const S1 = L1.map(parse), S2 = L2.map(parse), S3 = L3.map(parse);
+  const lc = s => s.charAt(0).toLowerCase() + s.slice(1);
+  const isName = s => /^(Šimon|Šimonovi|Vlašim)/.test(s);
+  const low = s => isName(s) ? s : lc(s);
+  // přísudek v přirozeném pořadí pro odpověď: „pasou se“, „bude orat“
+  function askPod(it){
+    const w = it.priw.map(low);
+    if (w.length===2 && (w[0]==='se' || w[0]==='si')) return `Kdo, co ${w[0]} ${w[1]}?`;
+    return `Kdo, co ${w.join(' ')}?`;
+  }
+  function priText(it){
+    const w = it.priw.map(low);
+    if (w.length===2 && (w[0]==='se' || w[0]==='si')) return w[1]+' '+w[0];
+    return w.join(' ');
+  }
+
+  /* ---------- otázky a značky ---------- */
+  const QUIZ = [
+    ['Na co se ptáme, když hledáme přísudek?', ['Co dělá?', 'Kdo, co?', 'Jaký?', 'Kde?'], 'Přísudek říká, co podmět dělá – ptáme se: Co dělá?', 'Přísudek říká, co se děje. Jaká otázka se ptá na děj?'],
+    ['Na co se ptáme, když hledáme podmět?', ['Kdo, co?', 'Co dělá?', 'Koho, co?', 'Kdy?'], 'Podmět hledáme otázkou Kdo, co? a přidáme k ní přísudek: Kdo štěká?', 'Podmět je ten, kdo nebo co něco dělá. Je to i otázka 1. pádu.'],
+    ['Jak v sešitě podtrhujeme podmět?', ['Rovnou čarou', 'Vlnovkou', 'Dvěma čarami', 'Nepodtrhujeme ho'], 'Podmět podtrhujeme rovnou čarou, přísudek vlnovkou.', 'Podmět a přísudek mají každý jinou čáru. Ta vlnitá patří slovesu.'],
+    ['Jak v sešitě podtrhujeme přísudek?', ['Vlnovkou', 'Rovnou čarou', 'Kroužkem', 'Tečkami'], 'Přísudek podtrhujeme vlnovkou, podmět rovnou čarou.', 'Přísudek je sloveso – něco se hýbe, děje. Která čára se „vlní“?'],
+    ['V jakém pádě je podmět?', ['V 1. pádě', 'Ve 2. pádě', 'Ve 4. pádě', 'V 7. pádě'], 'Podmět je v 1. pádě – a 1. pád má otázku kdo, co?', 'Vzpomeň si na pádové otázky: kdo, co? je který pád?'],
+    ['Jaký slovní druh je přísudek nejčastěji?', ['Sloveso', 'Podstatné jméno', 'Přídavné jméno', 'Předložka'], 'Přísudek je nejčastěji sloveso – slovo, které říká, co se děje.', 'Přísudek říká, co se děje. Který slovní druh vyjadřuje děj?'],
+    ['Jaký slovní druh je podmět nejčastěji?', ['Podstatné jméno', 'Sloveso', 'Předložka', 'Spojka'], 'Podmět je nejčastěji podstatné jméno v 1. pádě (pes, máma, traktor).', 'Podmět je pes, máma, traktor… Jaký slovní druh to jsou?'],
+    ['Jak společně říkáme podmětu a přísudku?', ['Základní skladební dvojice', 'Souvětí', 'Vzor', 'Slovní druhy'], 'Podmět a přísudek tvoří základní skladební dvojici. Je to základ věty.', 'Je to základ věty a jsou to dvě slova, která patří k sobě.'],
+    ['Musí podmět stát vždycky na začátku věty?', ['Ne, může být kdekoli ve větě', 'Ano, vždycky', 'Ano, a vždy s velkým písmenem', 'Musí být na konci'], 'Podmět může být i na konci: Na louce běhá kůň. – Kdo běhá? kůň.', 'Vzpomeň si na větu „Na louce běhá kůň.“ Kde je podmět?'],
+    ['Co je přísudek ve větě „Babička plete svetr.“?', ['plete', 'babička', 'svetr', 'babička plete'], 'Co dělá babička? – plete. Přísudek je plete.', 'Zeptej se: Co dělá babička?'],
+    ['Co je podmět ve větě „Na hřišti hrají kluci.“?', ['kluci', 'hřišti', 'hrají', 'na hřišti'], 'Nejdřív přísudek: hrají. Kdo, co hrají? – kluci. Podmět je kluci.', 'Nejdřív najdi sloveso. Pak se zeptej: Kdo, co hrají?'],
+    ['Ve větě „Máma peče koláč.“ slovo koláč…', ['není podmět – koláč nic nedělá', 'je podmět', 'je přísudek', 'je podmět i přísudek'], 'Kdo, co peče? – máma. Koláč nic nedělá, peče ho máma (koho, co peče? koláč – 4. pád).', 'Zeptej se: Kdo, co peče? Peče koláč?'],
+    ['Co uděláme jako první, když hledáme dvojici?', ['Najdeme sloveso – přísudek', 'Podtrhneme první slovo', 'Najdeme nejdelší slovo', 'Najdeme předložku'], 'Nejlíp se začíná přísudkem (Co se děje?). Pak se zeptáme Kdo, co + přísudek? a máme podmět.', 'Které slovo ve větě najdeš nejsnáz – to, co říká, co se děje?'],
+    ['Které slovo je přísudek ve větě „Ráno zazvonil budík.“?', ['zazvonil', 'ráno', 'budík', 'ráno zazvonil'], 'Co udělal budík? – zazvonil. Přísudek je zazvonil, podmět budík.', 'Zeptej se: Co udělal budík?']
+  ];
+
+  /* ---------- výklad ---------- */
+  const LESSON = [
+    `<h3>Každá věta má svůj základ</h3>
+     <p>Ve větě se nejčastěji dozvíme, <b>kdo nebo co něco dělá</b> a <b>co dělá</b>.</p>
+     <div class="ex"><span class="u1">Pes</span> <span class="u2">štěká</span>.<small>kdo? – pes · co dělá? – štěká</small></div>
+     <p>Tato dvě slova jsou nejdůležitější. Říkáme jim <b>podmět</b> a <b>přísudek</b>. Dohromady tvoří <b>základní skladební dvojici</b>.</p>`,
+    `<h3>Přísudek – co se děje</h3>
+     <p>Přísudek říká, <b>co podmět dělá</b>. Je to <b>sloveso</b>.</p>
+     <p>Ptáme se: <span class="q">Co dělá?</span> (nebo co dělal, co bude dělat)</p>
+     <div class="ex">Máma <span class="u2">vaří</span> oběd.<small>Co dělá máma? – vaří</small></div>
+     <div class="ex">Ráno <span class="u2">zazvonil</span> budík.<small>Co udělal budík? – zazvonil</small></div>
+     <p>V sešitě přísudek podtrhneme <span class="u2">vlnovkou</span>.</p>`,
+    `<h3>Podmět – kdo nebo co to dělá</h3>
+     <p>Podmět je ten, <b>kdo nebo co něco dělá</b>. Je to nejčastěji <b>podstatné jméno</b> a je vždy v <b>1. pádě</b>.</p>
+     <p>Ptáme se: <span class="q">Kdo, co</span> + přísudek?</p>
+     <div class="ex"><span class="u1">Máma</span> vaří oběd.<small>Kdo, co vaří? – máma</small></div>
+     <p>V sešitě podmět podtrhneme <span class="u1">rovnou čarou</span>.</p>`,
+    `<h3>Jak dvojici najdeš – krok za krokem</h3>
+     <div class="ex">Táta seče trávu.</div>
+     <ol>
+       <li><b>Najdi sloveso.</b> Co se děje? – <span class="u2">seče</span>. To je přísudek.</li>
+       <li><b>Zeptej se: Kdo, co seče?</b> – <span class="u1">táta</span>. To je podmět.</li>
+       <li><b>Zkontroluj:</b> táta – 1. pád (kdo, co?). Sedí to.</li>
+       <li><b>Zapiš dvojici:</b> <span class="u1">táta</span> <span class="u2">seče</span></li>
+     </ol>
+     <div class="box">Proč začínat přísudkem? Sloveso se ve větě najde nejsnáz. A když se pak ptáš „Kdo, co seče?“, najdeš vždycky správný podmět.</div>`,
+    `<h3>Pozor na dvě pasti</h3>
+     <p><b>1. Podmět nemusí být na začátku.</b></p>
+     <div class="ex">Na louce <span class="u2">běhá</span> <span class="u1">kůň</span>.<small>Kdo běhá? – kůň (ne louka)</small></div>
+     <p><b>2. Ne každé podstatné jméno je podmět.</b></p>
+     <div class="ex"><span class="u1">Máma</span> <span class="u2">koupila</span> rohlíky.<small>Kdo, co koupila? – máma. Rohlíky nic nedělají – koupila je máma.</small></div>
+     <div class="box">Vždycky se ptej celou otázkou s přísudkem: <b>Kdo, co koupila?</b> Tak se nespleteš.</div>`,
+    `<h3>Hotovo! Shrnutí do sešitu</h3>
+     <table class="cheat"><tbody>
+       <tr><td>Přísudek</td><td>sloveso · <b>Co dělá?</b> · <span class="u2">vlnovka</span></td></tr>
+       <tr><td>Podmět</td><td>1. pád · <b>Kdo, co + přísudek?</b> · <span class="u1">rovná čára</span></td></tr>
+       <tr><td>Postup</td><td>1. přísudek → 2. podmět → 3. zapsat dvojici</td></tr>
+     </tbody></table>
+     <p>Teď si to vyzkoušej. Začni cvičením <b>Otázky a značky</b>.</p>`
+  ];
+  let lIdx = 0;
+  function renderLesson(){
+    $('lStep').textContent = `Výklad ${lIdx+1} / ${LESSON.length}`;
+    $('lBody').innerHTML = LESSON[lIdx];
+    $('lPrev').textContent = lIdx===0 ? '← Menu' : '← Zpět';
+    $('lNext').textContent = lIdx===LESSON.length-1 ? 'Jdu cvičit' : 'Dál →';
+  }
+  $('btnLesson').onclick = () => { lIdx = 0; renderLesson(); show('vLesson'); window.scrollTo(0,0); };
+  $('lPrev').onclick = () => { if (lIdx===0) return show('vSetup'); lIdx--; renderLesson(); };
+  $('lNext').onclick = () => {
+    if (lIdx===LESSON.length-1){ S.lesson = true; S.mode = 'teorie'; save(); renderSetup(); return show('vSetup'); }
+    lIdx++; renderLesson(); window.scrollTo(0,0);
+  };
+
+  /* ---------- stav ---------- */
+  const def = () => ({ stars:0, best:0, mode:'teorie', lesson:false, stat:{} });
+  let S = loadState(KEY, def);
+  const save = () => saveState(KEY, S);
+
+  function show(v){
+    ['vSetup','vLesson','vGame','vResult'].forEach(id => $(id).hidden = id!==v);
+    $('vStats').hidden = v==='vGame' || v==='vLesson';
+    $('vInfo').hidden = v==='vLesson';
+  }
+  function renderStats(){ $('stStars').textContent = S.stars; $('stBest').textContent = S.best; }
+  function renderBarsAll(){
+    renderBars($('bars'), MODES.map(m => { const s = S.stat[m.id] || {ok:0,bad:0}; return { name:m.name, ok:s.ok, bad:s.bad }; }));
+  }
+  function renderSetup(){
+    const box = $('modes'); box.innerHTML = '';
+    MODES.forEach(m => {
+      const b = document.createElement('button'); b.type='button'; b.className='mode';
+      b.setAttribute('aria-pressed', S.mode===m.id);
+      b.innerHTML = `<span class="ic">${m.ic}</span><span><b>${esc(m.name)}</b><small>${esc(m.desc)}</small></span>`;
+      b.onclick = () => { S.mode = m.id; save(); renderSetup(); };
+      box.appendChild(b);
+    });
+    $('btnLesson').textContent = S.lesson ? '📖 Výklad znovu: co je podmět a přísudek' : '📖 Začni tady: co je podmět a přísudek';
+  }
+
+  /* ---------- kolo ---------- */
+  let R = null, streak = 0;
+  function pickN(pool, n){ const p = shuffle(pool.slice()); return p.slice(0, n); }
+  function start(){
+    const m = S.mode;
+    let q;
+    if (m==='teorie') q = pickN(QUIZ, TOTAL);
+    else if (m==='vyzva') q = pickN(S3, TOTAL);
+    else if (m==='dvojice') q = pickN(S1, 4).concat(pickN(S2, 6));
+    else q = pickN(S1, 5).concat(pickN(S2, 5));
+    R = { m, q, i:0, errors:0, stars:0, marks:[], misses:[] };
+    show('vGame'); renderItem();
+  }
+  function renderItem(){
+    const it = R.q[R.i];
+    R.tries = 0; R.locked = false; R.missed = false; R.qtries = 0;
+    renderDots(R.marks, TOTAL, R.i);
+    $('nextBox').hidden = true; $('opts').innerHTML = '';
+    if (R.m==='teorie'){
+      $('gWords').hidden = true; $('gQuiz').hidden = false;
+      $('qtext').textContent = it[0];
+      const order = shuffle(it[1].map((t,i) => ({t, ok:i===0})));
+      order.forEach(o => {
+        const b = document.createElement('button'); b.type='button'; b.className='opt'; b.textContent = o.t;
+        b.onclick = () => quizAnswer(b, o.ok, it);
+        $('opts').appendChild(b);
+      });
+      setFb('', '');
+      return;
+    }
+    $('gWords').hidden = false; $('gQuiz').hidden = true;
+    // v režimu „podmět“ je přísudek předem podtržený
+    R.phase = R.m==='podmet' ? 1 : 2;   // 2 = hledá se přísudek, 1 = hledá se podmět
+    R.done = { 1:false, 2:R.m==='podmet' };
+    drawSentence(); setTask();
+    $('zsd').className = 'zsd'; $('zsd').innerHTML = '';
+    setFb('', '');
+  }
+  function drawSentence(){
+    const it = R.q[R.i], box = $('sent'); box.innerHTML = '';
+    it.toks.forEach((tk, idx) => {
+      if (tk.k===-1){ const s = document.createElement('span'); s.className='punct'; s.textContent = tk.t; box.appendChild(s); return; }
+      const b = document.createElement('button'); b.type='button'; b.className='w'; b.dataset.i = idx;
+      const sp = document.createElement('span'); sp.textContent = tk.t; b.appendChild(sp);
+      if (tk.k===1 && R.done[1]){ b.classList.add('p1'); sp.className='u1'; }
+      if (tk.k===2 && R.done[2]){ b.classList.add('p2'); sp.className='u2'; }
+      box.appendChild(b);
+    });
+  }
+  function setTask(){
+    const it = R.q[R.i];
+    if (R.phase===2) $('task').innerHTML = `<span class="tag">Přísudek</span>Klepni na slovo, které říká, co se děje.`;
+    else $('task').innerHTML = `<span class="tag">Podmět</span>Zeptej se: <b>${esc(askPod(it))}</b>`;
+  }
+  function wordTap(idx){
+    if (!R || R.locked || R.m==='teorie') return;
+    const it = R.q[R.i], tk = it.toks[idx];
+    if (!tk || tk.k===-1) return;
+    if ((tk.k===1 && R.done[1]) || (tk.k===2 && R.done[2])) return;
+    const btn = $('sent').querySelector(`[data-i="${idx}"]`);
+    const want = R.phase;
+    const pri = priText(it), pod = low(it.pod);
+    if (tk.k===want){
+      R.done[want] = true; drawSentence();
+      let extra = '';
+      if (want===2 && it.priw.length===2){
+        extra = (it.priw.includes('se') || it.priw.includes('si'))
+          ? ` Slovíčko <b>${it.priw.includes('se')?'se':'si'}</b> patří k přísudku.`
+          : ` Obě slova <b>${esc(pri)}</b> dohromady tvoří přísudek.`;
+      }
+      if (want===2 && R.m!=='podmet' && !R.done[1]){
+        R.phase = 1; setTask();
+        setFb(`Ano! ${esc(it.q)} – <b>${esc(pri)}</b>.${extra} Teď najdi podmět.`, 'okk');
+        R.tries = 0;
+        return;
+      }
+      R.extra = extra;
+      return itemDone();
+    }
+    // chyba
+    btn.classList.add('bad'); shake(btn); setTimeout(() => btn.classList.remove('bad'), 700);
+    streak = 0; R.tries++;
+    if (!R.missed){ R.missed = true; R.errors++; R.marks[R.i] = 'miss'; R.misses.push(`${pod} – ${pri}`); }
+    let msg;
+    if (want===2){
+      if (R.tries===1){
+        msg = tk.k===1 ? `„${esc(tk.t)}“ je ten, kdo to dělá – to je podmět. Přísudek říká, <b>co se děje</b>.`
+          : `„${esc(tk.t)}“ neříká, co se děje. Hledej sloveso.`;
+        msg += ` Zeptej se: <b>${esc(it.q)}</b>`;
+        setFb(msg, 'hint');
+      } else setFb(`${esc(it.q)} – <b>${esc(pri)}</b>. Klepni na <b>${esc(it.priw[it.priw.length-1])}</b>.`, 'reveal');
+    } else {
+      if (R.tries===1){
+        if (tk.k===2) msg = `„${esc(tk.t)}“ je přísudek. Teď hledáš, <b>kdo nebo co</b> to dělá.`;
+        else if (tk.k===3) msg = `„${esc(tk.t)}“ jen říká, <b>jaký</b> (čí). Podmět je ten, kdo to dělá.`;
+        else msg = `„${esc(tk.t)}“ to nedělá. Podmět je v 1. pádě.`;
+        msg += ` Zeptej se: <b>${esc(askPod(it))}</b>`;
+        setFb(msg, 'hint');
+      } else setFb(`${esc(askPod(it))} – <b>${esc(pod)}</b>. Klepni na <b>${esc(it.pod)}</b>.`, 'reveal');
+    }
+  }
+  function credit(ok){
+    const st = S.stat[R.m] || {ok:0,bad:0};
+    if (ok){ st.ok++; S.stars++; R.stars++; streak++; if (streak>S.best) S.best = streak; R.marks[R.i] = 'ok'; }
+    else st.bad++;
+    S.stat[R.m] = st; save(); renderStats();
+  }
+  function itemDone(){
+    const it = R.q[R.i];
+    R.locked = true; credit(!R.missed);
+    const praise = R.missed ? 'Teď je to správně.' : (streak>0 && streak%5===0 ? `Série ${streak} správně za sebou! ★` : PRAISE[rnd(PRAISE.length)] + ' ★');
+    setFb(praise + (R.extra || ''), (R.missed || R.extra) ? 'okk' : 'good'); R.extra = '';
+    const z = $('zsd');
+    z.innerHTML = `<span class="lbl">Základní skladební dvojice</span><span class="u1">${esc(low(it.pod))}</span> &nbsp; <span class="u2">${esc(priText(it))}</span>`;
+    z.className = 'zsd on';
+    $('task').innerHTML = '';
+    $('nextBox').hidden = false;
+    $('btnNext').textContent = R.i===TOTAL-1 ? 'Výsledek →' : 'Další věta →';
+    $('btnNext').focus({preventScroll:true});
+  }
+  function quizAnswer(btn, ok, it){
+    if (R.locked) return;
+    if (ok){
+      btn.classList.add('good'); R.locked = true;
+      credit(!R.missed);
+      setFb((R.missed ? '' : (PRAISE[rnd(PRAISE.length)] + ' ★ ')) + esc(it[2]), 'okk');
+      $('nextBox').hidden = false;
+      $('btnNext').textContent = R.i===TOTAL-1 ? 'Výsledek →' : 'Další otázka →';
+    } else {
+      btn.classList.add('bad'); shake(btn); streak = 0; btn.disabled = true;
+      if (!R.missed){ R.missed = true; R.errors++; R.marks[R.i]='miss'; R.misses.push(it[0].replace(/[„“]/g,'').slice(0,48)); }
+      R.qtries = (R.qtries||0) + 1;
+      if (R.qtries===1) setFb('Ještě ne. ' + esc(it[3]), 'hint');
+      else setFb(esc(it[2]), 'reveal');
+    }
+  }
+  function next(){
+    R.i++;
+    if (R.i >= R.q.length) return finish();
+    renderItem();
+  }
+  function finish(){
+    const g = gradeOf(R.errors, TOTAL), mode = MODES.find(m => m.id===R.m);
+    /* záznam kola pro Šimonovu historii (lokálně + online, je-li zapnuto v sync.js) */
+    const E = {a:'podmet-a-prisudek', t:Date.now(), n:TOTAL, e:R.errors, g:g, d:mode.name};
+    try { const LK='uceni-historie-v1', H=JSON.parse(localStorage.getItem(LK)||'[]'); H.push(E); localStorage.setItem(LK, JSON.stringify(H.slice(-1500))); } catch(e) {}
+    try { if (window.UceniSync) window.UceniSync.push(E, S); } catch(e) {}
+    $('rGrade').textContent = g; $('rWord').textContent = GRADE_WORD[g];
+    $('rSum').textContent = `${mode.name} · napoprvé správně ${TOTAL-R.errors} z ${TOTAL} · hvězdičky: ${R.stars}`;
+    const box = $('rMiss'); box.innerHTML = '';
+    R.misses.forEach(m => { const s = document.createElement('span'); s.textContent = m; box.appendChild(s); });
+    $('rMissBox').hidden = R.misses.length===0;
+    renderBarsAll(); show('vResult');
+  }
+
+  $('sent').addEventListener('click', e => { const b = e.target.closest('.w'); if (b) wordTap(+b.dataset.i); });
+  $('btnStart').onclick = start;
+  $('btnAgain').onclick = start;
+  $('btnNext').onclick = next;
+  $('btnBack').onclick = () => { renderSetup(); show('vSetup'); };
+  $('btnQuit').onclick = () => { R=null; renderBarsAll(); show('vSetup'); };
+  armReset($('btnReset'), 'Začít znovu (smazat průběh)', () => { S = Object.assign(def(), { mode:S.mode, lesson:S.lesson }); save(); renderStats(); renderBarsAll(); });
+
+  renderStats(); renderSetup(); renderBarsAll(); show('vSetup');
+  if (!S.lesson){ lIdx = 0; renderLesson(); show('vLesson'); }
+})();
+</script>
+</body>
+</html>

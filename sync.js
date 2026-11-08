@@ -3,7 +3,7 @@
   Téma:    Posílá dokončená kola a průběh appek do Google tabulky rodiče, aby šla Šimonova historie
            otevřít na jakémkoli zařízení. Bez nastavené adresy nedělá nic a appky fungují jen lokálně.
   Datum:   2026-11-08
-  Verze:   1.6 (nová appka Přijímačky – čeština)
+  Verze:   1.7 (nová appka Podmět a přísudek)
   Nastavení: do SYNC_URL vlož adresu webové aplikace Google Apps Script (končí na /exec).
 */
 window.UceniSync = (function(){
@@ -12,7 +12,7 @@ window.UceniSync = (function(){
   const QUEUE_KEY = 'uceni-sync-fronta-v1';
   const INIT_KEY = 'uceni-sync-uvod-v1';
   const LOG_KEY = 'uceni-historie-v1';
-  const APP_IDS = ['mala-nasobilka','deleni-jednocifernym','slovni-druhy','urcovani-padu','vyjmenovana-slova','jpz-matematika','cisla-do-10000','nase-vlast','jpz-cestina'];
+  const APP_IDS = ['mala-nasobilka','deleni-jednocifernym','slovni-druhy','urcovani-padu','vyjmenovana-slova','jpz-matematika','cisla-do-10000','nase-vlast','jpz-cestina','podmet-a-prisudek'];
 
   const read = (k, fb) => { try { const r = localStorage.getItem(k); return r ? JSON.parse(r) : fb; } catch(e){ return fb; } };
   const write = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} };
