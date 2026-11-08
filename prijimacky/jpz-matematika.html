@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<!--
+  Název:   Přijímačky – matematika
+  Předmět: Matematika (příprava na jednotnou přijímací zkoušku na osmileté gymnázium)
+  Téma:    Trénink po okruzích a vstupní test podle Specifikace požadavků CERMAT 2026/2027, část A1
+           (osmiletá gymnázia). Vlastní úlohy ve formátech JPZ: výsledek, výběr A–E, svazek ANO/NE, přiřazování.
+  Datum:   2026-11-08
+  Verze:   1.0
+-->
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Přijímačky – matematika</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Stejný sešitový vzhled jako ostatní appky: čtverečkovaný papír, modré pero, červená tužka paní učitelky */
+:root{
+  --paper:#f7f9fd; --grid:#dfe8f5; --card:#ffffff; --card2:#f1f5fb; --line:#cfdbec;
+  --ink:#1d3a8f; --text:#1b2540; --muted:#5a6884;
+  --red:#cc2f27; --red-soft:#fbe1df; --green:#17804a; --green-soft:#d9f1e3;
+  --amber:#a8650a; --amber-soft:#fcecd0; --on-ink:#ffffff;
+  --shade:#b9c9e8; --grid2:#d3deee; --cube-t:#e3ebf8; --cube-l:#b3c5e6; --cube-r:#8aa3d3;
+  --f-display:"Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0e1526; --grid:#18233b; --card:#151f37; --card2:#1c2843; --line:#2b3b5e;
+  --ink:#9dc0ff; --text:#e4ebf7; --muted:#97a6c2;
+  --red:#ff7f73; --red-soft:#4a2228; --green:#62d494; --green-soft:#183d2c;
+  --amber:#f2b552; --amber-soft:#43341a; --on-ink:#0e1526;
+  --shade:#34508a; --grid2:#24324f; --cube-t:#4a6293; --cube-l:#34497a; --cube-r:#243663; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#0e1526; --grid:#18233b; --card:#151f37; --card2:#1c2843; --line:#2b3b5e;
+  --ink:#9dc0ff; --text:#e4ebf7; --muted:#97a6c2;
+  --red:#ff7f73; --red-soft:#4a2228; --green:#62d494; --green-soft:#183d2c;
+  --amber:#f2b552; --amber-soft:#43341a; --on-ink:#0e1526;
+  --shade:#34508a; --grid2:#24324f; --cube-t:#4a6293; --cube-l:#34497a; --cube-r:#243663; color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  margin:0;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--text); font-family:var(--f-body); font-size:17px; line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:14px 40px;
+  -webkit-tap-highlight-color:transparent;
+}
+.wrap{max-width:620px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+a.back{color:var(--ink);font-weight:700;text-decoration:none;font-size:15px;align-self:flex-start;padding:10px 0;min-height:44px}
+a.back:hover{text-decoration:underline}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-family:var(--f-display);font-weight:800;color:var(--ink);font-size:clamp(30px,8.5vw,42px);line-height:1;margin:0;text-wrap:balance}
+h1 small{display:block;font-family:var(--f-body);font-size:14px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.stats{display:flex;gap:8px}
+.pill{display:flex;align-items:center;gap:6px;background:var(--card);border:2px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:800;font-variant-numeric:tabular-nums;font-size:15px}
+.pill .ic{color:var(--amber);font-size:18px}
+.pill .lbl{color:var(--muted);font-weight:600}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:20px;position:relative}
+.sheet{padding-left:40px}
+.sheet::before{content:"";position:absolute;top:0;bottom:0;left:24px;border-left:2px solid var(--red);opacity:.55}
+h2{font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--ink);margin:0 0 10px;text-wrap:balance}
+h3{font-family:var(--f-display);font-size:19px;font-weight:700;color:var(--ink);margin:18px 0 6px}
+p{margin:0 0 8px}
+.note{color:var(--muted);font-size:15px;margin:6px 0 0}
+.small{font-size:14px}.muted{color:var(--muted)}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 6px}
+.fact{background:var(--card2);border:2px solid var(--line);border-radius:12px;padding:8px 6px;text-align:center}
+.fact b{display:block;font-family:var(--f-display);font-size:26px;line-height:1.05;color:var(--ink)}
+.fact span{font-size:13px;color:var(--muted);font-weight:700}
+.btn{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;min-height:58px;border-radius:14px;border:2px solid var(--ink);background:var(--ink);color:var(--on-ink);font-family:var(--f-display);font-size:22px;font-weight:700;cursor:pointer;padding:6px 12px}
+.btn.ghost{background:var(--card);color:var(--ink)}
+.btn.sm{min-height:48px;font-size:19px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.stack{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.link{background:none;border:0;color:var(--ink);font:inherit;font-weight:700;padding:10px 4px;min-height:44px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.reco{background:var(--amber-soft);border-radius:12px;padding:10px 12px;margin-top:12px;font-weight:700;font-size:15px}
+/* témata */
+.okr h2{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.okr h2 span{font-family:var(--f-body);font-size:14px;color:var(--muted);font-weight:700}
+.tlist{display:flex;flex-direction:column;gap:8px}
+.topic{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;width:100%;min-height:56px;text-align:left;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--text);font:inherit;cursor:pointer}
+.topic:hover:not(:disabled){border-color:var(--ink)}
+.topic .nm{font-weight:800;color:var(--ink);line-height:1.25}
+.topic .pc{font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums;font-size:15px}
+.topic .tr{grid-column:1 / -1;height:8px;border-radius:4px;background:var(--card2);border:1px solid var(--line);overflow:hidden}
+.topic .fl{height:100%;background:var(--green)}
+.topic .fl.mid{background:var(--amber)} .topic .fl.low{background:var(--red)}
+.topic:disabled{cursor:not-allowed;background:var(--card2)}
+.topic:disabled .nm{color:var(--muted)}
+.lock{font-size:13px;font-weight:800;color:var(--muted);letter-spacing:.03em}
+.g5tag{display:inline-block;margin-left:6px;font-size:12px;font-weight:800;color:var(--amber);letter-spacing:.04em;text-transform:uppercase;vertical-align:middle}
+/* úloha */
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);background:transparent}
+.dot.ok{background:var(--green);border-color:var(--green)}
+.dot.miss{background:var(--red-soft);border-color:var(--red)}
+.dot.done{background:var(--line);border-color:var(--line)}
+.dot.now{border-color:var(--ink);transform:scale(1.25)}
+.tag{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.tag .fmt{color:var(--amber)}
+.task{font-size:19px;font-weight:600;line-height:1.5;text-wrap:pretty}
+.task b{color:var(--ink)}
+.ex{display:block;text-align:center;font-family:var(--f-display);font-weight:700;color:var(--ink);font-size:clamp(26px,7vw,34px);line-height:1.3;margin:10px 0 2px;font-variant-numeric:tabular-nums}
+.fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.05;margin:0 .1em;font-variant-numeric:tabular-nums}
+.fr span:first-child{border-bottom:2px solid currentColor;padding:0 .15em}
+.fr span{padding:0 .15em}
+.letter{font-family:var(--f-display);font-size:30px;font-weight:700;line-height:1}
+.fig{display:block;margin:12px auto 4px;max-width:100%;height:auto}
+.fig .gl{stroke:var(--grid2);stroke-width:1}
+.fig .glt{stroke:var(--ink);stroke-opacity:.22;stroke-width:1}
+.fig .sho{fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linejoin:round}
+.fig .gl0{fill:var(--card);stroke:var(--line);stroke-width:1}
+.fig .shf{fill:var(--shade);stroke:var(--ink);stroke-width:1;stroke-opacity:.3}
+.fig .she{stroke:var(--ink);stroke-width:2.4;stroke-linecap:round;fill:none}
+.fig polygon.sh{fill:var(--shade);stroke:var(--ink);stroke-width:2.4;stroke-linejoin:round}
+.fig .sh2{fill:var(--card2);stroke:var(--ink);stroke-width:1.6}
+.fig .ax{stroke:var(--text);stroke-width:2}
+.fig .axh{fill:var(--text)}
+.fig .tk{stroke:var(--text);stroke-width:1.6}
+.fig .lb{fill:var(--text);font:700 14px var(--f-body)}
+.fig .lb.sm{font-size:12px}
+.fig .lb.strong{fill:var(--ink);font-family:var(--f-display);font-size:17px}
+.fig .lb.big{font-family:var(--f-display);font-size:22px;fill:var(--text)}
+.fig .lb.q{fill:var(--red)}
+.fig .arr,.fig .pt{fill:var(--red)}
+.fig .bar{fill:var(--ink);opacity:.85}
+.fig .ln{stroke:var(--ink);stroke-width:2.6;stroke-linecap:round}
+.fig .lbbg{fill:var(--card)}
+.fig .dt{fill:var(--ink)}
+.fig .ct,.fig .cl,.fig .cr{stroke:var(--ink);stroke-width:1.3;stroke-linejoin:round}
+.fig .ct{fill:var(--cube-t)} .fig .cl{fill:var(--cube-l)} .fig .cr{fill:var(--cube-r)}
+.answer{margin-top:14px}
+.ansrow{display:flex;justify-content:center;align-items:baseline;gap:10px;margin:6px 0 12px;font-family:var(--f-display);font-weight:700}
+.ansbox{min-width:3.2em;text-align:center;font-size:40px;line-height:1.1;color:var(--text);border-bottom:5px solid var(--ink);background:var(--amber-soft);border-radius:8px 8px 0 0;padding:2px 10px;font-variant-numeric:tabular-nums}
+.ansbox:empty::after{content:"?";color:var(--line)}
+.ansbox.good{color:var(--green);border-bottom-color:var(--green);background:var(--green-soft)}
+.ansbox.bad{color:var(--red);border-bottom-color:var(--red);background:var(--red-soft)}
+.unit{font-size:24px;color:var(--muted)}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pad button{min-height:58px;border-radius:14px;border:2px solid var(--line);background:var(--card2);color:var(--text);font-family:var(--f-display);font-size:28px;font-weight:700;cursor:pointer;touch-action:manipulation}
+.pad button:active{transform:scale(.96)}
+.pad .ok{background:var(--ink);border-color:var(--ink);color:var(--on-ink);font-size:22px}
+.pad .del{font-size:24px;color:var(--muted)}
+.pad button:disabled{opacity:.4}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;align-items:center;gap:12px;min-height:54px;width:100%;text-align:left;padding:8px 12px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-weight:700;font-size:18px;cursor:pointer}
+.opt .lt{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:2px solid var(--line);font-family:var(--f-display);font-size:19px;color:var(--ink)}
+.opt[aria-pressed="true"]{border-color:var(--ink);background:var(--card2)}
+.opt[aria-pressed="true"] .lt{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
+.opt.wrong{border-color:var(--red);background:var(--red-soft);opacity:.75}
+.opt.right{border-color:var(--green);background:var(--green-soft)}
+.opts.grid5{display:grid;grid-template-columns:repeat(5,1fr)}
+.opts.grid5 .opt{justify-content:center;padding:6px}
+.yn{display:flex;flex-direction:column;gap:10px}
+.ynrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:10px 12px;border:2px solid var(--line);border-radius:12px}
+.ynrow .q{font-weight:600}
+.ynrow .q b{color:var(--ink);font-family:var(--f-display);margin-right:4px}
+.ynbtns{display:flex;gap:6px}
+.ynbtns button{width:52px;min-height:48px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--f-display);font-size:20px;font-weight:700;cursor:pointer}
+.ynbtns button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
+.ynrow.right{border-color:var(--green);background:var(--green-soft)}
+.ynrow.wrong{border-color:var(--red);background:var(--red-soft)}
+.mrow{padding:10px 12px;border:2px solid var(--line);border-radius:12px;margin-bottom:10px}
+.mrow .q{font-weight:600;margin-bottom:8px}
+.mrow .q b{color:var(--ink);font-family:var(--f-display);margin-right:4px}
+.mrow.right{border-color:var(--green);background:var(--green-soft)}
+.mrow.wrong{border-color:var(--red);background:var(--red-soft)}
+.mbtns{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.mbtns button{min-height:46px;border-radius:10px;border:2px solid var(--line);background:var(--card);color:var(--ink);font-family:var(--f-display);font-size:19px;font-weight:700;cursor:pointer}
+.mbtns button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
+.mopts{display:flex;flex-wrap:wrap;gap:6px 14px;background:var(--card2);border-radius:12px;padding:10px 12px;margin-bottom:10px;font-weight:700;font-variant-numeric:tabular-nums}
+.mopts b{color:var(--ink);font-family:var(--f-display)}
+.fb{min-height:2.6em;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:17px;padding:8px 4px 2px;max-width:42ch;margin:0 auto}
+.fb.good{color:var(--green);font-family:var(--f-display);font-size:26px}
+.fb.hint{color:var(--amber)}
+.fb.reveal{color:var(--red)}
+.sol{background:var(--card2);border:2px dashed var(--line);border-radius:12px;padding:10px 14px;margin-top:6px;font-size:16px;line-height:1.55;font-variant-numeric:tabular-nums}
+.sol .h{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.acts{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.acts .row{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
+/* výsledky */
+.result{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.grade{font-family:var(--f-display);font-weight:800;color:var(--red);font-size:92px;line-height:1;width:150px;height:150px;border:5px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;transform:rotate(-8deg);margin:8px 0 10px;padding-top:12px}
+.gword{font-family:var(--f-display);font-size:30px;font-weight:700;color:var(--red);margin:0}
+.sum{color:var(--muted);font-weight:600;margin:0}
+.misses{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
+.misses span{background:var(--red-soft);color:var(--text);border-radius:10px;padding:6px 12px;font-weight:700}
+.label{font-size:13px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px}
+.bars{display:flex;flex-direction:column;gap:8px;width:100%;text-align:left}
+.bar{display:grid;grid-template-columns:minmax(0,11em) 1fr 3.2em;gap:10px;align-items:center;font-size:15px}
+.bar .nm{font-weight:700;min-width:0;overflow-wrap:anywhere}
+.bar .tr{height:12px;border-radius:6px;background:var(--card2);border:1px solid var(--line);overflow:hidden}
+.bar .tr,.bar .fl,.topic .tr,.topic .fl{display:block}
+.bar .fl{height:100%;border-radius:6px;background:var(--green)}
+.bar .fl.mid{background:var(--amber)} .bar .fl.low{background:var(--red)}
+.bar .pc{color:var(--muted);font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.dlist{display:flex;flex-direction:column;gap:6px;width:100%;text-align:left}
+.dlist div{display:flex;gap:10px;align-items:baseline;font-weight:700}
+.dlist .ok{color:var(--green)} .dlist .no{color:var(--red)}
+/* rodiče */
+.sw{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.sw:last-child{border-bottom:0}
+.sw .nm{font-weight:700}
+.toggle{min-width:96px;min-height:44px;border-radius:999px;border:2px solid var(--line);background:var(--card2);color:var(--muted);font:inherit;font-weight:800;cursor:pointer}
+.toggle[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--on-ink)}
+.links a{color:var(--ink);font-weight:700}
+.links li{margin-bottom:6px}
+.parents{text-align:center;margin-top:4px}
+.reset{color:var(--red)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+@media (max-width:420px){ .sheet{padding-left:30px} .sheet::before{left:16px} .card{padding:16px} .sheet{padding-left:30px} .opts.grid5 .opt{min-height:50px} .task{font-size:18px} }
+@media (prefers-reduced-motion:reduce){.shake{animation:none}.dot.now{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">← Zpět na rozcestník</a>
+  <header>
+    <h1><small>Přijímačky na gympl</small>Matematika</h1>
+    <div class="stats">
+      <div class="pill" title="Hvězdičky za úlohy vyřešené napoprvé bez nápovědy"><span class="ic">★</span><span id="stStars">0</span></div>
+      <div class="pill" title="Nejdelší série úloh vyřešených napoprvé"><span class="lbl">rekord</span><span id="stBest">0</span></div>
+    </div>
+  </header>
+
+  <!-- ===== DOMŮ ===== -->
+  <div id="vHome" class="wrap" style="gap:14px">
+    <section class="card sheet">
+      <h2>Co tě čeká</h2>
+      <p>Přijímačky na osmileté gymnázium budeš psát v 5. třídě, na jaře 2028. Test z matematiky vypadá takhle:</p>
+      <div class="facts">
+        <div class="fact"><b>14</b><span>úloh</span></div>
+        <div class="fact"><b>70</b><span>minut</span></div>
+        <div class="fact"><b>50</b><span>bodů</span></div>
+      </div>
+      <p class="note">Smíš jen tužku, propisku, pravítko, trojúhelník s ryskou a kružítko. Kalkulačku ne. Tady v appce si taky počítej na papír.</p>
+    </section>
+
+    <section class="card sheet">
+      <h2>Trénuj</h2>
+      <p class="note" id="diagNote"></p>
+      <div class="stack">
+        <button type="button" class="btn" id="btnDiag">Vstupní test</button>
+        <button type="button" class="btn ghost" id="btnMix">Mix úloh z různých témat</button>
+      </div>
+      <div class="reco" id="reco" hidden></div>
+    </section>
+
+    <div id="topics" class="wrap" style="gap:14px"></div>
+
+    <p class="parents"><button type="button" class="link" id="btnParents">Pro rodiče</button></p>
+  </div>
+
+  <!-- ===== ÚLOHA ===== -->
+  <section id="vGame" class="card sheet" hidden>
+    <div class="top">
+      <div class="dots" id="dots"></div>
+      <button type="button" class="link" id="btnQuit">Ukončit</button>
+    </div>
+    <div class="tag"><span id="tTopic"></span><span class="fmt" id="tFmt"></span></div>
+    <div class="task" id="tHtml" aria-live="polite"></div>
+    <div id="tFig"></div>
+    <div class="answer" id="tAns"></div>
+    <div class="fb" id="fb" aria-live="polite"></div>
+    <div class="sol" id="sol" hidden></div>
+    <div class="acts">
+      <button type="button" class="btn" id="btnCheck">Zkontrolovat</button>
+      <button type="button" class="btn" id="btnNext" hidden>Další úloha</button>
+      <div class="row">
+        <button type="button" class="link" id="btnHint">Nápověda</button>
+        <button type="button" class="link" id="btnSkip">Nevím, přeskočit</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VÝSLEDEK KOLA ===== -->
+  <section id="vResult" class="card" hidden>
+    <div class="result">
+      <div class="grade" id="rGrade">1</div>
+      <p class="gword" id="rWord">výborně</p>
+      <p class="sum" id="rSum"></p>
+      <div id="rMissBox" hidden style="width:100%">
+        <div class="label">Tyhle úlohy si ještě zopakuj</div>
+        <div class="misses" id="rMiss"></div>
+      </div>
+    </div>
+    <div class="stack">
+      <button type="button" class="btn" id="btnAgain">Další kolo</button>
+      <button type="button" class="btn ghost" id="btnHome">Zpět na témata</button>
+    </div>
+  </section>
+
+  <!-- ===== VÝSLEDEK VSTUPNÍHO TESTU ===== -->
+  <section id="vDiag" class="card" hidden>
+    <h2>Výsledek vstupního testu</h2>
+    <p class="sum" id="dSum"></p>
+    <div class="label">Podle okruhů</div>
+    <div class="bars" id="dBars"></div>
+    <div class="label">Jednotlivá témata</div>
+    <div class="dlist" id="dList"></div>
+    <div class="reco" id="dReco" hidden></div>
+    <div class="stack">
+      <button type="button" class="btn" id="btnDiagTrain">Trénovat slabá místa</button>
+      <button type="button" class="btn ghost" id="btnDiagHome">Zpět na témata</button>
+    </div>
+  </section>
+
+  <!-- ===== PRO RODIČE ===== -->
+  <section id="vParents" class="card sheet" hidden>
+    <h2>Pro rodiče</h2>
+    <p>Úlohy jsou vlastní, ale typem, formátem a rozsahem odpovídají <b>Specifikaci požadavků CERMAT pro školní rok 2026/2027</b> (osmiletá gymnázia, část A1). Specifikace pro rok 2027/2028 zatím nevyšla – v létě 2027 je potřeba ji zkontrolovat.</p>
+    <h3>Témata</h3>
+    <p class="note">Učivo 5. třídy je zamčené, dokud ho Šimon nebere ve škole. Odemknutí platí v tomto zařízení.</p>
+    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">
+      <button type="button" class="btn ghost sm" id="btnUnlockAll" style="flex:1 1 200px">Odemknout vše</button>
+      <button type="button" class="btn ghost sm" id="btnDefaults" style="flex:1 1 200px">Výchozí nastavení</button>
+    </div>
+    <div id="pTopics"></div>
+    <h3>Oficiální materiály CERMAT</h3>
+    <ul class="links">
+      <li><a href="https://prijimacky.cermat.gov.cz/menu/specifikace-pozadavku-k-jpz.html" target="_blank" rel="noopener">Specifikace požadavků k JPZ</a></li>
+      <li><a href="https://prijimacky.cermat.gov.cz/menu/testova-zadani-k-procvicovani/testova-zadani-v-pdf/osmilete-obory-matematika.html" target="_blank" rel="noopener">Testy z minulých let – osmiletá gymnázia, matematika (PDF)</a></li>
+      <li><a href="https://prijimacky.cermat.gov.cz/files/files/dokumenty/Hodnoceni_uloh_JPZ_MA.pdf" target="_blank" rel="noopener">Jak se boduje test z matematiky (PDF)</a></li>
+      <li><a href="https://tau.cermat.gov.cz/cs" target="_blank" rel="noopener">TAU – trénuj a uč se (oficiální procvičovací aplikace CERMAT)</a></li>
+    </ul>
+    <p class="note">Úlohy z testů CERMAT do appky nekopíruji – jejich zveřejnění na webu pravidla CZVV bez souhlasu nedovolují. Celé testy z minulých let doporučuji řešit na papíře, nejlépe se záznamovým archem.</p>
+    <button type="button" class="link reset" id="btnReset"></button>
+    <div class="stack"><button type="button" class="btn ghost" id="btnParentsBack">Zpět</button></div>
+  </section>
+</div>
+<script src="../sync.js"></script>
+<script>
+/* ---------- GENERÁTORY ÚLOH (Přijímačky – matematika) ----------
+   Každá úloha: { id, type:'num'|'choice'|'yn'|'match', html, fig?, ans, unit?, opts?, correct?, items?, subs?, hint, sol, meta? }
+   Rozsah podle Specifikace požadavků CERMAT 2026/2027, část A1 (osmiletá gymnázia). */
+(function(root){
+'use strict';
+const rnd = n => Math.floor(Math.random()*n);
+const rint = (a,b) => a + rnd(b-a+1);
+const pick = a => a[rnd(a.length)];
+const shuffle = a => { for (let i=a.length-1;i>0;i--){ const j=rnd(i+1); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const NB = ' ';
+const fmt = n => (n<0?'−':'') + String(Math.abs(n)).replace(/\B(?=(\d{3})+(?!\d))/g, NB);
+const dec = (x, d=1) => (x<0?'−':'') + Math.abs(x).toFixed(d).replace('.', ',');
+const pl = (n, one, few, many) => n===1 ? one : (n>=2 && n<=4) ? few : many;
+const gcd = (a,b) => b ? gcd(b, a%b) : a;
+const ex = s => `<span class="ex">${s}</span>`;
+const b = s => `<b>${s}</b>`;
+function retry(fn, tries=200){ for (let i=0;i<tries;i++){ const r = fn(); if (r) return r; } throw new Error('generátor nenašel vhodnou úlohu'); }
+const U = (a, b2, c) => [a, b2, c]; // jednotka podle čísla: 1 / 2–4 / 5+
+const ZVO = (z, v, o) => `<b>Z:</b> ${z}<br><b>V:</b> ${v}<br><b>O:</b> ${o}`;
+
+const KIDS = [{n:'Ondra',f:0},{n:'Eliška',f:1},{n:'Tomáš',f:0},{n:'Adéla',f:1},{n:'Vojta',f:0},{n:'Bára',f:1},{n:'Kuba',f:0},{n:'Ema',f:1},{n:'Filip',f:0},{n:'Natálie',f:1}];
+const kid = () => pick(KIDS);
+const two = () => { const a = kid(); let c; do { c = kid(); } while (c.n===a.n); return [a,c]; };
+const la = k => k.f ? 'a' : '';
+
+/* zlomky slovy: [1. p. j. č., 4. p. j. č., 2. p. j. č., 1. p. mn. č., 2. p. mn. č.] */
+const FRW = {
+  2:['polovina','polovinu','poloviny','poloviny','polovin'], 3:['třetina','třetinu','třetiny','třetiny','třetin'],
+  4:['čtvrtina','čtvrtinu','čtvrtiny','čtvrtiny','čtvrtin'], 5:['pětina','pětinu','pětiny','pětiny','pětin'],
+  6:['šestina','šestinu','šestiny','šestiny','šestin'], 7:['sedmina','sedminu','sedminy','sedminy','sedmin'],
+  8:['osmina','osminu','osminy','osminy','osmin'], 9:['devítina','devítinu','devítiny','devítiny','devítin'],
+  10:['desetina','desetinu','desetiny','desetiny','desetin']
+};
+const NUMF = ['', 'jedna','dvě','tři','čtyři','pět','šest','sedm','osm','devět'];
+const frPhrase = (k, n) => k===1 ? FRW[n][0] : (k<=4 ? NUMF[k]+' '+FRW[n][3] : NUMF[k]+' '+FRW[n][4]);
+const frVerb = k => (k>=2 && k<=4) ? 'jsou' : 'je';
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const frac = (c, d) => `<span class="fr"><span>${c}</span><span>${d}</span></span>`;
+
+/* výběr z možností: správná + rušivé, zamíchá, ověří jedinečnost */
+function mkChoice(correct, distract, n=5){
+  const seen = new Set([correct]), opts = [correct];
+  for (const d of distract){ if (opts.length>=n) break; if (!seen.has(d)){ seen.add(d); opts.push(d); } }
+  if (opts.length < n) return null;
+  const order = shuffle(opts.map((_,i)=>i));
+  return { opts: order.map(i => opts[i]), correct: order.indexOf(0) };
+}
+
+/* ---------- SVG pomocníci ---------- */
+const svg = (w, h, body, cls='') => `<svg class="fig ${cls}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-hidden="true">${body}</svg>`;
+function gridLines(x0, y0, cols, rows, c, cls='gl'){
+  let s = '';
+  for (let i=0;i<=cols;i++) s += `<line class="${cls}" x1="${x0+i*c}" y1="${y0}" x2="${x0+i*c}" y2="${y0+rows*c}"/>`;
+  for (let j=0;j<=rows;j++) s += `<line class="${cls}" x1="${x0}" y1="${y0+j*c}" x2="${x0+cols*c}" y2="${y0+j*c}"/>`;
+  return s;
+}
+/* obrys množiny políček (polyomino) jako sada hraničních úseček */
+function cellsPath(cells, x0, y0, c, cls='sh'){
+  let fill = '', edges = '';
+  const has = (x,y) => cells.some(p => p[0]===x && p[1]===y);
+  cells.forEach(([x,y]) => {
+    fill += `<rect class="${cls}f" x="${x0+x*c}" y="${y0+y*c}" width="${c}" height="${c}"/>`;
+    if (!has(x,y-1)) edges += `<line class="${cls}e" x1="${x0+x*c}" y1="${y0+y*c}" x2="${x0+(x+1)*c}" y2="${y0+y*c}"/>`;
+    if (!has(x,y+1)) edges += `<line class="${cls}e" x1="${x0+x*c}" y1="${y0+(y+1)*c}" x2="${x0+(x+1)*c}" y2="${y0+(y+1)*c}"/>`;
+    if (!has(x-1,y)) edges += `<line class="${cls}e" x1="${x0+x*c}" y1="${y0+y*c}" x2="${x0+x*c}" y2="${y0+(y+1)*c}"/>`;
+    if (!has(x+1,y)) edges += `<line class="${cls}e" x1="${x0+(x+1)*c}" y1="${y0+y*c}" x2="${x0+(x+1)*c}" y2="${y0+(y+1)*c}"/>`;
+  });
+  return fill + edges;
+}
+function polyomino(n, W, H){
+  return retry(() => {
+    const cells = [[rnd(W), rnd(H)]];
+    const has = (x,y) => cells.some(p => p[0]===x && p[1]===y);
+    let guard = 0;
+    while (cells.length < n && guard++ < 500){
+      const [x,y] = pick(cells), [dx,dy] = pick([[1,0],[-1,0],[0,1],[0,-1]]);
+      const nx = x+dx, ny = y+dy;
+      if (nx>=0 && ny>=0 && nx<W && ny<H && !has(nx,ny)) cells.push([nx,ny]);
+    }
+    if (cells.length < n) return null;
+    // bez děr: z okraje rozšířené mřížky musí jít dojít ke všem prázdným políčkům
+    const seen = new Set(), key = (x,y) => x+','+y, st = [[-1,-1]];
+    seen.add(key(-1,-1));
+    while (st.length){
+      const [x,y] = st.pop();
+      for (const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+        const nx = x+dx, ny = y+dy;
+        if (nx<-1 || ny<-1 || nx>W || ny>H || seen.has(key(nx,ny)) || has(nx,ny)) continue;
+        seen.add(key(nx,ny)); st.push([nx,ny]);
+      }
+    }
+    for (let x=0;x<W;x++) for (let y=0;y<H;y++) if (!has(x,y) && !seen.has(key(x,y))) return null;
+    return cells;
+  });
+}
+const perimeterCells = cells => { const has = (x,y) => cells.some(p => p[0]===x && p[1]===y); let p = 0; cells.forEach(([x,y]) => { if(!has(x+1,y))p++; if(!has(x-1,y))p++; if(!has(x,y+1))p++; if(!has(x,y-1))p++; }); return p; };
+const normCells = cells => { const mx = Math.min(...cells.map(c=>c[0])), my = Math.min(...cells.map(c=>c[1])); return cells.map(([x,y])=>[x-mx,y-my]).sort((a,b)=>a[0]-b[0]||a[1]-b[1]).map(c=>c.join(',')).join(';'); };
+function isSymmetric(cells){
+  const n0 = normCells(cells);
+  const maps = [([x,y])=>[-x,y], ([x,y])=>[x,-y], ([x,y])=>[y,x], ([x,y])=>[-y,-x]];
+  return maps.some(m => normCells(cells.map(m)) === n0);
+}
+function shoelace(pts){ let s = 0; for (let i=0;i<pts.length;i++){ const [x1,y1] = pts[i], [x2,y2] = pts[(i+1)%pts.length]; s += x1*y2 - x2*y1; } return Math.abs(s)/2; }
+const polySvg = (pts, x0, y0, c, cls='sh') => `<polygon class="${cls}" points="${pts.map(([x,y]) => (x0+x*c)+','+(y0+y*c)).join(' ')}"/>`;
+
+/* číselná osa: ticks = počet dílků, labels = {index: text}, marks = {index: text nad osou} */
+function axisSvg(ticks, labels, marks, opt={}){
+  const W = 360, x0 = 40, x1 = 316, y = opt.y || 44, step = (x1-x0)/ticks;
+  let s = `<line class="ax" x1="${x0-14}" y1="${y}" x2="${x1+18}" y2="${y}"/><polygon class="axh" points="${x1+24},${y} ${x1+14},${y-5} ${x1+14},${y+5}"/>`;
+  for (let i=0;i<=ticks;i++){
+    const x = x0 + i*step, major = opt.major ? (i % opt.major === 0) : true;
+    s += `<line class="tk" x1="${x}" y1="${y-(major?8:5)}" x2="${x}" y2="${y+(major?8:5)}"/>`;
+  }
+  for (const i in labels) s += `<text class="lb" x="${x0+i*step}" y="${y+26}" text-anchor="middle">${labels[i]}</text>`;
+  for (const i in marks){
+    const x = x0 + i*step;
+    if (marks[i]==='↓') s += `<polygon class="arr" points="${x},${y-10} ${x-7},${y-24} ${x+7},${y-24}"/>`;
+    else s += `<circle class="pt" cx="${x}" cy="${y}" r="4.5"/><text class="lb strong" x="${x}" y="${y-14}" text-anchor="middle">${marks[i]}</text>`;
+  }
+  return svg(W, y+36, s);
+}
+
+/* ========== 1 ČÍSLO A POČETNÍ OPERACE ========== */
+
+function g_poradi(){
+  return retry(() => {
+    const k = rnd(6);
+    let e, st, ans;
+    if (k===0){
+      const a = rint(12,60), b1 = rint(3,9), c = rint(3,9), d = rint(5, 40);
+      ans = a + b1*c - d; if (ans < 0) return null;
+      e = `${a} + ${b1} · ${c} − ${d}`; st = [`${b1} · ${c} = ${b1*c}`, `${a} + ${b1*c} − ${d} = ${ans}`];
+    } else if (k===1){
+      const c = rint(2,9), q1 = rint(2,9), g = rint(2,6), q2 = rint(2,9), f = rint(1,9), a = rint(q1+3, 60);
+      const bb = c*q1, d = g*q2, ee = f+g; ans = a - q1 + q2;
+      e = `${a} − ${bb} : ${c} + ${d} : (${ee} − ${f})`; st = [`${ee} − ${f} = ${g}`, `${bb} : ${c} = ${q1}`, `${d} : ${g} = ${q2}`, `${a} − ${q1} + ${q2} = ${ans}`];
+    } else if (k===2){
+      const m = rint(2,9), bb = rint(2,20), c = rint(2,9), ee = rint(2,9), q = rint(2,9), d = ee*q;
+      ans = m*c - q; if (ans < 0) return null;
+      e = `(${bb+m} − ${bb}) · ${c} − ${d} : ${ee}`; st = [`${bb+m} − ${bb} = ${m}`, `${m} · ${c} = ${m*c}`, `${d} : ${ee} = ${q}`, `${m*c} − ${q} = ${ans}`];
+    } else if (k===3){
+      const kk = pick([20,25,40,50]), n = kk*rint(12, 250), m = pick([30,40,60,200]), r = 100*rint(2, 40), s2 = rint(10, 99);
+      if (m*r > 900000) return null;
+      ans = n/kk + m*r - s2;
+      e = `${fmt(n)} : ${kk} + ${m} · ${fmt(r)} − ${s2}`; st = [`${fmt(n)} : ${kk} = ${fmt(n/kk)}`, `${m} · ${fmt(r)} = ${fmt(m*r)}`, `${fmt(n/kk)} + ${fmt(m*r)} − ${s2} = ${fmt(ans)}`];
+    } else if (k===4){
+      const a = rint(3,9), bb = rint(2,9), c = rint(2,9), d = rint(2,9), ee = rint(2,9);
+      ans = a*(bb+c) - d*ee; if (ans < 0) return null;
+      e = `${a} · (${bb} + ${c}) − ${d} · ${ee}`; st = [`${bb} + ${c} = ${bb+c}`, `${a} · ${bb+c} = ${a*(bb+c)}`, `${d} · ${ee} = ${d*ee}`, `${a*(bb+c)} − ${d*ee} = ${ans}`];
+    } else {
+      const g = rint(2,8), q = rint(2,9), c = rint(1,9), a = g*q, d = rint(2,9), h = rint(2,6), f = rint(1,9);
+      ans = q + d*h;
+      e = `${a} : (${c+g} − ${c}) + ${d} · (${f+h} − ${f})`; st = [`${c+g} − ${c} = ${g}`, `${f+h} − ${f} = ${h}`, `${a} : ${g} = ${q}`, `${d} · ${h} = ${d*h}`, `${q} + ${d*h} = ${ans}`];
+    }
+    const disp = e.replace(/\(([^)]*)\)/g, m => m.replace(/ /g, NB));
+    return { type:'num', html:`Vypočítej. ${ex(disp+NB+'=')}`, ans, meta:{expr:e},
+      hint:'Nejdřív závorky, potom násobení a dělení (zleva doprava), nakonec sčítání a odčítání (zleva doprava).',
+      sol: st.join('<br>') };
+  });
+}
+
+function g_pisemne(){
+  return retry(() => {
+    const k = rnd(6);
+    let a, c, op, ans, hint, sol;
+    if (k===0){ a = rint(1000, 99999); c = rint(1000, 99999); op = '+'; ans = a+c; hint = 'Napiš čísla pod sebe tak, aby jednotky byly pod jednotkami. Sčítej od jednotek a nezapomeň na přechod přes desítku.'; sol = `${fmt(a)} + ${fmt(c)} = ${fmt(ans)}`; }
+    else if (k===1){ a = rint(20000, 999999); c = rint(1000, a-1000); op = '−'; ans = a-c; hint = 'Napiš čísla pod sebe, jednotky pod jednotky, a odčítej od jednotek. Zkouška: výsledek + menšitel = menšenec.'; sol = `${fmt(a)} − ${fmt(c)} = ${fmt(ans)}<br>Zkouška: ${fmt(ans)} + ${fmt(c)} = ${fmt(a)}`; }
+    else if (k===2 || k===3){ a = k===2 ? rint(102, 999) : rint(1002, 9999); c = rint(3,9); op = '·'; ans = a*c; hint = 'Násob od jednotek a pamatuj si, kolik přenášíš do vyššího řádu.'; sol = `${fmt(a)} · ${c} = ${fmt(ans)}`; }
+    else { a = k===4 ? rint(12, 99) : rint(102, 999); c = rint(12, 99); if (c%10===0) return null; op = '·'; ans = a*c;
+      const u = c%10, t = c-u;
+      hint = 'Násob nejdřív jednotkami druhého činitele, pak desítkami (druhý řádek posuň o jedno místo doleva). Nakonec oba řádky sečti.';
+      sol = `${fmt(a)} · ${u} = ${fmt(a*u)}<br>${fmt(a)} · ${t} = ${fmt(a*t)}<br>${fmt(a*u)} + ${fmt(a*t)} = ${fmt(ans)}`; }
+    if (ans > 1000000) return null;
+    return { type:'num', html:`Vypočítej písemně. ${ex(`${fmt(a)} ${op} ${fmt(c)} =`)}`, ans, meta:{expr:`${a} ${op} ${c}`}, hint, sol };
+  });
+}
+
+function g_nasobeni(){ // učivo 5. třídy: násobení až čtyřciferným činitelem, dělení jednociferným
+  return retry(() => {
+    if (rnd(3)===0){
+      const d = rint(3,9), q = rint(2000, 99999), n = d*q; if (n > 999999) return null;
+      return { type:'num', html:`Vypočítej písemně. ${ex(`${fmt(n)} : ${d} =`)}`, ans:q, meta:{expr:`${n} : ${d}`},
+        hint:'Děl postupně zleva: kolikrát se dělitel vejde do první části dělence, zapiš, odečti a připiš další číslici. Zkouška: podíl · dělitel = dělenec.',
+        sol:`${fmt(n)} : ${d} = ${fmt(q)}<br>Zkouška: ${fmt(q)} · ${d} = ${fmt(n)}` };
+    }
+    const k = rnd(2);
+    const a = k ? rint(102, 999) : rint(1002, 9999), c = k ? rint(102, 999) : rint(12, 99);
+    const ans = a*c; if (ans > 999999 || c%10===0) return null;
+    const ds = String(c).split('').reverse().map(Number);
+    const rows = ds.map((dg, i) => ({ dg, v: a*dg*Math.pow(10,i), i })).filter(r => r.dg);
+    return { type:'num', html:`Vypočítej písemně. ${ex(`${fmt(a)} · ${fmt(c)} =`)}`, ans, meta:{expr:`${a} · ${c}`},
+      hint:'Násob postupně jednotkami, desítkami (a stovkami) druhého činitele, každý další řádek posuň o místo doleva a nakonec řádky sečti.',
+      sol: rows.map(r => `${fmt(a)} · ${fmt(r.dg*Math.pow(10,r.i))} = ${fmt(r.v)}`).join('<br>') + `<br>součet: ${fmt(ans)}` };
+  });
+}
+
+const PLACES = [{n:'desítky',g:'desítek',v:10},{n:'stovky',g:'stovek',v:100},{n:'tisíce',g:'tisíců',v:1000},{n:'desetitisíce',g:'desetitisíců',v:10000},{n:'statisíce',g:'statisíců',v:100000}];
+const PLACE_DIGIT = ['jednotek','desítek','stovek','tisíců','desetitisíců','statisíců'];
+const round = (n, v) => Math.round(n/v)*v;
+function g_zaokrouhlovani(){
+  return retry(() => {
+    const P = pick(PLACES), n = rint(P.v*2, Math.min(999999, P.v*100 - 1));
+    if (n % P.v === 0 || n > 999999) return null;
+    const ans = round(n, P.v), dg = Math.floor(n / (P.v/10)) % 10;
+    const hint = 'Podívej se na číslici o jeden řád vpravo od místa, na které zaokrouhluješ. Je-li to 0–4, zaokrouhlíš dolů, je-li 5–9, nahoru.';
+    if (rnd(3)){
+      return { type:'num', html:`Zaokrouhli číslo ${b(fmt(n))} na ${P.n}.`, ans, hint,
+        sol:`Rozhoduje číslice na místě ${P.v===10?'jednotek':PLACES[PLACES.indexOf(P)-1].g}: ${dg}. ${dg>=5?'Je 5 nebo víc, zaokrouhlíme nahoru':'Je menší než 5, zaokrouhlíme dolů'}: ${fmt(n)} ≐ ${fmt(ans)}.` };
+    }
+    // výběr: které číslo se zaokrouhlí na daný výsledek
+    const target = round(n, P.v), lo = target - P.v/2, hi = target + P.v/2 - 1;
+    const good = rint(Math.max(lo, 1), hi); if (good === target) return null;
+    const bad = [hi+1, lo-1, target + P.v, target - P.v + rint(1, P.v/2 - 1), target + P.v/2 + rint(0, P.v/2 - 1), target - P.v/2 - rint(1, P.v/2)].filter(x => x>0 && round(x,P.v)!==target);
+    const ch = mkChoice(fmt(good), shuffle(bad).map(fmt)); if (!ch) return null;
+    return { type:'choice', html:`Které z čísel dá po zaokrouhlení na ${P.n} číslo ${b(fmt(target))}?`, ...ch, hint,
+      sol:`Na ${fmt(target)} se zaokrouhlí čísla od ${fmt(lo)} do ${fmt(hi)}. Z nabídky je to jen ${fmt(good)}.` };
+  });
+}
+
+function g_cisla(){
+  return retry(() => {
+    const k = rnd(5);
+    if (k===0){ // číselná osa
+      const s = pick([10,20,25,50,100,200,250,500,1000,2000,5000,10000]), start = s * rint(0, 20) * pick([1,2,5]);
+      const i1 = rint(0,3), i2 = i1 + rint(2,4), j = pick([...Array(11).keys()].filter(i => i!==i1 && i!==i2));
+      const v = i => start + i*s; if (v(10) > 1000000) return null;
+      return { type:'num', html:'Které číslo je na číselné ose označeno šipkou?', fig: axisSvg(10, {[i1]:fmt(v(i1)), [i2]:fmt(v(i2))}, {[j]:'↓'}), ans:v(j),
+        hint:`Zjisti, kolik je jeden dílek: rozdíl popsaných čísel vyděl počtem dílků mezi nimi.`,
+        sol:`Mezi ${fmt(v(i1))} a ${fmt(v(i2))} ${pl(i2-i1,'je','jsou','je')} ${i2-i1} ${pl(i2-i1,'dílek','dílky','dílků')}, rozdíl je ${fmt(v(i2)-v(i1))}, jeden dílek je tedy ${fmt(s)}. Šipka ukazuje na ${fmt(v(j))}.` };
+    }
+    if (k===1){ // rozvinutý zápis
+      const len = rint(5,6), digs = [rint(1,9)]; for (let i=1;i<len;i++) digs.push(rnd(3)===0 ? 0 : rint(1,9));
+      if (digs.filter(d=>d===0).length===0) digs[rint(1,len-1)] = 0;
+      const n = Number(digs.join('')), terms = [];
+      digs.forEach((d,i) => { const p = Math.pow(10, len-1-i); if (d) terms.push(p===1 ? String(d) : `${d} · ${fmt(p)}`); });
+      return { type:'num', html:`Které číslo je zapsáno takto? ${ex(terms.join(' + '))}`, ans:n,
+        hint:'Každý člen říká, kolik je jednotek, desítek, stovek… Kde člen chybí, je na tom místě nula.',
+        sol:`${terms.join(' + ')} = ${fmt(n)}` };
+    }
+    if (k===2){ // největší / nejmenší číslo z číslic
+      const ds = shuffle([0,1,2,3,4,5,6,7,8,9]).slice(0,5); const max = rnd(2)===0;
+      if (!ds.includes(0) && rnd(2)) ds[0] = 0;
+      let arr = ds.slice().sort((a,b)=> max ? b-a : a-b);
+      if (!max && arr[0]===0){ const i = arr.findIndex(d=>d>0); [arr[0],arr[i]] = [arr[i],arr[0]]; }
+      const n = Number(arr.join(''));
+      return { type:'num', html:`Napiš ${max?'největší':'nejmenší'} pěticiferné číslo, ve kterém použiješ každou z číslic ${ds.join(', ')} právě jednou.`, ans:n,
+        hint: max ? 'Největší číslici dej na místo desetitisíců, pak další největší…' : 'Nejmenší číslici dej dopředu – ale pozor, pěticiferné číslo nemůže začínat nulou.',
+        sol:`${max?'Číslice seřadíme od největší':'Číslice seřadíme od nejmenší'}${!max && ds.includes(0) ? ', nula nesmí být na začátku, dáme ji hned na druhé místo' : ''}: ${fmt(n)}.` };
+    }
+    if (k===3){ // číslice na místě
+      const n = rint(100000, 999999), p = rint(0,5), d = Math.floor(n/Math.pow(10,p)) % 10;
+      return { type:'num', html:`Jaká číslice je v čísle ${b(fmt(n))} na místě ${PLACE_DIGIT[p]}?`, ans:d,
+        hint:'Počítej místa zprava: jednotky, desítky, stovky, tisíce, desetitisíce, statisíce.',
+        sol:`V čísle ${fmt(n)} je na místě ${PLACE_DIGIT[p]} číslice ${d}.` };
+    }
+    // porovnání – které číslo je největší / nejmenší
+    const base = rint(1,9)*100000 + rint(0,9)*10000, max = rnd(2)===0;
+    const cand = new Set(); while (cand.size < 5) cand.add(base + pick([0,1,1,0])*rint(1,9)*1000 + pick([0,1])*rint(1,9)*100 + pick([0,1])*rint(1,9)*10 + rnd(10));
+    const arr = [...cand]; const best = max ? Math.max(...arr) : Math.min(...arr);
+    const ch = mkChoice(fmt(best), arr.filter(x=>x!==best).map(fmt)); if (!ch) return null;
+    return { type:'choice', html:`Které z čísel je ${max?'největší':'nejmenší'}?`, ...ch,
+      hint:'Porovnávej číslice zleva – od nejvyššího řádu. Rozhoduje první místo, kde se čísla liší.',
+      sol:`${max?'Největší':'Nejmenší'} je ${fmt(best)}.` };
+  });
+}
+
+function g_okolik(){
+  return retry(() => {
+    const k = rnd(5), [x, y] = two();
+    if (k===0){
+      const a = rint(15, 90), d = rint(5, 40), more = rnd(2)===0, c2 = more ? a+d : a-d; if (c2 <= 0) return null;
+      const ans = a + c2;
+      return { type:'num', html:`${x.n} má ${a} kartiček. ${y.n} má o ${d} kartiček ${more?'více':'méně'}. Kolik kartiček mají dohromady?`, ans, unit:U('kartička','kartičky','kartiček'),
+        hint:'Nejdřív zjisti, kolik kartiček má druhé dítě, a potom obě čísla sečti.',
+        sol: ZVO(`${x.n} … ${a}, ${y.n} … o ${d} ${more?'více':'méně'}, dohromady … ?`, `${a} ${more?'+':'−'} ${d} = ${c2}; ${a} + ${c2} = ${ans}`, `Dohromady mají ${ans} kartiček.`) };
+    }
+    if (k===1){
+      const kk = rint(3,9), q = rint(12, 120), n = q*kk, m = rint(10, 90), ans = q + m;
+      return { type:'num', html:`Číslo ${b(fmt(n))} zmenši ${kk}krát a výsledek zvětši o ${m}.`, ans,
+        hint:'„Zmenši kolikrát“ znamená vydělit, „zvětši o“ znamená přičíst.',
+        sol:`${fmt(n)} : ${kk} = ${q}<br>${q} + ${m} = ${ans}` };
+    }
+    if (k===2){
+      const a = rint(8, 60), kk = rint(3,8), ans = a*kk - a;
+      return { type:'num', html:`${x.n} nasbíral${la(x)} ${a} kg brambor, ${y.n} ${kk}krát více. O kolik kilogramů brambor nasbíral${la(y)} ${y.n} více než ${x.n}?`, ans, unit:'kg',
+        hint:'Nejdřív spočítej, kolik nasbíralo druhé dítě (kolikrát více = násobení). Potom zjisti rozdíl.',
+        sol: ZVO(`${x.n} … ${a} kg, ${y.n} … ${kk}krát více, rozdíl … ?`, `${a} · ${kk} = ${a*kk}; ${a*kk} − ${a} = ${ans}`, `${y.n} nasbíral${la(y)} o ${ans} kg více.`) };
+    }
+    if (k===3){
+      const bb = rint(12, 250), kk = rint(3,12), a = bb*kk; if (a > 999999) return null;
+      return { type:'num', html:`Kolikrát je číslo ${b(fmt(a))} větší než číslo ${b(fmt(bb))}?`, ans:kk,
+        hint:'„Kolikrát“ zjistíme dělením větším číslem menšího.',
+        sol:`${fmt(a)} : ${fmt(bb)} = ${kk}, číslo je ${kk}krát větší.` };
+    }
+    const g1 = rint(6, 20)*2, d = rint(2, 10), g2 = g1 + d; if (g2 % 2) return null;
+    const g3 = g2/2, ans = g1 + g2 + g3;
+    return { type:'num', html:`Hokejista dal v první sezóně ${g1} gólů. Ve druhé sezóně dal o ${d} ${pl(d,'gól','góly','gólů')} více než v první a ve třetí dvakrát méně než ve druhé. Kolik gólů dal za všechny tři sezóny?`, ans, unit:U('gól','góly','gólů'),
+      hint:'Spočítej postupně góly ve 2. a ve 3. sezóně a nakonec všechny tři sezóny sečti. „Dvakrát méně“ znamená vydělit dvěma.',
+      sol: ZVO(`1. sezóna … ${g1}, 2. … o ${d} více, 3. … 2krát méně než 2., celkem … ?`, `${g1} + ${d} = ${g2}; ${g2} : 2 = ${g3}; ${g1} + ${g2} + ${g3} = ${ans}`, `Za tři sezóny dal ${ans} gólů.`) };
+  });
+}
+
+function g_cast(){
+  return retry(() => {
+    const k = rnd(3);
+    if (k===0){
+      const n = rint(2,10), kk = rnd(3)===0 ? rint(2, n-1) : 1; if (kk >= n || (kk>1 && gcd(kk,n)>1)) return null;
+      const q = rint(2, 12), whole = n*q, ans = kk*q;
+      return { type:'num', html:`Kolik ${frVerb(kk)} ${frPhrase(kk,n)} z ${whole}?`, ans,
+        hint:`Nejdřív zjisti jednu ${FRW[n][1]}: vyděl číslo ${whole} číslem ${n}.${kk>1 ? ` Pak výsledek vynásob ${kk}.` : ''}`,
+        sol:`${FRW[n][0].replace(/^./, c=>c.toUpperCase())} z ${whole}: ${whole} : ${n} = ${q}${kk>1 ? `<br>${cap(frPhrase(kk,n))}: ${q} · ${kk} = ${ans}` : ''}` };
+    }
+    if (k===1){
+      const n = rint(2,8), q = rint(3,9), ans = n*q;
+      const ctx = pick([
+        [`${cap(FRW[n][0])} žáků třídy jezdí do školy autobusem. ${pl(q,'Je to','Jsou to','Je to')} ${q} ${pl(q,'žák','žáci','žáků')}. Kolik žáků má celá třída?`, U('žák','žáci','žáků')],
+        [`V krabici jsou pastelky. Červené tvoří ${FRW[n][1]} ze všech, a to ${q} ${pl(q,'pastelku','pastelky','pastelek')}. Kolik pastelek je v celé krabici?`, U('pastelka','pastelky','pastelek')],
+        [`Farmář už sklidil ${FRW[n][1]} pole, a to ${q} ${pl(q,'hektar','hektary','hektarů')}. Kolik hektarů má celé pole?`, 'ha']
+      ]);
+      return { type:'num', html: ctx[0], ans, unit: ctx[1],
+        hint:`Celek má ${n} stejných dílů a jeden díl je ${q}.`,
+        sol:`Jedna ${FRW[n][0]} … ${q}, celek … ${n} · ${q} = ${ans}.` };
+    }
+    // obrázek: jaká část je vybarvená
+    const n = rint(2,10), kk = rnd(2)===0 ? 1 : rint(1, n-1); if (gcd(kk,n)>1) return null;
+    const val = kk/n;
+    const cands = []; for (let d=2; d<=10; d++) for (let c=1; c<d; c++) if (gcd(c,d)===1 && Math.abs(c/d - val) > 1e-9 && (c<=4 || d>=5)) cands.push([c,d]);
+    shuffle(cands); const near = cands.filter(([c,d]) => d===n || c===kk).concat(cands);
+    const ch = mkChoice(frPhrase(kk,n), near.map(([c,d]) => frPhrase(c,d))); if (!ch) return null;
+    const W = 300, c = W/n; let body = '';
+    const sh = shuffle([...Array(n).keys()]).slice(0, kk);
+    for (let i=0;i<n;i++) body += `<rect class="${sh.includes(i)?'shf':'sh2'}" x="${10+i*c}" y="10" width="${c}" height="60"/>`;
+    body += `<rect class="she" x="10" y="10" width="${W}" height="60" fill="none"/>`;
+    return { type:'choice', html:'Jaká část obdélníku je vybarvená?', fig: svg(W+20, 80, body), ...ch,
+      hint:`Spočítej, na kolik stejných dílů je obdélník rozdělený a kolik dílů je vybarveno.`,
+      sol:`Obdélník má ${n} ${pl(n,'stejný díl','stejné díly','stejných dílů')}, ${pl(kk,'vybarvený je','vybarvené jsou','vybarvených je')} ${kk}. Je to ${frPhrase(kk,n)}.` };
+  });
+}
+
+function g_zlomky(){ // učivo 5. třídy
+  return retry(() => {
+    const k = rnd(5);
+    if (k===0){ // sčítání a odčítání se stejným jmenovatelem
+      const d = rint(5, 12), a = rint(1, d-2), c = rint(1, d-1-a), plus = rnd(2)===0;
+      const x = plus ? a : a + c, y = c, r = plus ? a + c : a;
+      return { type:'num', html:`Vypočítej a napiš čitatel výsledku. <span class="ex">${frac(x,d)} ${plus?'+':'−'} ${frac(y,d)} = ${frac('?',d)}</span>`, ans:r,
+        hint:'Zlomky se stejným jmenovatelem sčítáš (odčítáš) tak, že sečteš (odečteš) čitatele. Jmenovatel zůstane stejný.',
+        sol:`${plus?'Sečteme':'Odečteme'} čitatele: ${x} ${plus?'+':'−'} ${y} = ${r}. Výsledek je ${frac(r,d)}.` };
+    }
+    if (k===1){ // porovnání
+      const d = rint(5,12), nums = shuffle([...Array(d-1).keys()].map(i=>i+1)).slice(0,5), max = rnd(2)===0;
+      const best = max ? Math.max(...nums) : Math.min(...nums);
+      const ch = mkChoice(frac(best,d), nums.filter(x=>x!==best).map(x=>frac(x,d))); if (!ch) return null;
+      return { type:'choice', html:`Který zlomek je ${max?'největší':'nejmenší'}?`, ...ch,
+        hint:'Mají-li zlomky stejného jmenovatele, je větší ten, který má většího čitatele.',
+        sol:`Všechny zlomky mají jmenovatele ${d}, rozhoduje čitatel: ${max?'největší':'nejmenší'} je ${frac(best,d)}.` };
+    }
+    if (k===2){ // o n-tinu více/méně
+      const n = pick([2,3,4,5]), q = rint(4, 30), whole = n*q, more = rnd(2)===0, ans = more ? whole + q : whole - q;
+      const [x] = two();
+      return { type:'num', html:`${x.n} měl${la(x)} v albu ${whole} samolepek. Za měsíc jich měl${la(x)} o ${FRW[n][1]} ${more?'více':'méně'}. Kolik samolepek měl${la(x)} potom?`, ans, unit:U('samolepka','samolepky','samolepek'),
+        hint:`Nejdřív zjisti, kolik je ${FRW[n][0]} z ${whole}. Potom ji ${more?'přičti':'odečti'}.`,
+        sol: ZVO(`na začátku … ${whole}, potom o ${FRW[n][1]} ${more?'více':'méně'} … ?`, `${whole} : ${n} = ${q}; ${whole} ${more?'+':'−'} ${q} = ${ans}`, `Potom měl${la(x)} ${ans} samolepek.`) };
+    }
+    if (k===3){ // o polovinu více – slovní úloha se dvěma stroji
+      const x = 2*rint(5, 30), t = x + x + x/2;
+      return { type:'num', html:`Dva lisy lisují balíky slámy. Lis A udělá za hodinu o polovinu více balíků než lis B. Oba lisy dohromady udělají za hodinu ${t} balíků. Kolik balíků udělá za hodinu lis B?`, ans:x, unit:U('balík','balíky','balíků'),
+        hint:'Představ si výkon lisu B jako dvě stejné části. Lis A má o jednu takovou část víc – tedy tři části. Kolik částí je dohromady?',
+        sol: ZVO(`B … 2 části, A … o polovinu více = 3 části, dohromady ${t} balíků`, `dohromady 5 částí; ${t} : 5 = ${t/5} (1 část); B = 2 · ${t/5} = ${x}`, `Lis B udělá za hodinu ${x} balíků.`) };
+    }
+    // přiřazovací úloha: hledaná čísla
+    const P = [
+      () => { const n = rint(3,6), m = rint(3,12), v = n*m; return { t:`Když od čísla odečteme jeho ${FRW[n][1]}, dostaneme ${(n-1)*m}.`, v, s:`${(n-1)*m} jsou ${n-1} ${pl(n-1,'díl','díly','dílů')} z ${n}, jeden díl je ${m}, číslo je ${n} · ${m} = ${v}.` }; },
+      () => { const n = rint(2,5), m = rint(3,12), v = n*m; return { t:`Když číslo zvětšíme o jeho ${FRW[n][1]}, dostaneme ${(n+1)*m}.`, v, s:`${(n+1)*m} je ${n+1} dílů, jeden díl je ${m}, číslo je ${n} · ${m} = ${v}.` }; },
+      () => { const n = rint(2,8), r = rint(3,12), v = n*r; return { t:`${cap(FRW[n][0])} hledaného čísla je ${r}.`, v, s:`Celé číslo je ${n} · ${r} = ${v}.` }; },
+      () => { const n = rint(2,5), m = rint(2,9), a = rint(2,9), v = n*m; return { t:`Když hledané číslo zmenšíme na ${FRW[n][1]} a přičteme ${a}, dostaneme ${m+a}.`, v, s:`Před přičtením to bylo ${m+a} − ${a} = ${m}, číslo je ${n} · ${m} = ${v}.` }; },
+      () => { const h = rint(3,15), a = rint(2,9), v = 2*h; return { t:`Polovina hledaného čísla zvětšená o ${a} je ${h+a}.`, v, s:`Polovina je ${h+a} − ${a} = ${h}, číslo je 2 · ${h} = ${v}.` }; }
+    ];
+    const sub = shuffle(P.slice()).slice(0,3).map(f => f());
+    const vals = sub.map(s => s.v); if (new Set(vals).size < 3) return null;
+    const pool = new Set(vals); let g = 0; while (pool.size < 6 && g++ < 100){ const c = pick(vals) + pick([-6,-4,-3,-2,2,3,4,6]); if (c>0) pool.add(c); }
+    if (pool.size < 6) return null;
+    const opts = shuffle([...pool]).sort((a,b)=>a-b);
+    return { type:'match', html:'Přiřaď ke každému hledanému číslu (1–3) správnou hodnotu (A–F).', subs: sub.map(s => ({ t:s.t, c: opts.indexOf(s.v) })), opts: opts.map(String),
+      hint:'U každé věty si představ číslo rozdělené na stejné díly a zjisti, kolik je jeden díl.',
+      sol: sub.map((s,i) => `${i+1}) ${s.s}`).join('<br>') };
+  });
+}
+
+function g_desetinna(){ // učivo 5. třídy: desetinná a záporná čísla na ose
+  return retry(() => {
+    const neg = rnd(2)===0;
+    if (neg){
+      const lo = -rint(5,8), ticks = 10, vals = [...Array(ticks+1).keys()].map(i => lo + i);
+      const zero = vals.indexOf(0); if (zero < 0) return null;
+      const idx = shuffle([...Array(ticks+1).keys()].filter(i => i!==zero && i!==zero+1)).slice(0,5).sort((a,b)=>a-b);
+      const letters = 'ABCDE', marks = {}; idx.forEach((i,j) => marks[i] = letters[j]);
+      const ask = rnd(5), target = vals[idx[ask]];
+      const opts = idx.map((_,j) => letters[j]);
+      return { type:'choice', html:`Který bod na číselné ose znázorňuje číslo ${b(fmt(target))}?`, fig: axisSvg(ticks, {[zero]:'0', [zero+1]:'1'}, marks), opts, correct: ask,
+        hint:'Záporná čísla leží na ose vlevo od nuly. Číslo −3 je o tři dílky vlevo od nuly.',
+        sol:`Číslo ${fmt(target)} je ${Math.abs(target)} ${pl(Math.abs(target),'dílek','dílky','dílků')} ${target<0?'vlevo':'vpravo'} od nuly – je to bod ${letters[ask]}.` };
+    }
+    const a = rint(0, 7), ticks = 20; // od a do a+2 po desetinách
+    const idx = shuffle([...Array(ticks+1).keys()].filter(i => i%10!==0)).slice(0,5).sort((x,y)=>x-y);
+    const letters = 'ABCDE', marks = {}; idx.forEach((i,j) => marks[i] = letters[j]);
+    const ask = rnd(5), target = a + idx[ask]/10;
+    if (rnd(2)===0){
+      return { type:'choice', html:`Který bod na číselné ose znázorňuje číslo ${b(dec(target))}?`, fig: axisSvg(ticks, {0:String(a), 10:String(a+1), 20:String(a+2)}, marks, {major:10}), opts: idx.map((_,j)=>letters[j]), correct: ask,
+        hint:'Mezi dvěma celými čísly je 10 dílků, každý dílek je jedna desetina (0,1).',
+        sol:`${dec(target)} = ${Math.floor(target)} a ${idx[ask]%10} ${pl(idx[ask]%10,'desetina','desetiny','desetin')}, je to bod ${letters[ask]}.` };
+    }
+    const ch = mkChoice(dec(target), shuffle([target+0.1, target-0.1, target+1, target-1, a + idx[(ask+1)%5]/10, target+0.2].filter(x=>x>=0)).map(x=>dec(x))); if (!ch) return null;
+    return { type:'choice', html:`Které číslo znázorňuje bod ${b(letters[ask])}?`, fig: axisSvg(ticks, {0:String(a), 10:String(a+1), 20:String(a+2)}, {[idx[ask]]: letters[ask]}, {major:10}), ...ch,
+      hint:'Mezi dvěma celými čísly je 10 dílků, každý dílek je jedna desetina (0,1).',
+      sol:`Bod ${letters[ask]} je ${idx[ask]%10} ${pl(idx[ask]%10,'dílek','dílky','dílků')} za číslem ${Math.floor(target)}, je to ${dec(target)}.` };
+  });
+}
+
+function g_slovni(){
+  return retry(() => {
+    const k = rnd(6);
+    if (k===0){
+      const a = rint(2,5), p1 = rint(19, 45), bb = rint(2,4), p2 = rint(15, 35), bank = pick([200,500]);
+      const x = a*p1, y = bb*p2, s = x+y, ans = bank - s; if (ans <= 0) return null;
+      return { type:'num', html:`Maminka koupila ${a} kg jablek po ${p1} Kč za kilogram a ${bb} balení mléka po ${p2} Kč. Platila ${bank===200?'dvousetkorunovou':'pětisetkorunovou'} bankovkou. Kolik korun jí vrátili?`, ans, unit:'Kč',
+        hint:'Nejdřív spočítej, kolik stála jablka a kolik mléko. Pak celkovou cenu odečti od bankovky.',
+        sol: ZVO(`jablka ${a} kg po ${p1} Kč, mléko ${bb} ks po ${p2} Kč, placeno ${bank} Kč, vráceno … ?`, `${a} · ${p1} = ${x}; ${bb} · ${p2} = ${y}; ${x} + ${y} = ${s}; ${bank} − ${s} = ${ans}`, `Vrátili jí ${ans} Kč.`) };
+    }
+    if (k===1){
+      const p = 10*rint(12, 45), g = 100*rint(1,9), c = p*g/1000, item = pick(['sýra','šunky','salámu','ořechů']);
+      if (rnd(2)===0) return { type:'num', html:`1 kg ${item} stojí ${p} Kč. Kolik korun zaplatíme za ${g} g?`, ans:c, unit:'Kč',
+        hint:'1 kg = 1 000 g. Zjisti cenu za 100 g a pak ji vynásob.',
+        sol: ZVO(`1 kg (1 000 g) … ${p} Kč, ${g} g … ?`, `100 g … ${p} : 10 = ${p/10} Kč; ${g} g … ${p/10} · ${g/100} = ${c} Kč`, `Zaplatíme ${c} Kč.`) };
+      return { type:'num', html:`1 kg ${item} stojí ${p} Kč. Kolik gramů koupíme za ${c} Kč?`, ans:g, unit:'g',
+        hint:'Zjisti cenu za 100 g (1 kg = 1 000 g). Pak zjisti, kolikrát se tato cena vejde do zadané částky.',
+        sol: ZVO(`1 kg … ${p} Kč, za ${c} Kč … ? g`, `100 g … ${p/10} Kč; ${c} : ${p/10} = ${g/100}; ${g/100} · 100 g = ${g} g`, `Koupíme ${g} g.`) };
+    }
+    if (k===2){
+      const m = pick([15,20,30,45]), v = rint(12, 24), h = rint(1,3); if ((v*m) % 60) return null;
+      const ans = v*h + v*m/60;
+      return { type:'num', html:`Cyklista jede stále stejně rychle a za hodinu ujede ${v} km. Kolik kilometrů ujede za ${h} h ${m} min?`, ans, unit:'km',
+        hint:`Zjisti, jakou část hodiny tvoří ${m} minut (hodina má 60 minut).`,
+        sol: ZVO(`1 h … ${v} km, ${h} h ${m} min … ?`, `${h} h … ${v} · ${h} = ${v*h} km; ${m} min je ${({15:'čtvrt hodiny',20:'třetina hodiny',30:'půl hodiny',45:'tři čtvrtě hodiny'})[m]} … ${v} : ${60/gcd(60,m)}${m/gcd(60,m)>1?' · '+m/gcd(60,m):''} = ${v*m/60} km; ${v*h} + ${v*m/60} = ${ans}`, `Ujede ${ans} km.`) };
+    }
+    if (k===3){
+      const d = pick([3,4]), n = d*rint(5,10), loss = n/d, r = rint(2,6), w = n - loss - r; if (w <= 0) return null;
+      const ans = 3*w + r;
+      return { type:'num', html:`Fotbalový tým odehrál ${n} zápasů. ${cap(FRW[d][1].replace(/u$/,'u'))} zápasů prohrál, ${r} ${pl(r,'zápas','zápasy','zápasů')} remizoval a ostatní vyhrál. Za výhru dostane 3 body, za remízu 1 bod, za prohru nic. Kolik bodů tým získal?`, ans, unit:U('bod','body','bodů'),
+        hint:`Zjisti, kolik zápasů prohrál (${FRW[d][0]} z ${n}) a kolik jich tedy vyhrál. Pak spočítej body.`,
+        sol: ZVO(`${n} zápasů, prohry … ${FRW[d][0]}, remízy … ${r}, výhra 3 b., remíza 1 b.`, `prohry: ${n} : ${d} = ${loss}; výhry: ${n} − ${loss} − ${r} = ${w}; body: ${w} · 3 + ${r} · 1 = ${ans}`, `Tým získal ${ans} bodů.`) };
+    }
+    if (k===4){
+      const r = rint(3,9), kk = rint(12, 40), c = rint(14, 30), total = r*kk, ans = Math.ceil(total/c), rem = total % c;
+      if (ans < 3) return null;
+      return { type:'num', html:`Na poli leží ${r} ${pl(r,'řada','řady','řad')} po ${kk} balících slámy. Traktor s vlekem odveze najednou nejvýše ${c} balíků. Kolikrát nejméně musí traktor jet, aby odvezl všechny balíky?`, ans,
+        hint:'Spočítej, kolik je všech balíků. Pak zjisti, kolik plných jízd to dá – a jestli nezbude pár balíků na další jízdu.',
+        sol: ZVO(`${r} ${pl(r,'řada','řady','řad')} po ${kk} balících, najednou ${c} balíků, jízd … ?`, `${r} · ${kk} = ${total}; ${total} : ${c} = ${Math.floor(total/c)}${rem ? ` zb. ${rem} → zbylé balíky odveze ještě jednou` : ''}`, `Traktor musí jet nejméně ${ans}krát.`) };
+    }
+    const n = rint(18, 30), q = rint(30, 90), B = n*q, v = 10*rint(4, 15), ans = q + v;
+    return { type:'num', html:`Na školní výlet jede ${n} žáků. Autobus stojí celkem ${fmt(B)} Kč a cenu si žáci rozdělí rovným dílem. Vstupné do zoo stojí ${v} Kč na žáka. Kolik korun zaplatí každý žák?`, ans, unit:'Kč',
+      hint:'Nejdřív rozděl cenu autobusu mezi všechny žáky. Pak přičti vstupné.',
+      sol: ZVO(`autobus ${fmt(B)} Kč na ${n} žáků, vstupné ${v} Kč, jeden žák … ?`, `${fmt(B)} : ${n} = ${q}; ${q} + ${v} = ${ans}`, `Každý žák zaplatí ${ans} Kč.`) };
+  });
+}
+
+/* ========== 2 ZÁVISLOSTI, VZTAHY A PRÁCE S DATY ========== */
+
+function g_jednotky(){
+  return retry(() => {
+    const k = rnd(9);
+    const hint = '1 km = 1 000 m · 1 m = 100 cm · 1 cm = 10 mm · 1 kg = 1 000 g · 1 h = 60 min · 1 min = 60 s · 1 den = 24 h · 1 týden = 7 dní';
+    if (k===0){ const a = rint(1,9), c = rint(5,995); return { type:'num', html:`Kolik metrů je ${b(`${a} km ${c} m`)}?`, ans:a*1000+c, unit:'m', hint, sol:`${a} km = ${fmt(a*1000)} m; ${fmt(a*1000)} + ${c} = ${fmt(a*1000+c)} m` }; }
+    if (k===1){ const a = rint(1,20), c = rint(1,99); return { type:'num', html:`Kolik centimetrů je ${b(`${a} m ${c} cm`)}?`, ans:a*100+c, unit:'cm', hint, sol:`${a} m = ${a*100} cm; ${a*100} + ${c} = ${a*100+c} cm` }; }
+    if (k===2){ const a = rint(1,40), c = rint(1,9); return { type:'num', html:`Kolik milimetrů je ${b(`${a} cm ${c} mm`)}?`, ans:a*10+c, unit:'mm', hint, sol:`${a} cm = ${a*10} mm; ${a*10} + ${c} = ${a*10+c} mm` }; }
+    if (k===3){ const a = rint(1,9), c = rint(5,995); return { type:'num', html:`Kolik gramů je ${b(`${a} kg ${c} g`)}?`, ans:a*1000+c, unit:'g', hint, sol:`${a} kg = ${fmt(a*1000)} g; ${fmt(a*1000)} + ${c} = ${fmt(a*1000+c)} g` }; }
+    if (k===4){ const h = rint(1,5), m = rint(5,55); return { type:'num', html:`Kolik minut je ${b(`${h} h ${m} min`)}?`, ans:h*60+m, unit:'min', hint, sol:`${h} h = ${h*60} min; ${h*60} + ${m} = ${h*60+m} min` }; }
+    if (k===5){ const m = rint(1,9), s = rint(5,55); return { type:'num', html:`Kolik sekund je ${b(`${m} min ${s} s`)}?`, ans:m*60+s, unit:'s', hint, sol:`${m} min = ${m*60} s; ${m*60} + ${s} = ${m*60+s} s` }; }
+    if (k===6){ const t = rint(2,8), d = rint(1,6); return { type:'num', html:`Kolik dní je ${b(`${t} ${pl(t,'týden','týdny','týdnů')} a ${d} ${pl(d,'den','dny','dní')}`)}?`, ans:t*7+d, unit:U('den','dny','dní'), hint, sol:`${t} · 7 = ${t*7}; ${t*7} + ${d} = ${t*7+d} dní` }; }
+    if (k===7){ // zpětný převod
+      const opt = pick([
+        () => { const a = rint(2,12); return { q:`${fmt(a*1000)} m`, u:'km', a, s:`1 km = 1 000 m, ${fmt(a*1000)} : 1 000 = ${a}` }; },
+        () => { const a = rint(2,12); return { q:`${fmt(a*1000)} g`, u:'kg', a, s:`1 kg = 1 000 g, ${fmt(a*1000)} : 1 000 = ${a}` }; },
+        () => { const a = rint(2,9); return { q:`${a*60} min`, u:'h', a, s:`1 h = 60 min, ${a*60} : 60 = ${a}` }; },
+        () => { const a = rint(2,9); return { q:`${a*24} hodin`, u:'dní', a, s:`1 den = 24 h, ${a*24} : 24 = ${a}` }; },
+        () => { const a = rint(2,30); return { q:`${a*10} mm`, u:'cm', a, s:`1 cm = 10 mm, ${a*10} : 10 = ${a}` }; }
+      ])();
+      return { type:'num', html:`Převeď ${b(opt.q)} na ${opt.u==='dní'?'dny':opt.u}.`, ans:opt.a, unit:opt.u, hint, sol:opt.s };
+    }
+    // porovnání délek v m a km
+    const base = rint(1,5)*1000, vals = new Set(); while (vals.size < 5) vals.add(base + pick([0,1,2,3,4])*100 + pick([0,40,4,400,0])*1 + rnd(2)*10);
+    const arr = [...vals]; if (arr.some(v => v%1000===0 && rnd(2))) return null;
+    const show = v => (v%1000 && rnd(2)) ? `${Math.floor(v/1000)} km ${v%1000} m` : `${fmt(v)} m`;
+    const max = rnd(2)===0, best = max ? Math.max(...arr) : Math.min(...arr);
+    const labels = arr.map(show); const bi = arr.indexOf(best);
+    const ch = mkChoice(labels[bi], labels.filter((_,i)=>i!==bi)); if (!ch) return null;
+    return { type:'choice', html:`Která vzdálenost je ${max?'nejdelší':'nejkratší'}?`, ...ch, hint:'Převeď všechny vzdálenosti na metry a pak je porovnej.',
+      sol:`V metrech: ${arr.map(fmt).join(' m, ')} m. ${max?'Nejdelší':'Nejkratší'} je ${labels[bi]}.` };
+  });
+}
+
+const tfmt = m => { m = ((m % 1440) + 1440) % 1440; return Math.floor(m/60) + ':' + String(m%60).padStart(2,'0'); };
+function g_cas(){
+  return retry(() => {
+    const k = rnd(3), [x] = two();
+    if (k===0){
+      const s = rint(6*12, 18*12)*5, d = rint(4, 30)*5, e = s + d; if (e >= 22*60) return null;
+      const act = pick(['Trénink','Výlet do lesa','Zápas','Kroužek robotiky']);
+      return { type:'num', html:`${act} začal v ${b(tfmt(s))} a skončil v ${b(tfmt(e))}. Kolik minut trval?`, ans:d, unit:'min',
+        hint:'Počítej po částech: kolik minut chybí do celé hodiny, kolik celých hodin uplyne a kolik minut je po poslední celé hodině.',
+        sol:`Od ${tfmt(s)} do ${tfmt(e)} uplyne ${Math.floor(d/60) ? Math.floor(d/60)+' h ' : ''}${d%60} min, to je ${d} min.` };
+    }
+    if (k===1){
+      const s = rint(8*12, 19*12)*5, h = rint(1,2), m = rint(1,11)*5, e = s + h*60 + m;
+      const ch = mkChoice(tfmt(e), shuffle([e+60, e-60, e+10, e-10, e+5, s+h*60, e+50]).map(tfmt)); if (!ch) return null;
+      return { type:'choice', html:`Film začal v ${b(tfmt(s))} a trval ${h} h ${m} min. V kolik hodin skončil?`, ...ch,
+        hint:'Nejdřív přičti celé hodiny, potom minuty. Když minut vyjde 60 nebo víc, přidej hodinu.',
+        sol:`${tfmt(s)} + ${h} h = ${tfmt(s+h*60)}; + ${m} min = ${tfmt(e)}.` };
+    }
+    const a = rint(2,6)*5, c = rint(3,8)*5, d = rint(2,5)*5, arrive = rint(7*12+6, 7*12+11)*5, up = arrive - a - c - d;
+    const ch = mkChoice(tfmt(up), shuffle([up+5, up-5, up+10, up-10, up+15, arrive-a-c]).map(tfmt)); if (!ch) return null;
+    return { type:'choice', html:`${x.n} se ráno ${a} minut oblékal${la(x)} a myl${la(x)}, ${c} minut snídal${la(x)} a ${d} minut ${x.f?'šla':'šel'} do školy. Do školy ${x.f?'přišla':'přišel'} v ${b(tfmt(arrive))}. V kolik hodin vstal${la(x)}?`, ...ch,
+      hint:'Sečti všechny doby a potom je odečti od času příchodu do školy.',
+      sol:`${a} + ${c} + ${d} = ${a+c+d} min; ${tfmt(arrive)} − ${a+c+d} min = ${tfmt(up)}.` };
+  });
+}
+
+function barChart(cats, vals, unit, maxV){
+  const W = 330, H = 214, x0 = 40, y0 = 30, ch = 150, step = 10, top = Math.ceil(maxV/step)*step, cw = (W-x0-10)/cats.length;
+  let s = '';
+  for (let v=0; v<=top; v+=step){ const y = y0 + ch - ch*v/top; s += `<line class="gl" x1="${x0}" y1="${y}" x2="${W-6}" y2="${y}"/><text class="lb sm" x="${x0-6}" y="${y+4}" text-anchor="end">${v}</text>`; }
+  cats.forEach((c,i) => { const h = ch*vals[i]/top, x = x0 + i*cw + cw*0.2; s += `<rect class="bar" x="${x}" y="${y0+ch-h}" width="${cw*0.6}" height="${h}"/><text class="lb sm" x="${x+cw*0.3}" y="${y0+ch+18}" text-anchor="middle">${c}</text>`; });
+  s += `<line class="ax" x1="${x0}" y1="${y0+ch}" x2="${W-6}" y2="${y0+ch}"/><text class="lb sm" x="${x0-6}" y="14" text-anchor="end">${unit}</text>`;
+  return svg(W, H, s);
+}
+function g_data(){ // tabulky a sloupcové diagramy
+  return retry(() => {
+    const D = {Po:['v pondělí','V pondělí'],Út:['v úterý','V úterý'],St:['ve středu','Ve středu'],Čt:['ve čtvrtek','Ve čtvrtek'],Pá:['v pátek','V pátek']};
+    const ctx = pick([
+      { t:'Graf ukazuje, kolik kilometrů ujel Tomáš na kole v jednotlivých dnech.', u:'km', sum:'Kolik kilometrů ujel Tomáš za všech pět dní dohromady?',
+        diff:(h,l)=>`O kolik kilometrů ujel Tomáš ${h} více než ${l}?`, more:(a,c)=>`${a} ujel Tomáš více kilometrů než ${c}.`, tog:(a,c,n)=>`${a} a ${c} ujel Tomáš dohromady ${n} km.`, max:a=>`Nejvíce kilometrů ujel Tomáš ${a}.`, w:'km' },
+      { t:'Graf ukazuje, kolik žáků přišlo v jednotlivých dnech do školní knihovny.', u:'žáci', sum:'Kolik návštěv bylo v knihovně za všech pět dní dohromady?',
+        diff:(h,l)=>`O kolik žáků přišlo do knihovny ${h} více než ${l}?`, more:(a,c)=>`${a} přišlo do knihovny více žáků než ${c}.`, tog:(a,c,n)=>`${a} a ${c} přišlo do knihovny dohromady ${n} žáků.`, max:a=>`Nejvíce žáků přišlo do knihovny ${a}.`, w:'žáků' },
+      { t:'Graf ukazuje, kolik minut cvičila Bára na klavír v jednotlivých dnech.', u:'min', sum:'Kolik minut cvičila Bára za všech pět dní dohromady?',
+        diff:(h,l)=>`O kolik minut cvičila Bára ${h} déle než ${l}?`, more:(a,c)=>`${a} cvičila Bára déle než ${c}.`, tog:(a,c,n)=>`${a} a ${c} cvičila Bára dohromady ${n} minut.`, max:a=>`Nejdéle cvičila Bára ${a}.`, w:'min' }
+    ]);
+    const cats = ['Po','Út','St','Čt','Pá'];
+    const vals = cats.map(() => 5*rint(1, 12)); if (new Set(vals).size < 4) return null;
+    const fig = barChart(cats, vals, ctx.u, Math.max(...vals));
+    const lo_ = c => D[c][0], up_ = c => D[c][1];
+    if (rnd(2)===0){
+      if (rnd(2)===0){ const s2 = vals.reduce((a,c)=>a+c,0); return { type:'num', html:`${ctx.t} ${ctx.sum}`, fig, ans:s2, hint:'Přečti hodnotu u každého sloupce (jeden dílek osy je 10, polovina dílku 5) a všechny sečti.', sol:`${vals.join(' + ')} = ${s2}` }; }
+      const i = rnd(5); let j; do { j = rnd(5); } while (vals[j]===vals[i]);
+      const hi = vals[i] > vals[j] ? i : j, lo = hi===i ? j : i, d = vals[hi]-vals[lo];
+      return { type:'num', html:`${ctx.t} ${ctx.diff(lo_(cats[hi]), lo_(cats[lo]))}`, fig, ans:d, hint:'Přečti obě hodnoty z grafu a odečti menší od větší.', sol:`${vals[hi]} − ${vals[lo]} = ${d}` };
+    }
+    const st = [];
+    const i = rnd(5); let j; do { j = rnd(5); } while (j===i || vals[j]===vals[i]);
+    st.push({ t: ctx.more(up_(cats[i]), lo_(cats[j])), v: vals[i] > vals[j], e:`${vals[i]} a ${vals[j]}` });
+    const a = rnd(5); let c2; do { c2 = rnd(5); } while (c2===a);
+    const sum = vals[a]+vals[c2], claim = rnd(2) ? sum : sum + pick([-10,-5,5,10]); if (claim <= 0) return null;
+    st.push({ t: ctx.tog(up_(cats[Math.min(a,c2)]), lo_(cats[Math.max(a,c2)]), claim), v: claim===sum, e:`${vals[a]} + ${vals[c2]} = ${sum}` });
+    const mx = Math.max(...vals), mi = vals.indexOf(mx); if (vals.filter(v=>v===mx).length > 1) return null;
+    const pk = rnd(2) ? mi : (mi+1+rnd(4)) % 5;
+    st.push({ t: ctx.max(lo_(cats[pk])), v: pk===mi, e:`nejvyšší sloupec je ${lo_(cats[mi])} (${mx})` });
+    return { type:'yn', html:`${ctx.t} Rozhodni o každém tvrzení, zda je pravdivé (A), či nikoli (N).`, fig, items: st.map(x => ({ t:x.t, v:x.v })),
+      hint:'Pečlivě přečti hodnotu každého sloupce. Jeden dílek osy je 10, polovina dílku je 5.',
+      sol: st.map((x,k) => `${k+1}) ${x.v?'ANO':'NE'} – ${x.e}`).join('<br>') };
+  });
+}
+
+/* ========== 3 GEOMETRIE ========== */
+
+function g_obvod(){
+  return retry(() => {
+    const k = rnd(5);
+    const hint = 'Obvod je součet délek všech stran. Obdélník: o = 2 · (a + b), čtverec: o = 4 · a.';
+    if (k===0){ const a = rint(3,40), c = rint(3,40); if (a===c) return null; return { type:'num', html:`Obdélník má strany dlouhé ${a} cm a ${c} cm. Jaký je jeho obvod?`, ans:2*(a+c), unit:'cm', hint, sol:`o = 2 · (${a} + ${c}) = 2 · ${a+c} = ${2*(a+c)} cm` }; }
+    if (k===1){ const s = rint(3,30); return { type:'num', html:`Obvod čtverce je ${4*s} cm. Jak dlouhá je jeho strana?`, ans:s, unit:'cm', hint:'Čtverec má 4 stejně dlouhé strany.', sol:`${4*s} : 4 = ${s} cm` }; }
+    if (k===2){ const a = rint(3,30), c = rint(3,30); if (a===c) return null; const o = 2*(a+c); return { type:'num', html:`Obvod obdélníku je ${o} cm. Jedna jeho strana měří ${a} cm. Jak dlouhá je druhá strana?`, ans:c, unit:'cm', hint:'Polovina obvodu je součet dvou sousedních stran.', sol:`${o} : 2 = ${a+c}; ${a+c} − ${a} = ${c} cm` }; }
+    if (k===3){ const s = rint(3,25); return { type:'num', html:`Rovnostranný trojúhelník má obvod ${3*s} cm. Jak dlouhá je jeho strana?`, ans:s, unit:'cm', hint:'Rovnostranný trojúhelník má všechny tři strany stejně dlouhé.', sol:`${3*s} : 3 = ${s} cm` }; }
+    const n = rint(5, 9), cells = polyomino(n, 6, 4), p = perimeterCells(cells), c = 26;
+    const fig = svg(6*c+12, 4*c+12, gridLines(6, 6, 6, 4, c) + cellsPath(cells, 6, 6, c));
+    return { type:'num', html:'Strana jednoho čtverečku sítě měří 1 cm. Jaký obvod má šedý obrazec?', fig, ans:p, unit:'cm',
+      hint:'Obejdi obrazec po okraji a spočítej všechny strany čtverečků, které leží na okraji obrazce.', sol:`Na okraji obrazce je ${p} úseček po 1 cm, obvod je ${p} cm.` };
+  });
+}
+
+function g_obsah(){
+  return retry(() => {
+    const k = rnd(3), c = 26;
+    if (k===0){
+      const a = rint(2,6), h = rint(2,4), x = rint(0, 7-a), y = rint(0, 5-h);
+      const cells = []; for (let i=0;i<a;i++) for (let j=0;j<h;j++) cells.push([x+i, y+j]);
+      const fig = svg(7*c+12, 5*c+12, gridLines(6, 6, 7, 5, c) + cellsPath(cells, 6, 6, c));
+      return { type:'num', html:'Jeden čtvereček sítě má obsah 1 cm². Jaký obsah má šedý obdélník?', fig, ans:a*h, unit:'cm²',
+        hint:'Spočítej, kolik čtverečků je v jedné řadě a kolik je řad. Pak čísla vynásob.', sol:`${a} · ${h} = ${a*h} čtverečků, obsah je ${a*h} cm².` };
+    }
+    if (k===1){
+      const n = rint(5, 10), cells = polyomino(n, 6, 4);
+      const fig = svg(6*c+12, 4*c+12, gridLines(6, 6, 6, 4, c) + cellsPath(cells, 6, 6, c));
+      return { type:'num', html:'Jeden čtvereček sítě má obsah 1 cm². Jaký obsah má šedý obrazec?', fig, ans:n, unit:'cm²',
+        hint:'Spočítej všechny šedé čtverečky. Dělej si značky, ať žádný nepočítáš dvakrát.', sol:`Obrazec tvoří ${n} čtverečků, obsah je ${n} cm².` };
+    }
+    const a = rint(3, 12), h = rint(2, 9); if (a===h && rnd(2)) return null;
+    const sq = a===h;
+    return { type:'num', html: sq ? `Čtverec má stranu ${a} cm. Jaký je jeho obsah?` : `Obdélník má strany ${a} cm a ${h} cm. Jaký je jeho obsah?`, ans:a*h, unit:'cm²',
+      hint:'Obsah obdélníku je délka · šířka (kolik čtverečků o straně 1 cm se do něj vejde).', sol:`S = ${a} · ${h} = ${a*h} cm²` };
+  });
+}
+
+function g_obsah2(){ // učivo 5. třídy: trojúhelníky a složené obrazce ve čtvercové síti
+  return retry(() => {
+    const c = 24, W = 9, H = 6, k = rnd(3);
+    if (k===0){ // trojúhelník se základnou na čáře sítě
+      const bse = rint(2,7), h = rint(2,5); if ((bse*h) % 2) return null;
+      const x = rint(0, W-bse), y = H, apx = rint(x, x+bse), pts = [[x,y],[x+bse,y],[apx, y-h]];
+      const area = shoelace(pts);
+      const fig = svg(W*c+12, H*c+12, gridLines(6, 6, W, H, c) + polySvg(pts, 6, 6, c) + gridLines(6, 6, W, H, c, 'glt') + polySvg(pts, 6, 6, c, 'sho'));
+      return { type:'num', html:'Jeden čtvereček sítě má obsah 1 cm². Jaký obsah má šedý trojúhelník?', fig, ans:area, unit:'cm²', meta:{shoe:area},
+        hint:'Trojúhelník je polovina obdélníku se stejnou základnou a výškou. Obsah = základna · výška : 2.',
+        sol:`Základna ${bse} cm, výška ${h} cm: ${bse} · ${h} : 2 = ${area} cm²` };
+    }
+    // obdélník s uříznutým rohem (pravoúhlý trojúhelník)
+    const w = rint(4,8), h = rint(3,5), p = rint(1, w-1), q = rint(1, h-1); if ((p*q) % 2) return null;
+    const x = rint(0, W-w), y = rint(0, H-h), corner = rnd(4);
+    let pts;
+    if (corner===0) pts = [[x+p,y],[x+w,y],[x+w,y+h],[x,y+h],[x,y+q]];
+    else if (corner===1) pts = [[x,y],[x+w-p,y],[x+w,y+q],[x+w,y+h],[x,y+h]];
+    else if (corner===2) pts = [[x,y],[x+w,y],[x+w,y+h-q],[x+w-p,y+h],[x,y+h]];
+    else pts = [[x,y],[x+w,y],[x+w,y+h],[x+p,y+h],[x,y+h-q]];
+    const area = shoelace(pts); if (area !== w*h - p*q/2) return null;
+    const fig = svg(W*c+12, H*c+12, gridLines(6, 6, W, H, c) + polySvg(pts, 6, 6, c) + gridLines(6, 6, W, H, c, 'glt') + polySvg(pts, 6, 6, c, 'sho'));
+    if (k===1) return { type:'num', html:'Jeden čtvereček sítě má obsah 1 cm². Jaký obsah má šedý obrazec?', fig, ans:area, unit:'cm²', meta:{shoe:area},
+      hint:'Doplň obrazec na celý obdélník. Od obsahu obdélníku odečti obsah chybějícího trojúhelníku (polovina malého obdélníku).',
+      sol:`Obdélník ${w} · ${h} = ${w*h} cm², chybí trojúhelník ${p} · ${q} : 2 = ${p*q/2} cm², obsah je ${w*h} − ${p*q/2} = ${area} cm².` };
+    const u = pick([2,3,4,5]), A = area*u;
+    return { type:'num', html:`Obsah šedého obrazce je ${A} cm². Jaký obsah má jeden čtvereček sítě?`, fig, ans:u, unit:'cm²', meta:{shoe:area},
+      hint:'Nejdřív zjisti, kolika čtverečkům sítě odpovídá obsah šedého obrazce (rozdělený čtvereček počítej jako polovinu). Pak vyděl.',
+      sol:`Obrazec má obsah ${area} čtverečků (obdélník ${w*h} bez trojúhelníku ${p*q/2}). ${A} : ${area} = ${u} cm²` };
+  });
+}
+
+function g_soumernost(){
+  return retry(() => {
+    const k = rnd(4);
+    if (k===3){ // písmena
+      const SYM = ['A','H','M','O','T','U','V','W','X','Y'], NON = ['F','G','J','L','N','P','R','S','Z'];
+      const notQ = rnd(2)===0;
+      const ch = notQ ? mkChoice(pick(NON), shuffle(SYM.slice())) : mkChoice(pick(SYM), shuffle(NON.slice())); if (!ch) return null;
+      return { type:'choice', html:`Které z písmen ${notQ?b('NENÍ'):'je'} osově souměrné?`, opts: ch.opts.map(l => `<span class="letter">${l}</span>`), correct: ch.correct,
+        hint:'Osově souměrný útvar můžeš přeložit podél přímky (osy) tak, že se obě poloviny přesně překryjí.',
+        sol:`${notQ ? `Písmeno ${ch.opts[ch.correct]} nemá žádnou osu souměrnosti, ostatní ano.` : `Písmeno ${ch.opts[ch.correct]} má osu souměrnosti, ostatní ne.`} (Písmena N, S a Z jsou souměrná podle středu, ne podle osy.)` };
+    }
+    const G = 4, c = 15, mk = sym => retry(() => { const cells = polyomino(rint(4,7), G, G); return isSymmetric(cells) === sym ? cells : null; }, 2000);
+    const fig5 = shapes => { let s = ''; shapes.forEach((cells, i) => { const x0 = 6 + i*(G*c+14); s += gridLines(x0, 6, G, G, c) + cellsPath(cells, x0, 6, c) + `<text class="lb strong" x="${x0+G*c/2}" y="${G*c+26}" text-anchor="middle">${'ABCDE'[i]}</text>`; }); return svg(5*(G*c+14), G*c+32, s, 'wide'); };
+    if (k===2){ // kolik je souměrných
+      const nSym = rint(1,4), shapes = shuffle([...Array(5)].map((_,i) => mk(i < nSym)));
+      return { type:'num', html:'Kolik z obrazců A–E je osově souměrných?', fig: fig5(shapes), ans:nSym,
+        hint:'U každého obrazce hledej přímku, podle které ho můžeš přeložit tak, aby se obě poloviny překryly. Zkus svislou, vodorovnou i šikmou přímku.',
+        sol:`Osově souměrné jsou obrazce ${shapes.map((s,i)=>isSymmetric(s)?'ABCDE'[i]:null).filter(Boolean).join(', ')} – celkem ${nSym}.` };
+    }
+    const notQ = k===1, odd = rnd(5);
+    const shapes = [...Array(5)].map((_,i) => mk(notQ ? i!==odd : i===odd));
+    return { type:'choice', html:`Který z obrazců A–E ${notQ?b('NENÍ'):'je'} osově souměrný?`, fig: fig5(shapes), opts:['A','B','C','D','E'], correct: odd,
+      hint:'Osově souměrný obrazec můžeš přeložit podél přímky tak, že se obě poloviny přesně překryjí. Osa může být svislá, vodorovná i šikmá.',
+      sol:`${notQ?'Osu souměrnosti nemá jen obrazec':'Osu souměrnosti má jen obrazec'} ${'ABCDE'[odd]}.` };
+  });
+}
+
+function g_primky(){
+  return retry(() => {
+    const W = 10, H = 7, c = 30, DIRS = [[1,0],[0,1],[1,1],[1,-1],[2,1],[-1,2],[1,2],[-2,1]];
+    const names = ['a','b','c','d'];
+    const lines = [];
+    for (let i=0;i<4;i++) lines.push({ p:[rint(2,W-2), rint(2,H-2)], d: pick(DIRS) });
+    // vynutit aspoň jednu dvojici rovnoběžek a jednu dvojici kolmic
+    lines[1].d = lines[0].d.slice();
+    lines[3].d = [-lines[2].d[1], lines[2].d[0]];
+    const par = (u,v) => u.d[0]*v.d[1] - u.d[1]*v.d[0] === 0;
+    const perp = (u,v) => u.d[0]*v.d[0] + u.d[1]*v.d[1] === 0;
+    const same = (u,v) => par(u,v) && ((v.p[0]-u.p[0])*u.d[1] - (v.p[1]-u.p[1])*u.d[0]) === 0;
+    for (let i=0;i<4;i++) for (let j=i+1;j<4;j++){ if (same(lines[i], lines[j])) return null;
+      if (par(lines[i], lines[j])){ const [dx,dy] = lines[i].d, dist = Math.abs((lines[j].p[0]-lines[i].p[0])*dy - (lines[j].p[1]-lines[i].p[1])*dx) / Math.hypot(dx,dy); if (dist < 1.6) return null; } }
+    // ořez do rámečku
+    const seg = L => { const ts = []; const [px,py] = L.p, [dx,dy] = L.d;
+      if (dx){ ts.push((0-px)/dx, (W-px)/dx); } if (dy){ ts.push((0-py)/dy, (H-py)/dy); }
+      const pts = ts.map(t => [px+dx*t, py+dy*t]).filter(([x,y]) => x>=-1e-9 && x<=W+1e-9 && y>=-1e-9 && y<=H+1e-9);
+      if (pts.length < 2) return null; pts.sort((a,b)=>a[0]-b[0]||a[1]-b[1]); return [pts[0], pts[pts.length-1]]; };
+    const segs = lines.map(seg); if (segs.some(s => !s || Math.hypot(s[1][0]-s[0][0], s[1][1]-s[0][1]) < 4)) return null;
+    let body = gridLines(10, 10, W, H, c);
+    const used = []; let clash = false;
+    segs.forEach((s, i) => { const [a, bb] = s; body += `<line class="ln" x1="${10+a[0]*c}" y1="${10+a[1]*c}" x2="${10+bb[0]*c}" y2="${10+bb[1]*c}"/>`;
+      // popisek u konce, který je dál od ostatních popisků
+      const ends = [a, bb].map(e => { const t = 0.12, q = [e[0] + (e===a ? (bb[0]-a[0]) : (a[0]-bb[0]))*t, e[1] + (e===a ? (bb[1]-a[1]) : (a[1]-bb[1]))*t]; return q; });
+      ends.forEach(q => { q[0] = Math.min(W-0.45, Math.max(0.45, q[0])); q[1] = Math.min(H-0.45, Math.max(0.45, q[1])); });
+      const best = ends.sort((u,v) => Math.min(...used.map(w=>Math.hypot(w[0]-v[0],w[1]-v[1])), 99) - Math.min(...used.map(w=>Math.hypot(w[0]-u[0],w[1]-u[1])), 99))[0];
+      if (used.some(w => Math.hypot(w[0]-best[0], w[1]-best[1]) < 1.1)) clash = true;
+      used.push(best);
+      body += `<circle class="lbbg" cx="${10+best[0]*c}" cy="${10+best[1]*c}" r="11"/><text class="lb strong" x="${10+best[0]*c}" y="${10+best[1]*c+5}" text-anchor="middle">${names[i]}</text>`; });
+    if (clash) return null;
+    const fig = svg(W*c+20, H*c+20, body);
+    const pairs = []; for (let i=0;i<4;i++) for (let j=i+1;j<4;j++) pairs.push([i,j]);
+    const rel = (i,j) => par(lines[i],lines[j]) ? 'rovnoběžné' : perp(lines[i],lines[j]) ? 'kolmé' : 'různoběžné';
+    if (rnd(3)===0){
+      const i = rnd(4), perps = [0,1,2,3].filter(j => j!==i && perp(lines[i],lines[j]));
+      if (perps.length !== 1) return null;
+      return { type:'choice', html:`Která přímka je kolmá k přímce ${b(names[i])}?`, fig, opts: names.filter((_,j)=>j!==i).concat(['žádná']), correct: names.filter((_,j)=>j!==i).indexOf(names[perps[0]]),
+        hint:'Kolmé přímky svírají pravý úhel. Pomoz si rohem sešitu nebo trojúhelníkem s ryskou.',
+        sol:`Pravý úhel s přímkou ${names[i]} svírá přímka ${names[perps[0]]}.` };
+    }
+    const chosen = shuffle(pairs.slice()).slice(0,3);
+    const items = chosen.map(([i,j]) => {
+      const r = rel(i,j);
+      const claim = r==='kolmé' ? pick(['kolmé','rovnoběžné']) : r==='rovnoběžné' ? pick(['rovnoběžné','kolmé','různoběžné']) : pick(['různoběžné','rovnoběžné','kolmé']);
+      return { t:`Přímky ${names[i]} a ${names[j]} jsou ${claim==='kolmé'?'navzájem kolmé':claim}.`, v: claim===r, e:`${names[i]} a ${names[j]} jsou ${r}` };
+    });
+    return { type:'yn', html:'Rozhodni o každém tvrzení, zda je pravdivé (A), či nikoli (N).', fig, items: items.map(it => ({ t:it.t, v:it.v })),
+      hint:'Rovnoběžky se nikdy neprotnou (mají stále stejnou vzdálenost). Kolmice svírají pravý úhel. Různoběžky se protínají.',
+      sol: items.map((it,k) => `${k+1}) ${it.v?'ANO':'NE'} – ${it.e}`).join('<br>') };
+  });
+}
+
+/* stavba z krychlí: výšky hm[y][x], výšky nerostou směrem k pozorovateli (všechny vrchní stěny jsou vidět) */
+function isoStavba(hm){
+  const R = hm.length, C = hm[0].length, s = 22, cx = Math.cos(Math.PI/6)*s, sy = Math.sin(Math.PI/6)*s;
+  const P = (x,y,z) => [ (x - y)*cx, (x + y)*sy - z*s ];
+  const cubes = []; for (let y=0;y<R;y++) for (let x=0;x<C;x++) for (let z=0;z<hm[y][x];z++) cubes.push([x,y,z]);
+  cubes.sort((a,b) => (a[0]+a[1])-(b[0]+b[1]) || a[2]-b[2] || a[1]-b[1]);
+  const all = []; cubes.forEach(([x,y,z]) => all.push(P(x,y,z), P(x+1,y+1,z), P(x+1,y+1,z+1), P(x+1,y,z), P(x,y+1,z), P(x,y,z+1)));
+  const minX = Math.min(...all.map(p=>p[0])), maxX = Math.max(...all.map(p=>p[0])), minY = Math.min(...all.map(p=>p[1])), maxY = Math.max(...all.map(p=>p[1]));
+  const T = p => (p[0]-minX+8).toFixed(1)+','+(p[1]-minY+8).toFixed(1);
+  let body = '';
+  cubes.forEach(([x,y,z]) => {
+    body += `<polygon class="ct" points="${[P(x,y,z+1),P(x+1,y,z+1),P(x+1,y+1,z+1),P(x,y+1,z+1)].map(T).join(' ')}"/>`;
+    body += `<polygon class="cr" points="${[P(x+1,y,z),P(x+1,y+1,z),P(x+1,y+1,z+1),P(x+1,y,z+1)].map(T).join(' ')}"/>`;
+    body += `<polygon class="cl" points="${[P(x,y+1,z),P(x+1,y+1,z),P(x+1,y+1,z+1),P(x,y+1,z+1)].map(T).join(' ')}"/>`;
+  });
+  return svg(Math.ceil(maxX-minX+16), Math.ceil(maxY-minY+16), body);
+}
+function g_krychle(){
+  return retry(() => {
+    const R = rint(2,3), C = rint(2,3), hm = [];
+    for (let y=0;y<R;y++){ hm.push([]); for (let x=0;x<C;x++){
+      const lim = Math.min(y>0 ? hm[y-1][x] : 4, x>0 ? hm[y][x-1] : 4);
+      hm[y].push(rint(y===0&&x===0 ? 2 : 0, lim)); } }
+    const total = hm.flat().reduce((a,c)=>a+c,0), maxH = Math.max(...hm.flat());
+    if (total < 4 || hm.flat().filter(v=>v>0).length < 3) return null;
+    // každá krychle musí mít souseda (stavba drží pohromadě)
+    const fig = isoStavba(hm);
+    const note = '<span class="small muted">Krychličky nevisí ve vzduchu – pod každou je jiná krychlička nebo podložka.</span>';
+    if (rnd(3)===0){
+      // plán stavby
+      let s = ''; const c = 34;
+      hm.forEach((row,y) => row.forEach((v,x) => { s += `<rect class="${v?'sh2':'gl0'}" x="${6+x*c}" y="${6+y*c}" width="${c}" height="${c}"/>`; if (v) s += `<text class="lb strong" x="${6+x*c+c/2}" y="${6+y*c+c/2+6}" text-anchor="middle">${v}</text>`; }));
+      const plan = svg(C*c+12, R*c+12, s);
+      return { type:'num', html:'Plán stavby z krychliček: číslo v políčku říká, kolik krychliček je postaveno na sobě. Kolik krychliček má celá stavba?', fig: plan, ans: total, unit:U('krychlička','krychličky','krychliček'),
+        hint:'Sečti všechna čísla v plánu.', sol:`${hm.flat().filter(v=>v).join(' + ')} = ${total}` };
+    }
+    if (rnd(2)===0){
+      return { type:'num', html:`Kolik krychliček má stavba na obrázku?<br>${note}`, fig, ans: total, unit:U('krychlička','krychličky','krychliček'),
+        hint:'Počítej po sloupečcích: u každého sloupečku zjisti, kolik krychliček je na sobě, a sloupečky sečti.',
+        sol:`Po sloupečcích: ${hm.flat().filter(v=>v).join(' + ')} = ${total}.` };
+    }
+    const full = R*C*maxH, miss = full - total; if (miss <= 0) return null;
+    return { type:'num', html:`Kolik krychliček nejméně musíš přidat, aby ze stavby vznikl kvádr, který bude mít ${C} ${pl(C,'krychličku','krychličky','krychliček')} na délku, ${R} na šířku a ${maxH} na výšku?<br>${note}`, fig, ans: miss, unit:U('krychlička','krychličky','krychliček'),
+      hint:'Spočítej, kolik krychliček by měl celý kvádr (vrstvy · krychličky ve vrstvě), a odečti, kolik jich stavba už má.',
+      sol:`Kvádr: ${C} · ${R} · ${maxH} = ${full}; stavba má ${total}; ${full} − ${total} = ${miss}.` };
+  });
+}
+
+function g_telesa(){ // učivo 5. třídy: koule, válec, kužel, jehlan
+  return retry(() => {
+    const Q = [
+      { q:'Které těleso nemá žádný vrchol ani žádnou hranu?', c:'koule', o:['krychle','kvádr','jehlan','kužel'] },
+      { q:'Které těleso má podstavu tvaru kruhu a jeden vrchol?', c:'kužel', o:['válec','koule','jehlan','krychle'] },
+      { q:'Které těleso má dvě shodné podstavy tvaru kruhu?', c:'válec', o:['kužel','koule','jehlan','kvádr'] },
+      { q:'Které těleso má všechny stěny shodné čtverce?', c:'krychle', o:['kvádr','jehlan','válec','kužel'] },
+      { q:'Které těleso má jednu podstavu a boční stěny tvaru trojúhelníků, které se sbíhají do jednoho vrcholu?', c:'jehlan', o:['kvádr','krychle','válec','koule'] },
+      { q:'Která věc má tvar koule?', c:'tenisový míček', o:['plechovka','kornout zmrzliny','krabice od bot','kostka cukru'] },
+      { q:'Která věc má tvar válce?', c:'plechovka', o:['tenisový míček','kornout zmrzliny','krabice od bot','kostka cukru'] },
+      { q:'Která věc má tvar kužele?', c:'kornout zmrzliny', o:['plechovka','tenisový míček','krabice od bot','kostka cukru'] }
+    ];
+    const N = [
+      { q:'Kolik stěn má krychle?', a:6 }, { q:'Kolik hran má krychle?', a:12 }, { q:'Kolik vrcholů má kvádr?', a:8 },
+      { q:'Kolik stěn má jehlan se čtvercovou podstavou?', a:5 }, { q:'Kolik hran má jehlan se čtvercovou podstavou?', a:8 },
+      { q:'Kolik vrcholů má jehlan se čtvercovou podstavou?', a:5 }
+    ];
+    if (rnd(3)===0){ const x = pick(N); return { type:'num', html:x.q, ans:x.a, hint:'Představ si těleso (nebo ho nakresli) a počítej postupně – vpředu, vzadu, nahoře, dole.', sol:`Odpověď: ${x.a}.` }; }
+    const x = pick(Q), ch = mkChoice(x.c, shuffle(x.o.slice())); if (!ch) return null;
+    return { type:'choice', html:x.q, ...ch, hint:'Vybav si, jak těleso vypadá: má rovné stěny, nebo zakřivený povrch? Má podstavu, vrchol?', sol:`Správně je: ${x.c}.` };
+  });
+}
+
+/* ========== 4 NESTANDARDNÍ ÚLOHY ========== */
+
+function g_rady(){
+  return retry(() => {
+    const k = rnd(4);
+    if (k===0){ // číselná řada
+      const t = rnd(4); let seq;
+      if (t===0){ const a = rint(1,40), d = rint(3,15) * pick([1,1,-1]); seq = [...Array(7)].map((_,i)=>a+d*i); }
+      else if (t===1){ const a = rint(1,20), d1 = rint(2,9), d2 = rint(2,9); if (d1===d2) return null; seq = [a]; for (let i=1;i<8;i++) seq.push(seq[i-1] + (i%2 ? d1 : d2)); }
+      else if (t===2){ const a = rint(1,6), m = pick([2,3]); seq = [a]; for (let i=1;i<6;i++) seq.push(seq[i-1]*m); }
+      else { const a = rint(1,10), d = rint(1,4); seq = [a]; for (let i=1;i<7;i++) seq.push(seq[i-1] + d*i); }
+      if (seq.some(v => v < 0 || v > 1000)) return null;
+      const show = seq.length - 1, hole = rnd(3)===0 ? rint(2, show-2) : show;
+      const parts = seq.slice(0, show+ (hole===show ? 0 : 1)).map((v,i) => i===hole ? '?' : fmt(v));
+      if (hole===show) parts.push('?');
+      const rule = t===0 ? `stále ${seq[1]-seq[0] > 0 ? '+' : '−'} ${Math.abs(seq[1]-seq[0])}` : t===1 ? `střídavě + ${seq[1]-seq[0]} a + ${seq[2]-seq[1]}` : t===2 ? `každé další je ${seq[1]/seq[0]}krát větší` : `rozdíly rostou: + ${seq[1]-seq[0]}, + ${seq[2]-seq[1]}, + ${seq[3]-seq[2]}…`;
+      return { type:'num', html:`Které číslo patří místo otazníku? ${ex(parts.join(', '))}`, ans: seq[hole],
+        hint:'Spočítej, o kolik (nebo kolikrát) se mění každé další číslo. Někdy se střídají dva kroky, někdy se krok zvětšuje.',
+        sol:`Pravidlo: ${rule}. Místo otazníku je ${fmt(seq[hole])}.` };
+    }
+    // obrázková řada
+    const lin = rnd(2)===0;
+    const cnt = lin ? (() => { const a = rint(2,5), d = rint(2,4); return n => a + d*(n-1); })() : (n => n*(n+1)/2);
+    const c = 16; let body = '', ox = 6;
+    for (let n=1;n<=3;n++){
+      let fig = '', w = 0, h = 0;
+      if (lin){ const a = cnt(1), d = cnt(2)-cnt(1); // základ a teček ve sloupci + (n-1) sloupců po d tečkách
+        for (let i=0;i<a;i++) fig += `<circle class="dt" cx="${ox+c/2}" cy="${6+i*c+c/2}" r="5.5"/>`;
+        for (let j=1;j<n;j++) for (let i=0;i<d;i++) fig += `<circle class="dt" cx="${ox+j*c+c/2}" cy="${6+i*c+c/2}" r="5.5"/>`;
+        w = n*c; h = Math.max(a, d)*c; }
+      else { for (let col=0; col<n; col++) for (let r=0; r<=col; r++) fig += `<rect class="sh2" x="${ox+col*c}" y="${6+(n-1-r)*c}" width="${c}" height="${c}"/>`; w = n*c; h = n*c; }
+      body += fig + `<text class="lb sm" x="${ox+w/2}" y="${6+Math.max(h, 3*c)+18}" text-anchor="middle">${n}.</text>`;
+      ox += w + 26;
+    }
+    const figH = (lin ? Math.max(cnt(1), cnt(2)-cnt(1)) : 3) * c + 30;
+    const fig = svg(ox, figH, body);
+    const desc = lin ? `V 1. obrazci ${pl(cnt(1),'je','jsou','je')} ${cnt(1)} ${pl(cnt(1),'tečka','tečky','teček')} a v každém dalším obrazci ${pl(cnt(2)-cnt(1),'přibude','přibudou','přibude')} ${cnt(2)-cnt(1)} ${pl(cnt(2)-cnt(1),'tečka','tečky','teček')}.` : 'Obrazce jsou schody ze čtverečků: 1. obrazec má 1 čtvereček, 2. obrazec 3 čtverečky, 3. obrazec 6 čtverečků a každý další obrazec má o jeden schod víc.';
+    const what = lin ? 'teček' : 'čtverečků';
+    const v = rnd(3);
+    if (v===0){ const n = rint(6, lin ? 15 : 10), ans = cnt(n); return { type:'num', html:`${desc} Kolik ${what} je v ${n}. obrazci?`, fig, ans,
+      hint: lin ? 'Od 1. obrazce do n-tého přibude skupina teček (n − 1)krát.' : 'n-tý obrazec má 1 + 2 + 3 + … + n čtverečků.',
+      sol: lin ? `${cnt(1)} + (${n} − 1) · ${cnt(2)-cnt(1)} = ${ans}` : `${[...Array(n)].map((_,i)=>i+1).join(' + ')} = ${ans}` }; }
+    if (v===1){ const n = rint(5, 12), ans = cnt(n+1) - cnt(n); return { type:'num', html:`${desc} O kolik ${what} je víc v ${n+1}. obrazci než v ${n}. obrazci?`, fig, ans,
+      hint: lin ? 'Kolik teček přibude při každém kroku?' : 'Další obrazec má o jeden schod víc – a ten nejvyšší schod je vždy o čtvereček vyšší.',
+      sol: lin ? `V každém kroku přibude ${ans}.` : `${n+1}. obrazec má navíc sloupec z ${n+1} čtverečků, rozdíl je ${ans}.` }; }
+    const n = rint(6, lin ? 20 : 25);
+    if (lin) { const tot = cnt(n); return { type:'num', html:`${desc} Ve kterém obrazci je ${tot} ${what}?`, fig, ans:n,
+      hint:'Odečti počet teček v 1. obrazci a zjisti, kolikrát musela přibýt skupina teček.', sol:`(${tot} − ${cnt(1)}) : ${cnt(2)-cnt(1)} = ${n-1}, je to ${n}. obrazec.` }; }
+    return { type:'num', html:`${desc} Ve kterém obrazci přibude oproti předchozímu obrazci ${n} čtverečků?`, fig, ans:n,
+      hint:'Do 2. obrazce přibudou 2 čtverečky, do 3. obrazce 3 čtverečky… Najdi pravidlo.', sol:`Do n-tého obrazce přibude n čtverečků, takže je to ${n}. obrazec.` };
+  });
+}
+
+function g_logika(){
+  return retry(() => {
+    const k = rnd(6);
+    if (k===0){ // různé částky z mincí
+      const coins = shuffle([1,2,5,10,20,50]).slice(0, rint(3,4)).sort((a,b)=>a-b), sums = new Set();
+      for (let m=1; m < (1<<coins.length); m++){ let s = 0; coins.forEach((c,i) => { if (m & (1<<i)) s += c; }); sums.add(s); }
+      return { type:'num', html:`V peněžence je od každé z mincí ${coins.map(c=>c+' Kč').join(', ')} právě jedna. Kolik různých částek můžeš zaplatit přesně, když použiješ aspoň jednu minci?`, ans: sums.size,
+        hint:'Vypisuj si systematicky: nejdřív jednotlivé mince, pak dvojice, trojice… Stejnou částku počítej jen jednou.',
+        sol:`Možné částky: ${[...sums].sort((a,b)=>a-b).join(', ')} Kč – celkem ${sums.size}.` };
+    }
+    if (k===1){ // číslice na stránkách
+      const N = rint(25, 160); let d = 0; for (let i=1;i<=N;i++) d += String(i).length;
+      return { type:'num', html:`Kniha má ${N} stran a každá strana je očíslovaná, první strana číslem 1. Kolik číslic se celkem vytiskne?`, ans:d,
+        hint:'Rozděl si strany na jednociferná čísla (1–9), dvojciferná (10–99) a trojciferná (od 100).',
+        sol:`1–9: 9 číslic${N>=10?`; 10–${Math.min(N,99)}: ${(Math.min(N,99)-9)} · 2 = ${(Math.min(N,99)-9)*2}`:''}${N>=100?`; 100–${N}: ${N-99} · 3 = ${(N-99)*3}`:''}; celkem ${d}.` };
+    }
+    if (k===2){ // magický čtverec
+      const base = [[2,7,6],[9,5,1],[4,3,8]];
+      const t = rnd(8); let M = base.map(r => r.slice());
+      for (let i=0;i<t%4;i++) M = M[0].map((_,c) => M.map(r => r[c]).reverse());
+      if (t>=4) M = M.map(r => r.slice().reverse());
+      const m = rint(1,3), a = rint(0,10); M = M.map(r => r.map(v => v*m + a));
+      const S = M[0].reduce((x,y)=>x+y,0);
+      const cells = [...Array(9).keys()], hidden = new Set(shuffle(cells.slice()).slice(0,4));
+      const r0 = rnd(3); const lineCells = [0,1,2].map(cc => r0*3+cc); // otázka v řádku se dvěma známými
+      const q = pick(lineCells); hidden.add(q); lineCells.forEach(cc => { if (cc!==q) hidden.delete(cc); });
+      let body = ''; const c = 46;
+      for (let i=0;i<9;i++){ const x = 6+(i%3)*c, y = 6+Math.floor(i/3)*c; body += `<rect class="sh2" x="${x}" y="${y}" width="${c}" height="${c}"/>`;
+        const txt = i===q ? '?' : hidden.has(i) ? '' : String(M[Math.floor(i/3)][i%3]); if (txt) body += `<text class="lb big${i===q?' q':''}" x="${x+c/2}" y="${y+c/2+8}" text-anchor="middle">${txt}</text>`; }
+      return { type:'num', html:`V magickém čtverci je součet čísel v každém řádku, v každém sloupci i na obou úhlopříčkách stejný, a to ${S}. Které číslo patří místo otazníku?`, fig: svg(3*c+12, 3*c+12, body), ans: M[Math.floor(q/3)][q%3],
+        hint:`Najdi řádek, sloupec nebo úhlopříčku, kde chybí jen jedno číslo, a doplň ho do součtu ${S}.`,
+        sol:`V řádku s otazníkem: ${S} − ${lineCells.filter(cc=>cc!==q).map(cc => M[Math.floor(cc/3)][cc%3]).join(' − ')} = ${M[Math.floor(q/3)][q%3]}.` };
+    }
+    if (k===3){ // věk
+      const [x, y] = two(), a = rint(6, 14), d = rint(2, 7), s = 2*a + d;
+      return { type:'num', html:`${x.n} a ${y.n} mají dohromady ${s} let. ${y.n} je o ${d} ${pl(d,'rok','roky','let')} starší než ${x.n}. Kolik let má ${x.n}?`, ans:a, unit:U('rok','roky','let'),
+        hint:'Kdyby byli stejně staří, měli by dohromady o tolik let méně, o kolik je jeden starší. Pak rozděl na dvě stejné části.',
+        sol: ZVO(`dohromady ${s} let, ${y.n} o ${d} starší, ${x.n} … ?`, `${s} − ${d} = ${s-d}; ${s-d} : 2 = ${a}`, `${x.n} má ${a} let.`) };
+    }
+    if (k===4){ // kroužky
+      const n = rint(22, 30), none = rint(1,6), f = rint(8, n-none-3), h = rint(8, n-none-3), both = f + h - (n - none);
+      if (both < 1 || both >= Math.min(f,h)) return null;
+      return { type:'num', html:`Ve třídě je ${n} dětí. Fotbal hraje ${f} dětí, florbal ${h} dětí a ${none} ${pl(none,'dítě nehraje','děti nehrají','dětí nehraje')} ani jedno. Kolik dětí hraje fotbal i florbal?`, ans: both, unit:U('dítě','děti','dětí'),
+        hint:'Kolik dětí hraje aspoň jeden sport? Když sečteš fotbalisty a florbalisty, děti s oběma sporty započítáš dvakrát.',
+        sol: ZVO(`${n} dětí, fotbal ${f}, florbal ${h}, nic ${none}, obojí … ?`, `aspoň jeden sport: ${n} − ${none} = ${n-none}; ${f} + ${h} = ${f+h}; ${f+h} − ${n-none} = ${both}`, `Oba sporty hraje ${both} dětí.`) };
+    }
+    if (rnd(2)===0){ const t = rint(2,4), s = rint(2,4), [x] = two();
+      return { type:'num', html:`${x.n} má ${t} různá trička a ${s} různé čepice. Kolika různými způsoby se může obléct, když si vezme jedno tričko a jednu čepici?`, ans: t*s,
+        hint:'Ke každému tričku si může vzít kteroukoli čepici.', sol:`${t} · ${s} = ${t*s} způsobů` }; }
+    const n = rint(4, 8), ans = n*(n-1)/2;
+    return { type:'num', html:`Na turnaji hraje ${n} týmů. Každý tým hraje s každým jiným týmem právě jeden zápas. Kolik zápasů se odehraje?`, ans, unit:U('zápas','zápasy','zápasů'),
+      hint:'Každý tým odehraje zápas se všemi ostatními. Pozor, zápas A–B je stejný jako B–A.', sol:`${n} · ${n-1} : 2 = ${ans}` };
+  });
+}
+
+/* ---------- registr témat ---------- */
+const OKRUHY = ['', 'Čísla a počítání', 'Jednotky, čas a data', 'Geometrie', 'Úlohy na přemýšlení'];
+const TOPICS = [
+  { id:'poradi', ok:1, name:'Pořadí výpočtů a závorky', gen:g_poradi },
+  { id:'pisemne', ok:1, name:'Písemné sčítání, odčítání, násobení', gen:g_pisemne },
+  { id:'nasobeni', ok:1, name:'Násobení až čtyřciferným, dělení', gen:g_nasobeni, g5:1 },
+  { id:'zaokrouhlovani', ok:1, name:'Zaokrouhlování', gen:g_zaokrouhlovani },
+  { id:'cisla', ok:1, name:'Čísla do milionu a číselná osa', gen:g_cisla },
+  { id:'okolik', ok:1, name:'O kolik a kolikrát', gen:g_okolik },
+  { id:'cast', ok:1, name:'Část celku (polovina, třetina…)', gen:g_cast },
+  { id:'zlomky', ok:1, name:'Zlomky, o třetinu více a méně', gen:g_zlomky, g5:1 },
+  { id:'desetinna', ok:1, name:'Desetinná a záporná čísla na ose', gen:g_desetinna, g5:1 },
+  { id:'slovni', ok:1, name:'Slovní úlohy', gen:g_slovni },
+  { id:'jednotky', ok:2, name:'Převody jednotek', gen:g_jednotky },
+  { id:'cas', ok:2, name:'Počítání s časem', gen:g_cas },
+  { id:'data', ok:2, name:'Tabulky a sloupcové diagramy', gen:g_data, g5:1 },
+  { id:'obvod', ok:3, name:'Obvod', gen:g_obvod },
+  { id:'obsah', ok:3, name:'Obsah obdélníku a čtverce', gen:g_obsah },
+  { id:'obsah2', ok:3, name:'Obsah trojúhelníku a složených obrazců', gen:g_obsah2, g5:1 },
+  { id:'soumernost', ok:3, name:'Osová souměrnost', gen:g_soumernost },
+  { id:'primky', ok:3, name:'Rovnoběžky, kolmice, různoběžky', gen:g_primky },
+  { id:'krychle', ok:3, name:'Stavby z krychliček', gen:g_krychle },
+  { id:'telesa', ok:3, name:'Tělesa: koule, válec, kužel, jehlan', gen:g_telesa, g5:1 },
+  { id:'rady', ok:4, name:'Číselné a obrázkové řady', gen:g_rady },
+  { id:'logika', ok:4, name:'Logické a kombinatorické úlohy', gen:g_logika }
+];
+function make(id){ const T = TOPICS.find(t => t.id===id); const task = T.gen(); task.id = id; return task; }
+
+root.JPZM = { TOPICS, OKRUHY, make, fmt, isSymmetric, shoelace, perimeterCells };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+<script>
+(function(){
+  'use strict';
+  const { TOPICS, OKRUHY, make, fmt } = window.JPZM;
+  const $ = id => document.getElementById(id);
+  const rnd = n => Math.floor(Math.random()*n);
+  const shuffle = a => { for (let i=a.length-1;i>0;i--){ const j=rnd(i+1); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+  const PRAISE = ['Správně!','Výborně!','Paráda!','Přesně tak!','Super!','Bezva!'];
+  const GRADE_WORD = ['', 'výborně', 'chvalitebně', 'dobře', 'dostatečně', 'nedostatečně'];
+  const LETTERS = 'ABCDEF';
+  const FMT_LABEL = { num:'Napiš výsledek', choice:'Vyber jednu odpověď', yn:'Rozhodni A / N', match:'Přiřaď' };
+  const ROUND = 8, MIX = 10;
+  function gradeOf(errors, total){ const r = total ? errors/total : 0; return r<=0.1 ? 1 : r<=0.25 ? 2 : r<=0.5 ? 3 : r<=0.75 ? 4 : 5; }
+  const pl = (n, one, few, many) => n===1 ? one : (n>=2 && n<=4) ? few : many;
+
+  /* ---------- stav ---------- */
+  const KEY = 'jpz-matematika-v1';
+  const def = () => ({ stars:0, best:0, stat:{}, on:{}, diag:null });
+  let S = (() => { try { const r = localStorage.getItem(KEY); if (r) return Object.assign(def(), JSON.parse(r)); } catch(e){} return def(); })();
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} };
+  const T = id => TOPICS.find(t => t.id===id);
+  const isOn = t => (t.id in S.on) ? !!S.on[t.id] : !t.g5;
+  const pctOf = id => { const s = S.stat[id]; if (!s) return null; const n = (s.ok||0)+(s.bad||0); return n ? Math.round(100*(s.ok||0)/n) : null; };
+  const nOf = id => { const s = S.stat[id]; return s ? (s.ok||0)+(s.bad||0) : 0; };
+  function stat(id, ok){ const s = S.stat[id] || (S.stat[id] = {ok:0, bad:0}); ok ? s.ok++ : s.bad++; }
+  let streak = 0;
+
+  function show(id){ ['vHome','vGame','vResult','vDiag','vParents'].forEach(v => $(v).hidden = v!==id); window.scrollTo(0,0); }
+  function renderStats(){ $('stStars').textContent = S.stars; $('stBest').textContent = S.best; }
+
+  /* ---------- domů ---------- */
+  function weakTopics(){
+    return TOPICS.filter(isOn).map(t => ({ t, p:pctOf(t.id), n:nOf(t.id) }))
+      .filter(x => x.n >= 3 && x.p < 70).sort((a,b) => a.p - b.p).slice(0,3).map(x => x.t);
+  }
+  function renderHome(){
+    renderStats();
+    $('diagNote').textContent = S.diag
+      ? `Vstupní test jsi dělal ${new Date(S.diag.t).toLocaleDateString('cs-CZ')}. Můžeš ho kdykoli zopakovat a porovnat, jak ses zlepšil.`
+      : 'Začni vstupním testem: z každého odemčeného tématu jedna úloha, bez nápovědy. Zabere asi 25–30 minut a ukáže, co už umíš.';
+    $('btnDiag').textContent = S.diag ? 'Zopakovat vstupní test' : 'Vstupní test';
+    const w = weakTopics();
+    $('reco').hidden = !w.length;
+    if (w.length) $('reco').textContent = 'Doporučuji potrénovat: ' + w.map(t => t.name).join(', ') + '.';
+    const box = $('topics'); box.innerHTML = '';
+    for (let o=1; o<=4; o++){
+      const list = TOPICS.filter(t => t.ok===o);
+      const sec = document.createElement('section'); sec.className = 'card sheet okr';
+      const tot = list.filter(isOn).reduce((a,t) => { const s = S.stat[t.id]; if (s){ a.ok += s.ok||0; a.n += (s.ok||0)+(s.bad||0); } return a; }, {ok:0,n:0});
+      sec.innerHTML = `<h2>${o}. ${OKRUHY[o]}<span>${tot.n ? Math.round(100*tot.ok/tot.n)+' %' : ''}</span></h2><div class="tlist"></div>`;
+      const ul = sec.querySelector('.tlist');
+      list.forEach(t => {
+        const b = document.createElement('button'); b.type = 'button'; b.className = 'topic';
+        const on = isOn(t), p = pctOf(t.id), cls = p===null ? '' : p>=80 ? '' : p>=50 ? ' mid' : ' low';
+        b.disabled = !on;
+        b.innerHTML = `<span class="nm"></span><span class="pc">${on ? (p===null ? 'nové' : p+' %') : '<span class="lock">zamčeno</span>'}</span>` +
+          (on ? `<span class="tr"><span class="fl${cls}" style="width:${p||0}%"></span></span>` : '');
+        b.querySelector('.nm').textContent = t.name;
+        if (t.g5){ const g = document.createElement('span'); g.className = 'g5tag'; g.textContent = '5. třída'; b.querySelector('.nm').appendChild(g); }
+        b.onclick = () => startTopic(t.id);
+        ul.appendChild(b);
+      });
+      box.appendChild(sec);
+    }
+    show('vHome');
+  }
+
+  /* ---------- kolo ---------- */
+  let R = null;
+  function startTopic(id){ R = newRound('train', [...Array(ROUND)].map(() => id), T(id).name); next(); }
+  function startMix(){
+    const on = TOPICS.filter(isOn); if (!on.length) return;
+    const w = on.map(t => { const p = pctOf(t.id); return p===null ? 2 : 1 + 3*(1 - p/100); });
+    const ids = []; let last = null;
+    for (let i=0;i<MIX;i++){
+      let id, g = 0;
+      do { let r = Math.random()*w.reduce((a,c)=>a+c,0), k = 0; while ((r -= w[k]) > 0 && k < w.length-1) k++; id = on[k].id; } while (id===last && on.length>1 && g++<20);
+      ids.push(id); last = id;
+    }
+    R = newRound('train', ids, 'mix témat'); next();
+  }
+  function startDiag(){
+    const ids = shuffle(TOPICS.filter(isOn).map(t => t.id));
+    R = newRound('diag', ids, 'vstupní test'); next();
+  }
+  function newRound(mode, ids, label){ return { mode, ids, label, i:-1, marks:[], errors:0, stars:0, misses:[], res:{}, task:null }; }
+
+  function next(){
+    R.i++;
+    if (R.i >= R.ids.length) return R.mode==='diag' ? finishDiag() : finishRound();
+    R.task = make(R.ids[R.i]);
+    R.tries = 0; R.hintUsed = false; R.done = false; R.missed = false;
+    R.input = ''; R.fresh = false; R.sel = null; R.yn = R.task.items ? R.task.items.map(() => null) : null; R.mt = R.task.subs ? R.task.subs.map(() => null) : null;
+    renderTask();
+    show('vGame');
+  }
+
+  function renderDots(){
+    const d = $('dots'); d.innerHTML = '';
+    R.ids.forEach((_, i) => { const s = document.createElement('span');
+      const m = R.marks[i]; s.className = 'dot' + (m==='ok' ? ' ok' : m==='miss' ? ' miss' : m==='done' ? ' done' : '') + (i===R.i ? ' now' : '');
+      d.appendChild(s); });
+  }
+  const isShort = t => t.opts.every(o => !/fr/.test(o) && o.replace(/<[^>]+>/g,'').length <= 6);
+  const unitText = (u, val) => Array.isArray(u) ? (val==='' ? u[2] : pl(Number(val), u[0], u[1], u[2])) : (u || '');
+
+  function renderTask(){
+    const t = R.task;
+    renderDots();
+    $('tTopic').textContent = (R.mode==='diag' ? `Úloha ${R.i+1} z ${R.ids.length} · ` : '') + T(t.id).name;
+    $('tFmt').textContent = FMT_LABEL[t.type];
+    $('tHtml').innerHTML = t.html;
+    $('tFig').innerHTML = t.fig || '';
+    $('fb').textContent = ''; $('fb').className = 'fb';
+    $('sol').hidden = true; $('sol').innerHTML = '';
+    $('btnNext').hidden = true; $('btnCheck').hidden = false;
+    $('btnHint').hidden = R.mode==='diag';
+    $('btnSkip').hidden = false;
+    $('btnSkip').textContent = R.mode==='diag' ? 'Nevím, přeskočit' : 'Nevím, ukaž řešení';
+    $('btnNext').textContent = R.i === R.ids.length-1 ? (R.mode==='diag' ? 'Vyhodnotit test' : 'Dokončit kolo') : 'Další úloha';
+    const a = $('tAns'); a.innerHTML = '';
+    if (t.type==='num'){
+      a.innerHTML = `<div class="ansrow"><span class="ansbox" id="ansBox"></span><span class="unit" id="ansUnit"></span></div>
+        <div class="pad" id="pad">${[1,2,3,4,5,6,7,8,9].map(k=>`<button type="button" data-k="${k}">${k}</button>`).join('')}
+        <button type="button" data-k="del" class="del" aria-label="Smazat">⌫</button><button type="button" data-k="0">0</button><button type="button" data-k="ok" class="ok">OK</button></div>`;
+      a.querySelectorAll('#pad button').forEach(b => b.onclick = () => key(b.dataset.k));
+      $('btnCheck').hidden = true;
+      updNum();
+    } else if (t.type==='choice'){
+      const short = isShort(t);
+      const box = document.createElement('div'); box.className = 'opts' + (short ? ' grid5' : '');
+      if (short) box.style.gridTemplateColumns = `repeat(${t.opts.length},1fr)`;
+      t.opts.forEach((o, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'opt'; b.setAttribute('aria-pressed','false');
+        b.innerHTML = short ? `<span>${o}</span>` : `<span class="lt">${LETTERS[i]}</span><span>${o}</span>`;
+        if (short && /^[A-E]$/.test(o)) b.innerHTML = `<span class="letter">${o}</span>`;
+        b.onclick = () => { if (R.done || b.classList.contains('wrong')) return; R.sel = i; box.querySelectorAll('.opt').forEach((x,j) => x.setAttribute('aria-pressed', String(j===i))); updCheck(); };
+        box.appendChild(b); });
+      a.appendChild(box);
+    } else if (t.type==='yn'){
+      const box = document.createElement('div'); box.className = 'yn';
+      t.items.forEach((it, i) => { const row = document.createElement('div'); row.className = 'ynrow';
+        row.innerHTML = `<div class="q"><b>${i+1}</b></div><div class="ynbtns"><button type="button" data-v="1" aria-label="ano">A</button><button type="button" data-v="0" aria-label="ne">N</button></div>`;
+        row.querySelector('.q').appendChild(document.createTextNode(it.t.replace(/<[^>]+>/g,'')));
+        row.querySelectorAll('button').forEach(b => b.onclick = () => { if (R.done) return; R.yn[i] = b.dataset.v==='1'; row.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x===b))); updCheck(); });
+        box.appendChild(row); });
+      a.appendChild(box);
+    } else if (t.type==='match'){
+      const o = document.createElement('div'); o.className = 'mopts';
+      o.innerHTML = t.opts.map((v,i) => `<span><b>${LETTERS[i]})</b> ${v}</span>`).join('');
+      a.appendChild(o);
+      t.subs.forEach((s, i) => { const row = document.createElement('div'); row.className = 'mrow';
+        row.innerHTML = `<div class="q"><b>${i+1}</b></div><div class="mbtns">${t.opts.map((_,j)=>`<button type="button" data-j="${j}">${LETTERS[j]}</button>`).join('')}</div>`;
+        row.querySelector('.q').appendChild(document.createTextNode(s.t));
+        row.querySelectorAll('button').forEach(b => b.onclick = () => { if (R.done) return; R.mt[i] = +b.dataset.j; row.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x===b))); updCheck(); });
+        a.appendChild(row); });
+    }
+    updCheck();
+  }
+  function updNum(){ const bx = $('ansBox'); if (!bx) return; bx.textContent = R.input==='' ? '' : fmt(Number(R.input)); bx.className = 'ansbox'; $('ansUnit').textContent = unitText(R.task.unit, R.input); }
+  function updCheck(){
+    const t = R.task; let ready = false;
+    if (t.type==='choice') ready = R.sel!==null;
+    else if (t.type==='yn') ready = R.yn.every(v => v!==null);
+    else if (t.type==='match') ready = R.mt.every(v => v!==null);
+    $('btnCheck').disabled = !ready || R.done;
+  }
+  function key(k){
+    if (R.done) { if (k==='ok') next(); return; }
+    if (k==='del'){ R.input = R.fresh ? '' : R.input.slice(0,-1); R.fresh = false; }
+    else if (k==='ok'){ if (R.input!=='') check(); return; }
+    else { if (R.fresh){ R.input = ''; R.fresh = false; } if (R.input.length < 7) R.input = (R.input==='0' ? '' : R.input) + k; }
+    updNum();
+  }
+
+  function isCorrect(){
+    const t = R.task;
+    if (t.type==='num') return Number(R.input)===t.ans;
+    if (t.type==='choice') return R.sel===t.correct;
+    if (t.type==='yn') return t.items.every((it,i) => R.yn[i]===it.v);
+    return t.subs.every((s,i) => R.mt[i]===s.c);
+  }
+  function answerText(){
+    const t = R.task;
+    if (t.type==='num') return `${fmt(t.ans)}${t.unit ? ' '+unitText(t.unit, String(t.ans)) : ''}`;
+    if (t.type==='choice') return isShort(t) ? t.opts[t.correct] : `${LETTERS[t.correct]}) ${t.opts[t.correct]}`;
+    if (t.type==='yn') return t.items.map((it,i) => `${i+1} ${it.v?'A':'N'}`).join(', ');
+    return t.subs.map((s,i) => `${i+1} → ${LETTERS[s.c]}`).join(', ');
+  }
+  function markRows(){
+    const t = R.task;
+    if (t.type==='yn') document.querySelectorAll('.ynrow').forEach((row,i) => row.classList.add(R.yn[i]===t.items[i].v ? 'right' : 'wrong'));
+    if (t.type==='match') document.querySelectorAll('.mrow').forEach((row,i) => row.classList.add(R.mt[i]===t.subs[i].c ? 'right' : 'wrong'));
+    if (t.type==='choice') document.querySelectorAll('.opt').forEach((b,i) => { if (i===t.correct) b.classList.add('right'); });
+  }
+  function setFb(text, cls){ $('fb').innerHTML = text; $('fb').className = 'fb ' + (cls||''); }
+  function shake(el){ if (!el) return; el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+  function showSol(title){ $('sol').innerHTML = `<div class="h">${title}</div>${R.task.sol}`; $('sol').hidden = false; }
+  function endTask(ok){
+    R.done = true;
+    $('btnCheck').hidden = true; $('btnNext').hidden = false; $('btnHint').hidden = true; $('btnSkip').hidden = true;
+    const pad = $('pad'); if (pad) pad.querySelectorAll('button').forEach(b => { if (b.dataset.k!=='ok') b.disabled = true; });
+    renderDots();
+  }
+
+  function check(){
+    if (R.done) return;
+    const t = R.task, ok = isCorrect();
+    if (R.mode==='diag'){
+      R.res[t.id] = ok ? 1 : 0; stat(t.id, ok); R.marks[R.i] = 'done';
+      if (!ok) R.errors++;
+      save(); next(); return;
+    }
+    if (ok){
+      const first = R.tries===0 && !R.hintUsed;
+      if (first){ stat(t.id, true); S.stars++; R.stars++; streak++; if (streak > S.best) S.best = streak; R.marks[R.i] = 'ok'; }
+      else R.marks[R.i] = 'miss';
+      save(); renderStats();
+      if ($('ansBox')) $('ansBox').className = 'ansbox good';
+      markRows();
+      setFb(PRAISE[rnd(PRAISE.length)], 'good');
+      showSol('Postup');
+      endTask(true); return;
+    }
+    // chyba
+    if (!R.missed){ R.missed = true; R.errors++; stat(t.id, false); streak = 0; R.misses.push(T(t.id).name); save(); }
+    R.tries++;
+    if (R.tries === 1){
+      let extra = '';
+      if (t.type==='yn'){ const n = t.items.filter((it,i) => R.yn[i]===it.v).length; extra = ` Správně máš ${n} ze ${t.items.length}.`; }
+      if (t.type==='match'){ const n = t.subs.filter((s,i) => R.mt[i]===s.c).length; extra = ` Správně máš ${n} ze ${t.subs.length}.`; }
+      if (t.type==='choice'){ const b = document.querySelectorAll('.opt')[R.sel]; b.classList.add('wrong'); b.setAttribute('aria-pressed','false'); R.sel = null; }
+      if (t.type==='num'){ $('ansBox').className = 'ansbox bad'; R.fresh = true; }
+      setFb(`Ještě ne.${extra} Nápověda: ${t.hint}`, 'hint');
+      shake($('tAns')); updCheck(); return;
+    }
+    if ($('ansBox')) $('ansBox').className = 'ansbox bad';
+    markRows();
+    setFb(`Správně je: ${answerText()}`, 'reveal');
+    showSol('Řešení');
+    R.marks[R.i] = 'miss';
+    endTask(false);
+  }
+  function hint(){
+    if (R.done || R.mode==='diag') return;
+    R.hintUsed = true;
+    setFb('Nápověda: ' + R.task.hint, 'hint');
+  }
+  function skip(){
+    if (R.done) return;
+    const t = R.task;
+    if (R.mode==='diag'){ R.res[t.id] = 0; stat(t.id, false); R.errors++; R.marks[R.i] = 'done'; save(); next(); return; }
+    if (!R.missed){ R.missed = true; R.errors++; stat(t.id, false); streak = 0; R.misses.push(T(t.id).name); save(); }
+    markRows();
+    setFb(`Správně je: ${answerText()}`, 'reveal');
+    showSol('Řešení');
+    R.marks[R.i] = 'miss';
+    endTask(false);
+  }
+
+  function logRound(n, e, g, d){
+    const E = { a:'jpz-matematika', t:Date.now(), n, e, g, d };
+    try { const LK='uceni-historie-v1', H=JSON.parse(localStorage.getItem(LK)||'[]'); H.push(E); localStorage.setItem(LK, JSON.stringify(H.slice(-1500))); } catch(e) {}
+    try { if (window.UceniSync) window.UceniSync.push(E, S); } catch(e) {}
+  }
+  function finishRound(){
+    const n = R.ids.length, g = gradeOf(R.errors, n);
+    logRound(n, R.errors, g, R.label);
+    $('rGrade').textContent = g; $('rWord').textContent = GRADE_WORD[g];
+    $('rSum').textContent = `Napoprvé bez chyby ${n - R.errors} z ${n} · získané hvězdičky: ${R.stars}`;
+    const box = $('rMiss'); box.innerHTML = '';
+    [...new Set(R.misses)].forEach(m => { const s = document.createElement('span'); s.textContent = m; box.appendChild(s); });
+    $('rMissBox').hidden = R.misses.length===0;
+    show('vResult');
+  }
+  function finishDiag(){
+    const n = R.ids.length, ok = n - R.errors;
+    S.diag = { t:Date.now(), res:R.res }; save();
+    logRound(n, R.errors, gradeOf(R.errors, n), 'vstupní test');
+    $('dSum').textContent = `Správně ${ok} z ${n} úloh. Teď víš, na čem zapracovat.`;
+    const bars = $('dBars'); bars.innerHTML = '';
+    for (let o=1;o<=4;o++){
+      const ids = R.ids.filter(id => T(id).ok===o); if (!ids.length) continue;
+      const k = ids.filter(id => R.res[id]).length, pc = Math.round(100*k/ids.length);
+      const row = document.createElement('div'); row.className = 'bar';
+      row.innerHTML = `<span class="nm"></span><span class="tr"><span class="fl${pc>=80?'':pc>=50?' mid':' low'}" style="width:${pc}%"></span></span><span class="pc">${k}/${ids.length}</span>`;
+      row.querySelector('.nm').textContent = OKRUHY[o]; bars.appendChild(row);
+    }
+    const list = $('dList'); list.innerHTML = '';
+    TOPICS.filter(t => t.id in R.res).forEach(t => { const d = document.createElement('div');
+      d.innerHTML = `<span class="${R.res[t.id]?'ok':'no'}">${R.res[t.id]?'✓':'✗'}</span><span></span>`; d.lastChild.textContent = t.name; list.appendChild(d); });
+    const bad = TOPICS.filter(t => R.res[t.id]===0);
+    $('dReco').hidden = !bad.length;
+    $('dReco').textContent = bad.length ? `Začni tématy: ${bad.slice(0,4).map(t=>t.name).join(', ')}.` : 'Všechno správně, skvělá práce! Pokračuj mixem úloh.';
+    $('btnDiagTrain').textContent = bad.length ? 'Trénovat slabá místa' : 'Mix úloh';
+    $('btnDiagTrain').onclick = () => { if (!bad.length) return startMix(); R = newRound('train', [...Array(MIX)].map((_,i) => bad[i % bad.length].id), 'slabá místa'); shuffle(R.ids); next(); };
+    show('vDiag');
+  }
+
+  /* ---------- pro rodiče ---------- */
+  function renderParents(){
+    const box = $('pTopics'); box.innerHTML = '';
+    for (let o=1;o<=4;o++){
+      const h = document.createElement('div'); h.className = 'label'; h.textContent = `${o}. ${OKRUHY[o]}`; box.appendChild(h);
+      TOPICS.filter(t => t.ok===o).forEach(t => {
+        const row = document.createElement('div'); row.className = 'sw';
+        row.innerHTML = `<span class="nm"></span><button type="button" class="toggle"></button>`;
+        row.querySelector('.nm').textContent = t.name + (t.g5 ? ' (5. třída)' : '');
+        const b = row.querySelector('button'), upd = () => { const on = isOn(t); b.setAttribute('aria-pressed', String(on)); b.textContent = on ? 'zapnuto' : 'zamčeno'; };
+        b.onclick = () => { S.on[t.id] = !isOn(t); save(); upd(); }; upd();
+        box.appendChild(row);
+      });
+    }
+    show('vParents');
+  }
+  function armReset(btn, label, onConfirm){
+    let armed = null; btn.textContent = label;
+    btn.onclick = () => {
+      if (!armed){ btn.textContent = 'Opravdu smazat celý průběh? Klepni znovu.'; armed = setTimeout(() => { armed = null; btn.textContent = label; }, 4000); return; }
+      clearTimeout(armed); armed = null; btn.textContent = label; onConfirm();
+    };
+  }
+
+  /* ---------- ovládání ---------- */
+  $('btnDiag').onclick = startDiag;
+  $('btnMix').onclick = startMix;
+  $('btnCheck').onclick = check;
+  $('btnNext').onclick = next;
+  $('btnHint').onclick = hint;
+  $('btnSkip').onclick = skip;
+  $('btnQuit').onclick = () => { streak = 0; renderHome(); };
+  $('btnAgain').onclick = () => { if (R.label==='mix témat' || R.label==='slabá místa') startMix(); else startTopic(R.ids[0]); };
+  $('btnHome').onclick = renderHome;
+  $('btnDiagHome').onclick = renderHome;
+  $('btnParents').onclick = renderParents;
+  $('btnParentsBack').onclick = renderHome;
+  $('btnUnlockAll').onclick = () => { TOPICS.forEach(t => S.on[t.id] = true); save(); renderParents(); };
+  $('btnDefaults').onclick = () => { S.on = {}; save(); renderParents(); };
+  armReset($('btnReset'), 'Smazat celý průběh (hvězdičky, statistiky, vstupní test)', () => { const on = S.on; S = def(); S.on = on; save(); renderHome(); });
+  document.addEventListener('keydown', e => {
+    if ($('vGame').hidden || !R) return;
+    if (R.task.type==='num' && !R.done){
+      if (/^[0-9]$/.test(e.key)) { key(e.key); e.preventDefault(); }
+      else if (e.key==='Backspace') { key('del'); e.preventDefault(); }
+      else if (e.key==='Enter') { key('ok'); e.preventDefault(); }
+    } else if (e.key==='Enter'){
+      if (R.done) next(); else if (!$('btnCheck').disabled) check();
+      e.preventDefault();
+    }
+  });
+  renderHome();
+})();
+</script>
+</body>
+</html>

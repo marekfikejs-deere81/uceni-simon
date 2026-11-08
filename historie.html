@@ -3,8 +3,8 @@
   Název:   Šimonova historie
   Předmět: — (přehled pro rodiče)
   Téma:    Úspěšnost v jednotlivých appkách, slabá místa, vývoj známek a kalendář procvičování
-  Datum:   2026-10-31
-  Verze:   1.1 (oprava: pruh ukázkových dat se nyní skrývá)
+  Datum:   2026-11-08
+  Verze:   1.2 (přidána appka Přijímačky – matematika)
   Pozn.:   Čte data z tohoto zařízení (localStorage) a, je-li v sync.js nastavená adresa, i z Google tabulky.
            Nová appka: doplň ji do pole APPS níže a v její funkci finish() zapisuj kolo do 'uceni-historie-v1'.
 -->
@@ -140,6 +140,7 @@ details[open] summary::before{transform:rotate(90deg)}
 
   /* ---------- registr appek: kde leží data a jak pojmenovat kategorie ---------- */
   const PADY = ['', '1. pád (kdo, co)','2. pád (bez koho, čeho)','3. pád (ke komu, čemu)','4. pád (koho, co)','5. pád (oslovujeme)','6. pád (o kom, o čem)','7. pád (s kým, s čím)'];
+  const JPZ_M = {'poradi':'Pořadí výpočtů a závorky','pisemne':'Písemné sčítání, odčítání, násobení','nasobeni':'Násobení až čtyřciferným, dělení','zaokrouhlovani':'Zaokrouhlování','cisla':'Čísla do milionu a číselná osa','okolik':'O kolik a kolikrát','cast':'Část celku (polovina, třetina…)','zlomky':'Zlomky, o třetinu více a méně','desetinna':'Desetinná a záporná čísla na ose','slovni':'Slovní úlohy','jednotky':'Převody jednotek','cas':'Počítání s časem','data':'Tabulky a sloupcové diagramy','obvod':'Obvod','obsah':'Obsah obdélníku a čtverce','obsah2':'Obsah trojúhelníku a složených obrazců','soumernost':'Osová souměrnost','primky':'Rovnoběžky, kolmice, různoběžky','krychle':'Stavby z krychliček','telesa':'Tělesa: koule, válec, kužel, jehlan','rady':'Číselné a obrázkové řady','logika':'Logické a kombinatorické úlohy'};
   const DRUHY = ['', '1 podstatná jména','2 přídavná jména','3 zájmena','4 číslovky','5 slovesa','6 příslovce','7 předložky','8 spojky','9 částice','10 citoslovce'];
   const APPS = [
     { id:'mala-nasobilka', name:'Malá násobilka', subj:'Matematika', href:'matematika/mala-nasobilka.html', unit:'příkladů',
@@ -161,6 +162,8 @@ details[open] summary::before{transform:rotate(90deg)}
       label: k => PADY[k] || k },
     { id:'vyjmenovana-slova', name:'Vyjmenovaná slova', subj:'Český jazyk', href:'cestina/vyjmenovana-slova.html', unit:'doplnění',
       label: k => 'po '+k, order:['B','L','M','P','S','V','Z'] },
+    { id:'jpz-matematika', name:'Přijímačky – matematika', subj:'Přijímačky na gympl', href:'prijimacky/jpz-matematika.html', unit:'úloh',
+      label: k => JPZ_M[k] || k, order:["poradi", "pisemne", "nasobeni", "zaokrouhlovani", "cisla", "okolik", "cast", "zlomky", "desetinna", "slovni", "jednotky", "cas", "data", "obvod", "obsah", "obsah2", "soumernost", "primky", "krychle", "telesa", "rady", "logika"] },
   ];
 
   /* ---------- čtení dat ---------- */
