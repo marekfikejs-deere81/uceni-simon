@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<!--
+  Název:   Naše vlast
+  Předmět: Český jazyk
+  Téma:    Opakování k pracovnímu sešitu str. 28–35: velká písmena (státy, obyvatelé, města), krajská města,
+           i/y po obojetných souhláskách, slovesa v přítomném čase, souvětí a čárky, význam slov,
+           předložky s/z, slabiky, přísloví a rčení, hymna a státní symboly
+  Datum:   2026-11-08
+  Verze:   1.0
+-->
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Naše vlast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: jeden sloupec jako list ze sešitu na čtverečkovaném papíře; modré pero, červená tužka paní učitelky */
+:root{
+  --paper:#f7f9fd; --grid:#dfe8f5; --card:#ffffff; --card2:#f1f5fb; --line:#cfdbec;
+  --ink:#1d3a8f; --text:#1b2540; --muted:#5a6884;
+  --red:#cc2f27; --red-soft:#fbe1df; --green:#17804a; --green-soft:#d9f1e3;
+  --amber:#a8650a; --amber-soft:#fcecd0; --on-ink:#ffffff;
+  --f-display:"Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0e1526; --grid:#18233b; --card:#151f37; --card2:#1c2843; --line:#2b3b5e;
+  --ink:#9dc0ff; --text:#e4ebf7; --muted:#97a6c2;
+  --red:#ff7f73; --red-soft:#4a2228; --green:#62d494; --green-soft:#183d2c;
+  --amber:#f2b552; --amber-soft:#43341a; --on-ink:#0e1526; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#0e1526; --grid:#18233b; --card:#151f37; --card2:#1c2843; --line:#2b3b5e;
+  --ink:#9dc0ff; --text:#e4ebf7; --muted:#97a6c2;
+  --red:#ff7f73; --red-soft:#4a2228; --green:#62d494; --green-soft:#183d2c;
+  --amber:#f2b552; --amber-soft:#43341a; --on-ink:#0e1526; color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  margin:0;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--text); font-family:var(--f-body); font-size:17px; line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:14px 40px;
+  -webkit-tap-highlight-color:transparent;
+}
+.wrap{max-width:580px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+a.back{color:var(--ink);font-weight:700;text-decoration:none;font-size:15px;align-self:flex-start;padding:10px 0;min-height:44px}
+a.back:hover{text-decoration:underline}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-family:var(--f-display);font-weight:800;color:var(--ink);font-size:clamp(30px,8.5vw,42px);line-height:1;margin:0;text-wrap:balance}
+h1 small{display:block;font-family:var(--f-body);font-size:14px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.stats{display:flex;gap:8px}
+.pill{display:flex;align-items:center;gap:6px;background:var(--card);border:2px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:800;font-variant-numeric:tabular-nums;font-size:15px}
+.pill .ic{color:var(--amber);font-size:18px}
+.pill .lbl{color:var(--muted);font-weight:600}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:20px;position:relative}
+.sheet{padding-left:40px}
+.sheet::before{content:"";position:absolute;top:0;bottom:0;left:24px;border-left:2px solid var(--red);opacity:.55}
+h2{font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--ink);margin:0 0 10px;text-wrap:balance}
+.label{font-size:13px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px}
+.label.first{margin-top:4px}
+.note{color:var(--muted);font-size:15px;margin:6px 0 0}
+.seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:6px;background:var(--card2);border:2px solid var(--line);border-radius:14px;padding:4px}
+.seg button{min-height:48px;border:0;border-radius:10px;background:transparent;color:var(--text);font:inherit;font-weight:700;cursor:pointer;padding:4px 6px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink)}
+.chips{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.chip{min-height:52px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--text);font-family:var(--f-display);font-size:22px;font-weight:700;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--on-ink)}
+.row-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.link{background:none;border:0;color:var(--ink);font:inherit;font-weight:700;padding:10px 4px;min-height:44px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.btn{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;min-height:58px;border-radius:14px;border:2px solid var(--ink);background:var(--ink);color:var(--on-ink);font-family:var(--f-display);font-size:22px;font-weight:700;cursor:pointer;padding:6px 12px}
+.btn.ghost{background:var(--card);color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.stack{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);background:transparent}
+.dot.ok{background:var(--green);border-color:var(--green)}
+.dot.miss{background:var(--red-soft);border-color:var(--red)}
+.dot.now{border-color:var(--ink);transform:scale(1.25)}
+.rep{font-size:13px;font-weight:800;color:var(--amber);letter-spacing:.05em;text-transform:uppercase}
+.fb{min-height:4.4em;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;font-size:17px;padding:6px 4px;max-width:38ch;margin:0 auto}
+.fb.good{color:var(--green);font-family:var(--f-display);font-size:26px}
+.fb.hint{color:var(--amber)}
+.fb.reveal{color:var(--red)}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pad button{min-height:62px;border-radius:14px;border:2px solid var(--line);background:var(--card2);color:var(--text);font-family:var(--f-display);font-size:30px;font-weight:700;cursor:pointer;touch-action:manipulation}
+.pad button:active{transform:scale(.96)}
+.pad .ok{background:var(--ink);border-color:var(--ink);color:var(--on-ink);font-size:24px}
+.pad .del{font-size:24px;color:var(--muted)}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
+.result{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.grade{font-family:var(--f-display);font-weight:800;color:var(--red);font-size:92px;line-height:1;width:150px;height:150px;border:5px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;transform:rotate(-8deg);margin:8px 0 10px;padding-top:12px}
+.gword{font-family:var(--f-display);font-size:30px;font-weight:700;color:var(--red);margin:0}
+.sum{color:var(--muted);font-weight:600;margin:0}
+.misses{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
+.misses span{background:var(--red-soft);color:var(--text);border-radius:10px;padding:6px 12px;font-weight:700}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(0,9.5em) 1fr 3.2em;gap:10px;align-items:center;font-size:15px}
+.bar .nm{font-weight:700;min-width:0;overflow-wrap:anywhere}
+.bar .tr{height:12px;border-radius:6px;background:var(--card2);border:1px solid var(--line);overflow:hidden}
+.bar .fl{height:100%;border-radius:6px;background:var(--green)}
+.bar .fl.mid{background:var(--amber)}
+.bar .fl.low{background:var(--red)}
+.bar .pc{color:var(--muted);font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.reset{margin-top:12px;color:var(--red)}
+button:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}.dot.now{transform:none}}
+
+.sentence{font-size:clamp(21px,5.8vw,27px);font-weight:700;text-align:center;line-height:1.45;margin:14px 0 6px;text-wrap:balance}
+.sentence mark{background:var(--amber-soft);color:var(--text);border-bottom:3px solid var(--ink);border-radius:6px;padding:0 .18em}
+.sentence .gap{display:inline-block;min-width:2.2em;border-bottom:3px dashed var(--ink);color:var(--ink);padding:0 .15em;line-height:1.1}
+.sentence .gap.l{min-width:.9em}
+.sentence .gap.done{border-bottom-style:solid;border-color:var(--green);color:var(--green)}
+.ask{text-align:center;color:var(--muted);font-weight:700;margin:2px 0 0}
+.tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.tag.star{color:var(--amber);border-color:var(--amber)}
+.tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.opts{display:grid;gap:8px}
+.opts.g4{grid-template-columns:repeat(4,1fr)}
+.opts.g2{grid-template-columns:repeat(2,1fr)}
+.opts.g1{grid-template-columns:1fr}
+.opt{min-height:54px;padding:8px 12px;border-radius:12px;border:2px solid var(--line);background:var(--card2);color:var(--text);font:inherit;font-weight:700;font-size:18px;cursor:pointer;touch-action:manipulation;text-align:center;overflow-wrap:anywhere}
+.opts.big .opt{font-family:var(--f-display);font-size:30px;min-height:64px}
+.opts.g1 .opt{text-align:left}
+.opt.good{border-color:var(--green);background:var(--green-soft)}
+.opt.bad{border-color:var(--red);background:var(--red-soft)}
+.opt:active{transform:scale(.98)}
+.topics{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.tchip{min-height:52px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-weight:700;font-size:15px;cursor:pointer;padding:6px 10px;text-align:left;line-height:1.2}
+.tchip[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--on-ink)}
+details.rule{border-top:1px solid var(--line);padding:4px 0}
+details.rule:first-of-type{border-top:0}
+details.rule summary{cursor:pointer;font-weight:800;color:var(--ink);min-height:44px;display:flex;align-items:center;list-style-position:inside}
+details.rule p, details.rule ul{margin:0 0 10px;font-size:16px}
+details.rule ul{padding-left:20px}
+details.rule b{color:var(--red)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">← Zpět na rozcestník</a>
+  <header>
+    <h1><small>Český jazyk · 4. třída</small>Naše vlast</h1>
+    <div class="stats">
+      <div class="pill" title="Hvězdičky za správné odpovědi napoprvé"><span class="ic">★</span><span id="stStars">0</span></div>
+      <div class="pill" title="Nejdelší série správných odpovědí"><span class="lbl">rekord</span><span id="stBest">0</span></div>
+    </div>
+  </header>
+
+  <section id="vSetup" class="card sheet">
+    <h2>Co dnes procvičíme?</h2>
+    <p class="note" style="margin-top:0">Opakování k pracovnímu sešitu, strany 28–35: velká písmena, pravopis, slovesa, souvětí, význam slov a hymna.</p>
+    <div class="label">Okruhy</div>
+    <div class="topics" id="topics"></div>
+    <div class="row-actions">
+      <button type="button" class="link" id="allTopics">Vybrat všechny</button>
+    </div>
+    <div class="label">Obtížnost</div>
+    <div class="seg" id="lvl">
+      <button type="button" data-l="1">Základní</button>
+      <button type="button" data-l="2">I s výzvami ⭐</button>
+    </div>
+    <p class="note">Kolo má 15 úloh. Když se spleteš, dostaneš nápovědu.</p>
+    <div class="stack">
+      <button type="button" class="btn" id="btnStart">Začít kolo</button>
+    </div>
+  </section>
+
+  <section id="vGame" class="card sheet" hidden>
+    <div class="top">
+      <div class="dots" id="dots"></div>
+      <button type="button" class="link" id="btnQuit">Ukončit</button>
+    </div>
+    <div class="tags" id="tags"></div>
+    <div class="sentence" id="sentence" aria-live="polite"></div>
+    <p class="ask" id="ask"></p>
+    <div class="fb" id="fb" aria-live="polite"></div>
+    <div class="opts" id="opts"></div>
+  </section>
+
+  <section id="vResult" class="card" hidden>
+    <div class="result">
+      <div class="grade" id="rGrade">1</div>
+      <p class="gword" id="rWord">výborně</p>
+      <p class="sum" id="rSum"></p>
+      <div id="rMissBox" hidden>
+        <div class="label" style="margin-top:14px">Tyhle si ještě zopakuj</div>
+        <div class="misses" id="rMiss"></div>
+      </div>
+    </div>
+    <div class="stack">
+      <button type="button" class="btn" id="btnAgain">Další kolo</button>
+      <button type="button" class="btn ghost" id="btnBack">Změnit nastavení</button>
+    </div>
+  </section>
+
+  <section id="vRules" class="card">
+    <h2>Tahák</h2>
+    <div id="rules"></div>
+  </section>
+
+  <section id="vStats" class="card">
+    <h2>Jak mi to jde</h2>
+    <div class="bars" id="bars"></div>
+    <button type="button" class="link reset" id="btnReset"></button>
+  </section>
+</div>
+<script src="../sync.js"></script>
+<script>
+(function(){
+  /* ---------- společné pomocné funkce ---------- */
+  const $ = id => document.getElementById(id);
+  const rnd = n => Math.floor(Math.random()*n);
+  const shuffle = a => { for (let i=a.length-1;i>0;i--){ const j=rnd(i+1); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+  const PRAISE = ['Správně!','Výborně!','Paráda!','Přesně tak!','Super!','Bezva!'];
+  const GRADE_WORD = ['', 'výborně', 'chvalitebně', 'dobře', 'dostatečně', 'nedostatečně'];
+  function gradeOf(errors, total){
+    const r = total ? errors/total : 0;
+    return r<=0.1 ? 1 : r<=0.25 ? 2 : r<=0.5 ? 3 : r<=0.75 ? 4 : 5;
+  }
+  function loadState(key, def){
+    try { const raw = localStorage.getItem(key); if (raw) return Object.assign(def(), JSON.parse(raw)); } catch(e) {}
+    return def();
+  }
+  function saveState(key, s){ try { localStorage.setItem(key, JSON.stringify(s)); } catch(e) {} }
+  function shake(el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+  function setFb(text, cls){ const f = $('fb'); f.textContent = text; f.className = 'fb ' + (cls||''); }
+  function renderDots(marks, total, now){
+    const d = $('dots'); d.innerHTML = '';
+    for (let i=0;i<total;i++){
+      const s = document.createElement('span');
+      s.className = 'dot' + (marks[i]==='ok'?' ok':marks[i]==='miss'?' miss':'') + (i===now?' now':'');
+      d.appendChild(s);
+    }
+  }
+  function renderBars(el, rows){
+    el.innerHTML = '';
+    rows.forEach(r => {
+      const n = r.ok + r.bad, pc = n ? Math.round(100*r.ok/n) : null;
+      const row = document.createElement('div'); row.className = 'bar';
+      const cls = pc===null ? '' : pc>=80 ? '' : pc>=50 ? ' mid' : ' low';
+      row.innerHTML = `<span class="nm"></span><span class="tr"><span class="fl${cls}" style="width:${pc||0}%"></span></span><span class="pc">${pc===null?'–':pc+' %'}</span>`;
+      row.querySelector('.nm').textContent = r.name;
+      el.appendChild(row);
+    });
+  }
+  function armReset(btn, label, onConfirm){
+    let armed = null;
+    btn.textContent = label;
+    btn.onclick = () => {
+      if (!armed){
+        btn.textContent = 'Opravdu smazat celý průběh? Klepni znovu.';
+        armed = setTimeout(() => { armed = null; btn.textContent = label; }, 4000);
+        return;
+      }
+      clearTimeout(armed); armed = null; btn.textContent = label; onConfirm();
+    };
+  }
+
+  const KEY = 'nase-vlast-v1';
+  const TOTAL = 15;
+
+  /* ---------- obsah ----------
+     Řádek úlohy: [zadání::]text úlohy | správná;špatná;špatná | nápověda | vysvětlení | * (= výzva ⭐)
+     V textu: ___ = mezera na slovo, _ = mezera na písmeno, [slovo] = zvýrazněné slovo.
+     U okruhu i/y je místo možností jen správné písmeno (nabídka je vždy i, í, y, ý). */
+  const T = {
+    velka: { name:'Velká písmena', ask:'Vyber správný zápis.', raw:[
+      'Obyvatelům Česka říkáme ___.|Češi;češi|Je to název obyvatel?|Názvy obyvatel píšeme s velkým písmenem: Čech, Češi, Češka.',
+      'Ve škole se učíme ___ jazyk.|český;Český|Je to přídavné jméno, nebo název?|Přídavná jména od názvů států píšeme s malým písmenem: český, slovenský.',
+      'Naše země se skládá ze tří částí: ___, Morava a Slezsko.|Čechy;čechy|Čechy jsou název části státu.|Názvy států a jejich částí píšeme s velkým písmenem: Čechy, Morava, Slezsko.',
+      'Prázdniny trávíme u babičky na ___.|Moravě;moravě|Je to název části naší země?|Morava je část státu, píšeme ji s velkým M.',
+      'Na hokejovém turnaji jsme hráli se ___.|Slováky;slováky|Jsou to obyvatelé státu.|Názvy obyvatel píšeme velkým písmenem: Slovák, Slováci.',
+      'Babička upekla ___ koláče.|moravské;Moravské|Je to přídavné jméno.|Přídavné jméno od názvu (moravský) píšeme s malým písmenem.',
+      'Naším sousedem na severu je ___.|Polsko;polsko|Je to název státu.|Názvy států píšeme s velkým písmenem: Polsko, Německo.',
+      'Strejda bydlí v Brně, je to ___.|Brňák;brňák|Je to obyvatel města.|Obyvatele měst píšeme s velkým písmenem: Brňák, Pražan, Ostravák.',
+      'Teta se narodila v Praze, je to ___.|Pražanka;pražanka|Je to obyvatelka města.|Obyvatele měst píšeme s velkým písmenem: Pražan, Pražanka.',
+      'Ve Slezsku žijí ___.|Slezané;slezané|Jsou to obyvatelé části země.|Obyvatele píšeme s velkým písmenem: Slezan, Slezané.',
+      'K nám na farmu přijeli ___ studenti.|němečtí;Němečtí|Je to přídavné jméno.|Přídavné jméno od státu píšeme s malým písmenem: německý, němečtí.',
+      'Obyvatelé Německa jsou ___.|Němci;němci|Je to název obyvatel.|Obyvatele státu píšeme s velkým písmenem: Němec, Němci.',
+      'Na jihu sousedíme s ___.|Rakouskem;rakouskem|Je to název státu.|Názvy států píšeme s velkým písmenem.',
+      'Oficiální název naší země je ___.|Česká republika;Česká Republika;česká republika|Kolik slov je velkým písmenem?|Velkým píšeme jen první slovo: Česká republika. Zkráceně Česko.|*',
+      'O víkendu pojedeme do ___.|Českého Krumlova;českého Krumlova;Českého krumlova|Je to víceslovný název města.|Přídavné jméno na začátku názvu města je velkým písmenem a celý název města taky: Český Krumlov, Česká Lípa.|*',
+      'Na mapě jsme našli město ___.|Česká Lípa;česká Lípa;Česká lípa|Patří slovo Česká do názvu města?|Když přídavné jméno stojí na začátku názvu, píšeme ho s velkým písmenem: Česká Lípa.',
+      'Ve které větě jsou správně velká písmena?|Jsme Češi a žijeme v Česku.;Jsme češi a žijeme v Česku.;Jsme Češi a žijeme v česku.|Obyvatelé i název státu jsou velkým písmenem.|Češi (obyvatelé) i Česko (stát) píšeme s velkým písmenem.',
+      'Ve které větě jsou správně velká písmena?|Slováci mluví slovensky.;slováci mluví Slovensky.;Slováci mluví Slovensky.|Slovensky není název.|Obyvatelé velkým (Slováci), ale slovensky malým písmenem.',
+      'Prahou protéká řeka ___.|Vltava;vltava|Je to vlastní jméno řeky.|Názvy řek, hor a měst jsou vlastní jména, píšeme je s velkým písmenem.',
+      'Nejvyšší horou Česka je ___.|Sněžka;sněžka|Je to vlastní jméno hory.|Názvy hor píšeme s velkým písmenem: Sněžka, Říp.',
+      'Na stožáru vlaje ___ vlajka.|česká;Česká|Je to přídavné jméno uprostřed věty.|Přídavné jméno od názvu státu píšeme s malým písmenem: česká vlajka.',
+      'Do naší třídy chodí ___ Andrij.|Ukrajinec;ukrajinec|Je to název obyvatele státu.|Obyvatele států píšeme s velkým písmenem: Ukrajinec, Vietnamec.|*'
+    ]},
+    mesta: { name:'Krajská města a kraje', ask:'Vyber správnou odpověď.', raw:[
+      'Jak správně napíšeš název krajského města?|Hradec Králové;Hradec králové;hradec Králové|Každé slovo názvu města je velkým písmenem.|Ve víceslovném názvu města píšeme velkým písmenem všechna slova: Hradec Králové.',
+      'Jak správně napíšeš název krajského města?|Ústí nad Labem;Ústí Nad Labem;Ústí nad labem|Předložka uprostřed názvu je malým písmenem.|Velká jsou všechna slova kromě předložky: Ústí nad Labem.',
+      'Jak správně napíšeš název krajského města?|České Budějovice;české Budějovice;České budějovice|Přídavné jméno je součástí názvu.|Obě slova názvu města jsou velkým písmenem: České Budějovice.',
+      'Jak správně napíšeš název krajského města?|Karlovy Vary;Karlovy vary;karlovy Vary|Obě slova patří do názvu.|Karlovy Vary – obě slova velkým písmenem.',
+      'Bydlíme ve ___.|Středočeském kraji;Středočeském Kraji;středočeském kraji|Slovo kraj není součástí jména.|Velkým píšeme jen přídavné jméno na začátku: Středočeský kraj, Jihočeský kraj.',
+      'Krajským městem Kraje Vysočina je ___.|Jihlava;Třebíč;Pardubice|Je to město na řece Jihlavě.|Krajské město Kraje Vysočina je Jihlava.',
+      'Krajským městem Moravskoslezského kraje je ___.|Ostrava;Olomouc;Zlín|Je to největší město na severu Moravy.|Krajské město Moravskoslezského kraje je Ostrava.',
+      'Ve kterém kraji leží Plzeň?|Plzeňský kraj;Karlovarský kraj;Jihočeský kraj|Kraj se jmenuje podle svého města.|Plzeň je krajským městem Plzeňského kraje.',
+      'Liberec je krajským městem ___ kraje.|Libereckého;Ústeckého;Královéhradeckého|Název kraje je odvozený od města.|Liberec – Liberecký kraj.',
+      'Kolik krajů má Česká republika?|14;13;10|Nezapomeň na Prahu, ta je samostatný kraj.|Česko má 14 krajů – 13 krajů a hlavní město Praha.',
+      'Které krajské město je v abecedě první?|Brno;České Budějovice;Hradec Králové|Podívej se na první písmeno: B, Č, H.|B je v abecedě před Č i H, proto Brno.',
+      'Které krajské město je v abecedě poslední?|Zlín;Ústí nad Labem;Plzeň|Které písmeno je v abecedě nejdál?|Z je na konci abecedy, proto Zlín.',
+      'Které město je v abecedě dřív?|Olomouc;Ostrava|Obě začínají na O. Porovnej druhé písmeno.|Druhé písmeno: L je v abecedě před S, proto Olomouc.|*',
+      'Kde sídlí úřad Středočeského kraje?|v Praze;v Kladně;v Benešově|Je to hlavní město.|Úřad Středočeského kraje sídlí v Praze, i když Praha je samostatný kraj.|*',
+      'Krajským městem Jihomoravského kraje je ___.|Brno;Zlín;Jihlava|Je to druhé největší město v Česku.|Jihomoravský kraj má krajské město Brno.',
+      'Pardubice jsou krajským městem ___ kraje.|Pardubického;Královéhradeckého;Olomouckého|Kraj se jmenuje podle města.|Pardubice – Pardubický kraj.'
+    ]},
+    iy: { name:'i/y po obojetných', ask:'Doplň i, í, y, nebo ý.', raw:[
+      'Naše rodina b_dlí blízko Vlašimi.|y|Hledej v řadě vyjmenovaných slov po B.|bydlet – vyjmenované slovo po B, proto y.',
+      'Na louce se pasou kob_ly.|y|Hledej v řadě po B.|kobyla – vyjmenované slovo po B.',
+      'Na horách fouká studený v_tr.|í|Je vítr ve vyjmenovaných slovech po V?|vítr není vyjmenované ani příbuzné slovo, proto měkké í.',
+      'Z rozhledny je krásný v_hled do kraje.|ý|Začátek slova je předpona.|předpona vý- / vy- se píše s tvrdým y: výhled.',
+      'Ve stodole běhají m_ši.|y|Hledej v řadě po M.|myš – vyjmenované slovo po M.',
+      'Do Prahy jedeme rychl_kem.|í|Je rychlík ve vyjmenovaných slovech po L?|rychlík není vyjmenované slovo, proto í.',
+      'Na poli zraje ž_to.|i|Ž je měkká souhláska.|Po měkkých souhláskách (ž, š, č, ř, c, j, ď, ť, ň) píšeme i: žito.',
+      'Pes ob_vá svou boudu.|ý|Obývat je příbuzné s bývat.|obývat – příbuzné k bývat (vyjmenované po B).',
+      'Na snídani máme chléb se s_rem.|ý|Hledej v řadě po S.|sýr – vyjmenované slovo po S.',
+      'Ze země v_růstají první květiny.|y|Začátek slova je předpona.|předpona vy- se píše s y: vyrůstat.',
+      'Babička z_vá a jde spát.|í|Je zívat ve vyjmenovaných slovech po Z?|zívat není vyjmenované slovo, proto í.',
+      'Vyrazíme brz_ ráno.|y|Hledej v řadě po Z.|brzy – vyjmenované slovo po Z.',
+      'Ten hrad se naz_vá Karlštejn.|ý|Hledej v řadě po Z.|nazývat – vyjmenované slovo po Z.',
+      'V lese jsme zahlédli l_šku.|i|Je liška ve vyjmenovaných slovech po L?|liška není vyjmenované slovo, proto i.',
+      'Na podzim padá ze stromů l_stí.|i|Je listí ve vyjmenovaných slovech po L?|listí není vyjmenované slovo, proto i.',
+      'O prázdninách jedeme na hory l_žovat.|y|Hledej v řadě po L.|lyžovat – příbuzné k lyže (vyjmenované po L).',
+      'Na kopci stojí v_soký vysílač.|y|Hledej v řadě po V.|vysoký – vyjmenované slovo po V.',
+      'U potoka loví v_dra ryby.|y|Hledej v řadě po V.|vydra – vyjmenované slovo po V.',
+      'Kos p_ská na střeše.|í|Je pískat ve vyjmenovaných slovech po P?|pískat není vyjmenované slovo, proto í.',
+      'Kůň si poranil kop_to.|y|Hledej v řadě po P.|kopyto – vyjmenované slovo po P.',
+      'Karlštejn byl sídlem krále, dnes je to b_valé královské sídlo.|ý|Bývalý je příbuzné s bývat.|bývalý – příbuzné k bývat (vyjmenované po B).',
+      'Dědeček sl_ší, jak venku prší.|y|Hledej v řadě po S.|slyšet – vyjmenované slovo po S.',
+      'Přes kámen klouže slep_š.|ý|Hledej v řadě po P.|slepýš – vyjmenované slovo po P.|*',
+      'Ve tmě poletuje netop_r.|ý|Hledej v řadě po P.|netopýr – vyjmenované slovo po P.|*',
+      'Rosa se ráno třp_tí na trávě.|y|Hledej v řadě po P.|třpytit se – vyjmenované slovo po P.|*',
+      'Tatínek je na svou práci p_šný.|y|Hledej v řadě po P.|pyšný – příbuzné k pýcha (vyjmenované po P).|*'
+    ]},
+    slovesa: { name:'Slovesa', ask:'Doplň sloveso v přítomném čase.', raw:[
+      'Lípa na návsi krásně (vonět) ___.|voní;vony;voný|V přítomném čase se píše í.|voní – zakončení sloves v přítomném čase píšeme s měkkým í.',
+      'Hasiči (chránit) ___ les před požárem.|chrání;chrány;chráný|V přítomném čase se píše í.|chrání – v přítomném čase píšeme í.',
+      'My (sázet) ___ na zahradě stromky.|sázíme;sázýme;sázime|Zakončení -íme.|sázíme – 1. osoba čísla množného má zakončení -íme.',
+      'Ty (bydlet) ___ ve Vlašimi?|bydlíš;bydlýš;bydliš|Zakončení -íš.|bydlíš – 2. osoba čísla jednotného má zakončení -íš.',
+      'Vy (slavit) ___ dnes narozeniny?|slavíte;slavýte;slavite|Zakončení -íte.|slavíte – 2. osoba čísla množného má zakončení -íte.',
+      'Já (sedět) ___ pod stromem.|sedím;sedým;sedim|Zakončení -ím.|sedím – 1. osoba čísla jednotného má zakončení -ím.',
+      'Děti (běžet) ___ na hřiště.|běží;běžý;běžy|Po ž píšeme vždy i.|běží – v přítomném čase píšeme í.',
+      'Brankář (bránit) ___ svou branku.|brání;brány;bráný|V přítomném čase se píše í.|brání – v přítomném čase píšeme í.',
+      'Kombajn (sklízet) ___ obilí.|sklízí;sklízý;sklízy|V přítomném čase se píše í.|sklízí – v přítomném čase píšeme í.',
+      'Na náměstí (stát) ___ stará lípa.|stojí;stojý;stoji|Po j píšeme vždy i.|stojí – v přítomném čase píšeme í.',
+      'Urči osobu a číslo.::My [sázíme] stromky.|1. os. č. mn.;1. os. č. j.;3. os. č. mn.;2. os. č. mn.|Kdo sází? My.|My sázíme = 1. osoba, číslo množné.',
+      'Urči osobu a číslo.::Ty [slavíš] svátek.|2. os. č. j.;2. os. č. mn.;1. os. č. j.;3. os. č. j.|Kdo slaví? Ty.|Ty slavíš = 2. osoba, číslo jednotné.',
+      'Urči osobu a číslo.::Hasiči [chrání] les.|3. os. č. mn.;3. os. č. j.;1. os. č. mn.;2. os. č. mn.|Kdo chrání? Oni – hasiči.|Hasiči (oni) chrání = 3. osoba, číslo množné.',
+      'Urči osobu a číslo.::Lípa krásně [voní].|3. os. č. j.;3. os. č. mn.;1. os. č. j.;2. os. č. j.|Kdo voní? Ona – lípa.|Lípa (ona) voní = 3. osoba, číslo jednotné.',
+      'Urči osobu a číslo.::Vy [sedíte] v první lavici.|2. os. č. mn.;2. os. č. j.;3. os. č. mn.;1. os. č. mn.|Kdo sedí? Vy.|Vy sedíte = 2. osoba, číslo množné.',
+      'Urči osobu a číslo.::Já [bydlím] u lesa.|1. os. č. j.;1. os. č. mn.;3. os. č. j.;2. os. č. j.|Kdo bydlí? Já.|Já bydlím = 1. osoba, číslo jednotné.',
+      'Urči osobu a číslo.::Babičky [vyprávějí] pověsti.|3. os. č. mn.;3. os. č. j.;2. os. č. mn.;1. os. č. mn.|Kdo vypráví? Ony – babičky.|Babičky (ony) vyprávějí = 3. osoba, číslo množné.',
+      'Urči osobu a číslo.::Večer [hrajete] hokej.|2. os. č. mn.;2. os. č. j.;3. os. č. mn.;1. os. č. mn.|Ke slovesu přidej zájmeno: … hrajete.|Vy hrajete = 2. osoba, číslo množné. Podmět je nevyjádřený.|*',
+      'Jaký je infinitiv (neurčitek) slovesa [rostou]?|růst;rostout;rostit|Infinitiv odpovídá na otázku co dělat?|rostou → co dělat? růst.|*',
+      'Jaký je infinitiv (neurčitek) slovesa [stojí]?|stát;stojit;stojet|Co dělat?|stojí → co dělat? stát.|*'
+    ]},
+    souveti: { name:'Souvětí a čárky', ask:'Vyber správnou odpověď.', raw:[
+      'Doplň spojovací výraz.::Vezmi si bundu, ___ venku fouká.|protože;aby;ale|Druhá věta říká důvod.|Důvod vyjadřujeme spojkou protože.',
+      'Doplň spojovací výraz.::Pospíchali jsme, ___ nám neujel vlak.|aby;protože;ale|Proč jsme pospíchali? S jakým cílem?|Účel (cíl) vyjadřujeme spojkou aby.',
+      'Doplň spojovací výraz.::Chtěli jsme jít ven, ___ začalo pršet.|ale;aby;protože|Věty si odporují.|Když si věty odporují, použijeme ale.',
+      'Doplň spojovací výraz.::Lípa je strom, ___ má listy ve tvaru srdce.|který;kde;když|Ptáme se na strom: jaký strom?|Slovo který se vztahuje ke slovu strom.',
+      'Doplň spojovací výraz.::Navštívili jsme hrad, ___ pobýval Karel IV.|kde;aby;protože|Ptáme se na místo.|Na místo se ptáme kde: hrad, kde pobýval Karel IV.',
+      'Doplň spojovací výraz.::Táta mi slíbil, ___ pojedeme na hokej.|že;kde;ale|Co mi táta slíbil?|Co slíbil? – že pojedeme na hokej.',
+      'Ve které větě jsou správně čárky?|Vím, že lípa voní.;Vím že, lípa voní.;Vím že lípa voní.|Čárka patří před spojovací výraz.|Čárku píšeme před že, ne za něj.',
+      'Ve které větě jsou správně čárky?|Šli jsme ven a hráli fotbal.;Šli jsme ven, a hráli fotbal.;Šli jsme, ven a hráli fotbal.|Před a obvykle čárku nepíšeme.|Před spojkou a ve výčtu čárku nepíšeme.',
+      'Ve které větě jsou správně čárky?|Chtěl jsem jít ven, ale pršelo.;Chtěl jsem jít ven ale pršelo.;Chtěl jsem jít ven ale, pršelo.|Před ale se čárka píše.|Před spojkou ale píšeme vždy čárku.',
+      'Ve které větě jsou správně čárky?|Když svítí slunce, jdeme na výlet.;Když, svítí slunce jdeme na výlet.;Když svítí slunce jdeme na výlet.|Najdi hranici mezi dvěma větami.|Mezi větami v souvětí píšeme čárku: Když svítí slunce, | jdeme na výlet.',
+      'Ve které větě jsou správně čárky?|Lípa, která roste na návsi, je stará.;Lípa která roste na návsi, je stará.;Lípa, která roste na návsi je stará.|Vložená věta má čárku na začátku i na konci.|Věta „která roste na návsi“ je vložená, proto je oddělená čárkami z obou stran.|*',
+      'Vyber větný vzorec.::Vím, že zítra bude pršet.|V1, že V2.;V1 že V2.;V1, protože V2.|Spojovací výraz je že, před ním čárka.|Vím (V1), že zítra bude pršet (V2) → V1, že V2.',
+      'Vyber větný vzorec.::Pojedeme na výlet, když bude hezky.|V1, když V2.;V1, aby V2.;V1 když V2.|Najdi spojovací výraz.|Pojedeme na výlet (V1), když bude hezky (V2) → V1, když V2.',
+      'Vyber větný vzorec.::Když prší, zůstaneme doma.|Když V1, V2.;V1, když V2.;Když V1 V2.|Souvětí začíná spojovacím výrazem.|Věty číslujeme podle pořadí: Když prší (V1), zůstaneme doma (V2) → Když V1, V2.',
+      'Vyber větný vzorec.::Lípa kvete a včely bzučí.|V1 a V2.;V1, a V2.;V1, V2.|Před a čárka není.|Lípa kvete (V1) a včely bzučí (V2) → V1 a V2.',
+      'Vyber větný vzorec.::Vím, že lípa voní a včely ji mají rády.|V1, že V2 a V3.;V1, že V2, a V3.;V1 že V2 a V3.|Spočítej slovesa: vím, voní, mají.|Tři slovesa = tři věty: V1, že V2 a V3.|*',
+      'Kolik vět má souvětí?::Když jsme přijeli na hrad, průvodce nám ukázal, kde spal král.|3;2;4|Spočítej slovesa v určitém tvaru.|Slovesa: přijeli, ukázal, spal → 3 věty.',
+      'Kolik vět má souvětí?::Táta vstal, umyl se a šel do práce.|3;1;2|Spočítej slovesa.|Slovesa: vstal, umyl se, šel → 3 věty.',
+      'Je to věta jednoduchá, nebo souvětí?::Ráno svítilo slunce.|věta jednoduchá;souvětí|Kolik je tam sloves?|Jedno sloveso (svítilo) = věta jednoduchá.',
+      'Je to věta jednoduchá, nebo souvětí?::Ráno svítilo slunce, ale odpoledne pršelo.|souvětí;věta jednoduchá|Kolik je tam sloves?|Dvě slovesa (svítilo, pršelo) = souvětí.'
+    ]},
+    vyznam: { name:'Význam slov', ask:'Vyber správnou odpověď.', raw:[
+      'Ve které větě znamená slovo list část rostliny?|Na lípě se zazelenal první list.;Napiš to na čistý list.;V sešitě chybí jeden list.|Který list roste na stromě?|Slovo list je mnohoznačné: list stromu, list papíru.',
+      'Ve které větě je síť k chytání ryb?|Rybáři vytáhli plnou síť.;Nakresli obrazec do čtvercové sítě.;V horách nefunguje mobilní síť.|Co používají rybáři?|Slovo síť je mnohoznačné: rybářská síť, čtvercová síť, mobilní síť.',
+      'Ve které větě znamená hranice čáru mezi státy?|Na hranici s Rakouskem stojí cedule.;Na zahradě je hranice dřeva.;Hranice na táboráku vzplála.|Kde končí jeden stát a začíná druhý?|Hranice je i čára mezi státy, i úhledně narovnané dřevo.',
+      'Ve které větě je koruna část stromu?|Koruna staré lípy vrhala stín.;Za jednu korunu nic nekoupíš.;Král měl zlatou korunu.|Kde jsou větve a listy?|Koruna stromu, koruna (peníze), královská koruna – mnohoznačné slovo.',
+      'Ve které větě je pas doklad?|Na letišti ukázal táta pas.;Kalhoty mi jsou v pase těsné.;Hráč poslal přesnou přihrávku, krásný pas.|Co ukazujeme při cestě do ciziny?|Pas je doklad, ale i místo nad boky nebo přihrávka.|*',
+      'Ve které větě je atlas kniha map?|Najdi Krkonoše v atlase.;Princezna měla šaty z lesklého atlasu.|Kde hledáme hory a řeky?|Atlas je kniha map, ale i lesklá látka.|*',
+      'Které slovo NEPATŘÍ mezi slova souřadná?|růže;lípa;dub;buk|Která tři slova jsou stromy?|Lípa, dub a buk jsou stromy – slova souřadná. Růže je květina.',
+      'Které slovo NEPATŘÍ mezi slova souřadná?|Morava;Praha;Brno;Ostrava|Která tři slova jsou města?|Praha, Brno a Ostrava jsou města. Morava je část země (i řeka).',
+      'Které slovo NEPATŘÍ mezi slova souřadná?|Evropa;Polsko;Německo;Rakousko|Která tři slova jsou státy?|Polsko, Německo a Rakousko jsou státy. Evropa je světadíl.',
+      'Které slovo NEPATŘÍ mezi slova souřadná?|Sněžka;Labe;Vltava;Ohře|Která tři slova jsou řeky?|Labe, Vltava a Ohře jsou řeky. Sněžka je hora.',
+      'Jaké je slovo nadřazené ke slovům lípa, dub, javor?|strom;les;větev;keř|Čím jsou všechny tři?|Lípa, dub, javor jsou stromy. Strom je slovo nadřazené.',
+      'Jaké je slovo nadřazené ke slovům Praha, Brno, Plzeň?|město;stát;kraj;vesnice|Čím jsou všechna tři?|Praha, Brno a Plzeň jsou města.',
+      'Které slovo má stejný význam jako vlast?|domovina;cizina;krajina|Je to země, kde jsme doma.|Vlast = domovina (slova souznačná).',
+      'Které slovo má opačný význam než blízký?|vzdálený;malý;nízký|Opak k blízko je…|Blízký × vzdálený (slova protikladná).',
+      'Které slovo má stejný význam jako cestovat?|putovat;bydlet;odpočívat|Kdo cestuje, ten…|Cestovat = putovat (slova souznačná).',
+      'Které slovo je citově zabarvené?|lipka;lípa;strom|Které slovo zní mile, zdrobněle?|Lipka je zdrobnělina, zní mile – je citově zabarvená.|*'
+    ]},
+    sz: { name:'Předložky s/z', ask:'Doplň předložku.', raw:[
+      'Vlak přijel ___ Prahy.|z;s|Odkud přijel?|Odkud? → z (2. pád: z čeho? z Prahy).',
+      'Šel jsem na výlet ___ tátou.|s;z|S kým jsem šel?|S kým? → s (7. pád: s tátou).',
+      'Vytáhl jsem knihu ___ tašky.|z;s|Odkud jsem ji vytáhl?|Odkud? → z tašky (2. pád).',
+      'Na hory jedeme ___ kamarády.|s;z|S kým jedeme?|S kým? → s kamarády (7. pád).',
+      'Ptáček vylétl ___ hnízda.|z;s|Odkud vylétl?|Odkud? → z hnízda (2. pád).',
+      'Babička peče koláče ___ tvarohem.|s;z|S čím jsou koláče?|S čím? → s tvarohem (7. pád).',
+      'Vrátili jsme se ___ dovolené.|z;s|Odkud jsme se vrátili?|Odkud? → z dovolené (2. pád).',
+      'Hokejisté hrají ___ pukem.|s;z|S čím hrají?|S čím? → s pukem (7. pád).',
+      'Med ___ lipových květů je vonný.|z;s|Odkud je med?|Z čeho je med? → z květů (2. pád).',
+      'Mluvil jsem ___ paní učitelkou.|s;z|S kým jsem mluvil?|S kým? → s paní učitelkou (7. pád).',
+      'Do kina jdu ___ sestrou.|se;ze|S kým jdu?|S kým? → se sestrou. Před s/z na začátku slova píšeme se/ze.',
+      'Děti vyběhly ___ školy.|ze;se|Odkud vyběhly?|Odkud? → ze školy (2. pád).',
+      'Mám radost ___ dárku.|z;s|Z čeho mám radost?|Z čeho? → z dárku (2. pád).|*',
+      'Kombajn jede ___ pole domů.|z;s|Odkud jede?|Odkud? → z pole (2. pád).'
+    ]},
+    slabiky: { name:'Slabiky', ask:'Kolik slabik má zvýrazněné slovo?', raw:[
+      'Byl to velký [cestovatel].|4;3;5|Vytleskej slovo: ces-to-…|ces-to-va-tel = 4 slabiky.',
+      'Česko je naše [vlast].|1;2|Kolik je ve slově samohlásek?|vlast = 1 slabika.',
+      'Z rozhledny jsme viděli celou [krajinu].|3;2;4|Vytleskej: kra-…|kra-ji-nu = 3 slabiky.',
+      'Prahou protéká [Vltava].|3;2;4|Pozor, l tu tvoří slabiku!|Vl-ta-va = 3 slabiky. Souhláska l může tvořit slabiku.',
+      'Na kopci stojí starý [hrad].|1;2|Kolik je ve slově samohlásek?|hrad = 1 slabika.',
+      'V lese žije [vlk].|1;2;0|V tomto slově tvoří slabiku l.|vlk = 1 slabika. Slabiku tu tvoří souhláska l.',
+      'Česko je naše [domovina].|4;3;5|Vytleskej: do-mo-…|do-mo-vi-na = 4 slabiky.',
+      'Nejvyšší hora je [Sněžka].|2;1;3|Vytleskej: Sněž-…|Sněž-ka = 2 slabiky.',
+      'Kamarád si pořídil nový [atlas].|2;1;3|Vytleskej: at-…|at-las = 2 slabiky.',
+      'Ve škole máme [zeměpis].|3;2;4|Vytleskej: ze-mě-…|ze-mě-pis = 3 slabiky.',
+      'Pohoří [Krkonoše] je nejvyšší v Česku.|4;3;5|První slabiku tvoří r: Kr-…|Kr-ko-no-še = 4 slabiky. Souhláska r může tvořit slabiku.|*',
+      'Mám rád [zmrzlinu].|3;2;4|Pozor, r tu tvoří slabiku: zmr-…|zmr-zli-nu = 3 slabiky.|*',
+      'Která předložka je neslabičná (nemá samohlásku)?|k;na;od;pro|Neslabičné předložky jsou k, s, v, z.|Předložka k nemá samohlásku – je neslabičná. Vyslovujeme ji dohromady s dalším slovem.'
+    ]},
+    prislovi: { name:'Přísloví a rčení', ask:'Doplň přísloví.', raw:[
+      'Všude dobře, ___.|doma nejlépe;v cizině lépe;venku nejhůř|Kde je nám nejlépe?|Všude dobře, doma nejlépe.',
+      'Kdo jinému jámu kopá, ___.|sám do ní padá;ten se nadře;ten je hodný|Komu se zlý čin vrátí?|Kdo jinému jámu kopá, sám do ní padá.',
+      'Bez práce ___.|nejsou koláče;je to lepší;se nedá spát|Co bez práce nemáme?|Bez práce nejsou koláče.',
+      'Ranní ptáče ___.|dál doskáče;rádo spí;nejvíc zpívá|Kdo vstane brzy, ten…|Ranní ptáče dál doskáče.',
+      'Komu se nelení, ___.|tomu se zelení;ten se nudí;ten nic nemá|Rýmuje se: nelení – zelení.|Komu se nelení, tomu se zelení.',
+      'Jablko nepadá ___.|daleko od stromu;do trávy;samo od sebe|Děti bývají podobné rodičům.|Jablko nepadá daleko od stromu.',
+      'Kdo se moc ptá, ___.|moc se dozví;nic neví;moc mluví|Ptát se vyplatí.|Kdo se moc ptá, moc se dozví.',
+      'Mluviti stříbro, ___.|mlčeti zlato;zpívati měď;psáti železo|Co je cennější než stříbro?|Mluviti stříbro, mlčeti zlato.',
+      'Lepší vrabec v hrsti ___.|nežli holub na střeše;nežli kos v lese;nežli dva v kleci|Lepší málo jistého než hodně nejistého.|Lepší vrabec v hrsti nežli holub na střeše.|*',
+      'Vyber význam.::Co znamená přísloví „Všude dobře, doma nejlépe“?|Jinde je hezky, ale doma je nám nejlépe.;Nikam se nemá cestovat.;Doma je vždycky nuda.|Jak se cítíme po návratu z výletu domů?|Přísloví říká, že domov máme nejradši, i když je hezky i jinde.',
+      'Vyber význam.::Co znamená přísloví „Bez práce nejsou koláče“?|Když chceš něco mít, musíš pro to pracovat.;Koláče se pečou bez práce.;Kdo pracuje, nedostane koláč.|Co musíme udělat, abychom něco získali?|Bez snahy a práce nic nezískáme.',
+      'Vyber význam.::Co znamená rčení „za horami, za doly“?|velmi daleko;v horách;blízko domova|Je to začátek pohádek.|Za horami, za doly = někde hodně daleko.',
+      'Vyber význam.::Co znamená rčení „mít oči na stopkách“?|dávat velký pozor;být unavený;mít dlouhé řasy|Kdo má oči na stopkách, ten…|Mít oči na stopkách = dávat velký pozor.|*'
+    ]},
+    hymna: { name:'Hymna a symboly', ask:'Vyber správnou odpověď.', raw:[
+      'V hymně zpíváme: „[bory] šumí po skalinách“. Co jsou bory?|jehličnaté lesy;louky;hrady|Bor je les, kde rostou borovice.|Bory jsou jehličnaté (borové) lesy.',
+      'V hymně zpíváme: „Voda hučí po [lučinách]“. Co jsou lučiny?|louky;lesy;rybníky|Lučina je podobná slovu louka.|Lučiny jsou louky.',
+      'V hymně zpíváme: „bory šumí po [skalinách]“. Co jsou skaliny?|skály;sklepy;kameny v řece|Podobá se slovu skála.|Skaliny jsou skály.',
+      'Co znamená verš „v sadě skví se jara květ“?|Na jaře v sadu krásně kvetou stromy.;V zimě padá v sadu sníh.;Na podzim se v sadu sbírá ovoce.|Jaro, sad, květ…|Skví se = krásně září. Na jaře v sadu krásně kvetou stromy.',
+      'Co znamená verš „zemský ráj to na pohled“?|Naše země je krásná jako ráj.;Na zemi je ráj zakázaný.;Lidé se dívají do nebe.|Jak autor naši zemi popisuje?|Autor říká, že naše země je na pohled krásná jako ráj.',
+      'Kdo napsal text české hymny Kde domov můj?|Josef Kajetán Tyl;Karel IV.;Božena Němcová|Byl to spisovatel a autor divadelních her.|Text napsal Josef Kajetán Tyl, hudbu složil František Škroup.',
+      'Doplň verš hymny: „Voda hučí po lučinách, ___“|bory šumí po skalinách;v sadě skví se jara květ;zemský ráj to na pohled|Co následuje po vodě? Les.|Voda hučí po lučinách, bory šumí po skalinách.',
+      'Jak se chováme, když hraje hymna?|Stojíme rovně a jsme potichu.;Sedíme a povídáme si.;Tleskáme do rytmu.|Hymna je státní symbol.|Při hymně stojíme rovně, jsme potichu, muži smekají čepici.',
+      'Který strom je národním stromem Čechů?|lípa;dub;smrk|Má listy ve tvaru srdce.|Národním stromem je lípa.',
+      'Kde je sídlo prezidenta?|na Pražském hradě;v Brně;na Karlštejně|Je to v hlavním městě.|Prezident sídlí na Pražském hradě.',
+      'Ve které divadelní hře poprvé zazněla píseň Kde domov můj?|Fidlovačka;Babička;Prodaná nevěsta|Hra J. K. Tyla z roku 1834.|Píseň zazněla poprvé ve hře Fidlovačka (1834).|*',
+      'Které barvy má česká vlajka?|bílou, červenou a modrou;červenou a zelenou;bílou, žlutou a modrou|Bílý a červený pruh a modrý klín.|Česká vlajka je bílá, červená a modrá.'
+    ]}
+  };
+  const ORDER = Object.keys(T);
+
+  const RULES = [
+    ['Velká písmena', '<ul><li>Názvy <b>států, měst a jejich částí</b> velkým: Česko, Praha, Čechy, Morava.</li><li>Názvy <b>obyvatel</b> velkým: Čech, Pražan, Slovák, Ukrajinec.</li><li><b>Přídavná jména</b> od nich malým: český, pražský, slovenský.</li><li>Přídavné jméno na <b>začátku názvu</b> velkým: Česká republika, Česká Lípa.</li></ul>'],
+    ['Krajská města', '<p>Česko má <b>14 krajů</b> (13 + Praha). Ve víceslovném názvu města je velké každé slovo kromě předložek: <b>H</b>radec <b>K</b>rálové, <b>Ú</b>stí nad <b>L</b>abem. V názvu kraje je velké jen první slovo: <b>S</b>tředočeský kraj.</p>'],
+    ['i/y po obojetných souhláskách', '<p>Po B, L, M, P, S, V, Z píšeme <b>y/ý</b> jen ve vyjmenovaných a příbuzných slovech. Jinak píšeme i/í. Předpona <b>vy-/vý-</b> se píše vždy s y.</p>'],
+    ['Slovesa v přítomném čase', '<p>Zakončení píšeme s měkkým <b>í</b>: slav<b>í</b>m, slav<b>í</b>š, slav<b>í</b>, slav<b>í</b>me, slav<b>í</b>te, slav<b>í</b>.</p><p>Osoby: 1. já/my, 2. ty/vy, 3. on, ona, ono / oni, ony, ona.</p>'],
+    ['Souvětí a čárky', '<ul><li>Kolik sloves v určitém tvaru, tolik vět.</li><li>Čárku píšeme <b>před</b> že, aby, protože, když, který, kde, ale.</li><li>Před <b>a</b> čárku obvykle nepíšeme.</li><li>Větný vzorec: V1, že V2. Věty číslujeme podle pořadí.</li></ul>'],
+    ['Význam slov', '<ul><li><b>Mnohoznačná</b>: list (stromu / papíru), síť, koruna.</li><li><b>Souřadná</b>: lípa, dub, buk – patří do stejné skupiny.</li><li><b>Nadřazené</b>: strom → lípa, dub, buk.</li><li><b>Souznačná</b>: vlast – domovina. <b>Protikladná</b>: blízký – vzdálený.</li></ul>'],
+    ['Předložky s/z', '<ul><li><b>z</b> = odkud? z čeho? (2. pád): z Prahy, z lesa.</li><li><b>s</b> = s kým? s čím? (7. pád): s tátou, s míčem.</li><li>Před slovem na s/z píšeme <b>se/ze</b>: se sestrou, ze školy.</li></ul>'],
+    ['Slabiky', '<p>Slabiku tvoří samohláska nebo dvojhláska. Slabiku mohou tvořit i <b>r</b> a <b>l</b>: Vl-ta-va, krk, vlk. Předložky k, s, v, z jsou <b>neslabičné</b>.</p>'],
+    ['Hymna', '<p><b>Kde domov můj</b> – text Josef Kajetán Tyl, hudba František Škroup, poprvé ve hře Fidlovačka (1834).</p><p>bory = jehličnaté lesy · lučiny = louky · skaliny = skály · skví se = krásně září</p>']
+  ];
+
+  /* převedení řádků na úlohy */
+  const ITEMS = [];
+  ORDER.forEach(t => T[t].raw.forEach(r => {
+    const p = r.split('|');
+    let ask = T[t].ask, text = p[0];
+    const ix = text.indexOf('::'); if (ix>=0){ ask = text.slice(0,ix); text = text.slice(ix+2); }
+    const opts = t==='iy' ? ['i','í','y','ý'] : p[1].split(';');
+    const ans = t==='iy' ? p[1] : opts[0];
+    ITEMS.push({ t, ask, text, opts, ans, hint:p[2], why:p[3], h: p[4]==='*' });
+  }));
+
+  const def = () => ({ stars:0, best:0, sel:ORDER.slice(), lvl:2, stat:{} });
+  let S = loadState(KEY, def);
+  S.sel = S.sel.filter(x => T[x]);
+  const save = () => saveState(KEY, S);
+
+  function show(v){
+    ['vSetup','vGame','vResult'].forEach(id => $(id).hidden = id!==v);
+    $('vStats').hidden = v==='vGame'; $('vRules').hidden = v==='vGame';
+  }
+  function renderStats(){ $('stStars').textContent = S.stars; $('stBest').textContent = S.best; }
+  function renderBarsAll(){
+    renderBars($('bars'), ORDER.map(t => { const s = S.stat[t] || {ok:0,bad:0}; return { name:T[t].name, ok:s.ok, bad:s.bad }; }));
+  }
+  function renderSetup(){
+    const box = $('topics'); box.innerHTML = '';
+    ORDER.forEach(t => {
+      const b = document.createElement('button'); b.type='button'; b.className='tchip';
+      b.textContent = T[t].name; b.setAttribute('aria-pressed', S.sel.includes(t));
+      b.onclick = () => { S.sel = S.sel.includes(t) ? S.sel.filter(x=>x!==t) : ORDER.filter(x => x===t || S.sel.includes(x)); save(); renderSetup(); };
+      box.appendChild(b);
+    });
+    $('lvl').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.l===S.lvl));
+    const ok = S.sel.length>0;
+    $('btnStart').disabled = !ok;
+    $('btnStart').textContent = ok ? 'Začít kolo' : 'Vyber aspoň jeden okruh';
+  }
+  function renderRules(){
+    const box = $('rules'); box.innerHTML = '';
+    RULES.forEach(([h, body]) => {
+      const d = document.createElement('details'); d.className = 'rule';
+      const s = document.createElement('summary'); s.textContent = h;
+      d.appendChild(s); d.insertAdjacentHTML('beforeend', body); // obsah taháku je pevný text appky
+      box.appendChild(d);
+    });
+  }
+
+  let R = null, streak = 0;
+
+  /* kolo: úlohy rovnoměrně z vybraných okruhů, slabší okruhy dostanou o něco víc */
+  function buildRound(){
+    const pools = {};
+    S.sel.forEach(t => { pools[t] = shuffle(ITEMS.filter(it => it.t===t && (S.lvl===2 || !it.h))); });
+    const topics = S.sel.filter(t => pools[t].length);
+    const weight = t => { const s = S.stat[t]; if (!s || s.ok+s.bad<5) return 1; return 1 + s.bad/(s.ok+s.bad); };
+    const out = [], used = {};
+    let guard = 0;
+    while (out.length < TOTAL && guard++ < 500){
+      // vyber okruh, který má zatím nejméně úloh vzhledem ke své váze
+      topics.sort((a,b) => ((used[a]||0)/weight(a)) - ((used[b]||0)/weight(b)) || Math.random()-0.5);
+      const t = topics[0], n = used[t]||0;
+      out.push(pools[t][n % pools[t].length]); used[t] = n+1;
+    }
+    return shuffle(out);
+  }
+  function start(){
+    R = { q: buildRound(), i:0, tries:0, locked:false, errors:0, stars:0, marks:[], misses:[] };
+    show('vGame'); renderGame();
+  }
+  function renderSentence(it, filled){
+    const s = $('sentence'); s.innerHTML = '';
+    it.text.split(/(\[[^\]]+\]|_{3}|_)/).forEach(part => {
+      if (!part) return;
+      if (part[0]==='['){ const m = document.createElement('mark'); m.textContent = part.slice(1,-1); s.appendChild(m); }
+      else if (part==='___' || part==='_'){
+        const g = document.createElement('span'); g.className = 'gap' + (part==='_'?' l':'') + (filled?' done':'');
+        g.textContent = filled ? it.ans : ' '; s.appendChild(g);
+      } else s.appendChild(document.createTextNode(part));
+    });
+  }
+  function renderGame(){
+    const it = R.q[R.i];
+    renderSentence(it, false);
+    $('ask').textContent = it.ask;
+    const tg = $('tags'); tg.innerHTML = '';
+    const a = document.createElement('span'); a.className='tag'; a.textContent = T[it.t].name; tg.appendChild(a);
+    if (it.h){ const b = document.createElement('span'); b.className='tag star'; b.textContent='⭐ výzva'; tg.appendChild(b); }
+    renderDots(R.marks, TOTAL, R.i);
+    setFb('', '');
+    const o = $('opts'); o.innerHTML = '';
+    const opts = it.t==='iy' ? it.opts.slice() : shuffle(it.opts.slice());
+    const maxLen = Math.max.apply(null, opts.map(x => x.length));
+    o.className = 'opts ' + (maxLen<=3 ? (opts.length>=3 ? 'g4 big' : 'g2 big') : maxLen<=16 ? 'g2' : 'g1');
+    opts.forEach(v => {
+      const bt = document.createElement('button'); bt.type='button'; bt.className='opt'; bt.textContent = v; bt.dataset.v = v;
+      o.appendChild(bt);
+    });
+  }
+  function answer(btn){
+    if (!R || R.locked) return;
+    const it = R.q[R.i], v = btn.dataset.v;
+    const st = S.stat[it.t] || {ok:0,bad:0};
+    if (v === it.ans){
+      btn.classList.add('good'); renderSentence(it, true);
+      if (R.tries===0){
+        st.ok++; S.stars++; R.stars++; streak++; if (streak>S.best) S.best = streak;
+        R.marks[R.i] = 'ok';
+        setFb(streak>0 && streak%5===0 ? `Série ${streak} správně za sebou! ★` : PRAISE[rnd(PRAISE.length)] + ' ★', 'good');
+      } else setFb('Ano! ' + it.why, 'good');
+      S.stat[it.t] = st; save(); renderStats();
+      R.locked = true; setTimeout(next, R.tries===0 ? 900 : 2200);
+    } else {
+      if (btn.classList.contains('bad')) return;
+      btn.classList.add('bad'); shake(btn); streak = 0; R.tries++;
+      if (R.tries===1){
+        st.bad++; S.stat[it.t] = st; save();
+        R.errors++; R.marks[R.i] = 'miss';
+        R.misses.push(missLabel(it));
+        setFb('Ještě ne. ' + it.hint, 'hint');
+      } else {
+        setFb(`Správně je: ${it.ans}. ${it.why} Klepni na správnou odpověď.`, 'reveal');
+      }
+    }
+  }
+  function missLabel(it){
+    if (it.t==='iy') return ((it.text.match(/[^\s.,]*_[^\s.,]*/) || [''])[0]).replace('_', it.ans);
+    if (/_{3}/.test(it.text)) return it.ans;
+    const m = it.text.match(/\[([^\]]+)\]/);
+    if (m) return `${m[1]} – ${it.ans}`;
+    const q = it.text.length>48 ? it.text.slice(0,46)+'…' : it.text;
+    return `${q} → ${it.ans}`;
+  }
+  function next(){
+    R.i++; R.tries=0; R.locked=false;
+    if (R.i >= R.q.length) return finish();
+    renderGame();
+  }
+  function finish(){
+    const g = gradeOf(R.errors, TOTAL);
+    const E = {a:'nase-vlast', t:Date.now(), n:TOTAL, e:R.errors, g:g, d:(S.sel.length===ORDER.length ? 'všechny okruhy' : S.sel.map(t=>T[t].name).join(', ')) + (S.lvl===2?' · s výzvami':'')};
+    try { const LK='uceni-historie-v1', H=JSON.parse(localStorage.getItem(LK)||'[]'); H.push(E); localStorage.setItem(LK, JSON.stringify(H.slice(-1500))); } catch(e) {}
+    try { if (window.UceniSync) window.UceniSync.push(E, S); } catch(e) {}
+    $('rGrade').textContent = g; $('rWord').textContent = GRADE_WORD[g];
+    $('rSum').textContent = `Napoprvé správně ${TOTAL-R.errors} z ${TOTAL} · získané hvězdičky: ${R.stars}`;
+    const box = $('rMiss'); box.innerHTML = '';
+    R.misses.forEach(m => { const s = document.createElement('span'); s.textContent = m; box.appendChild(s); });
+    $('rMissBox').hidden = R.misses.length===0;
+    renderBarsAll(); show('vResult');
+  }
+
+  $('allTopics').onclick = () => { S.sel = ORDER.slice(); save(); renderSetup(); };
+  $('lvl').addEventListener('click', e => { const b = e.target.closest('button'); if (b){ S.lvl = +b.dataset.l; save(); renderSetup(); } });
+  $('btnStart').onclick = start;
+  $('btnAgain').onclick = start;
+  $('btnBack').onclick = () => { renderSetup(); show('vSetup'); };
+  $('btnQuit').onclick = () => { R=null; renderBarsAll(); show('vSetup'); };
+  $('opts').addEventListener('click', e => { const b = e.target.closest('.opt'); if (b) answer(b); });
+  armReset($('btnReset'), 'Začít znovu (smazat průběh)', () => { S = Object.assign(def(), { sel:S.sel, lvl:S.lvl }); save(); renderStats(); renderBarsAll(); });
+
+  renderStats(); renderSetup(); renderRules(); renderBarsAll(); show('vSetup');
+})();
+</script>
+</body>
+</html>
